@@ -270,6 +270,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Web\App_Plugins\TourEditor\backoffice\toureditor\create.html" />
     <Content Include="Web\App_Plugins\TourEditor\backoffice\toureditor\edit.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

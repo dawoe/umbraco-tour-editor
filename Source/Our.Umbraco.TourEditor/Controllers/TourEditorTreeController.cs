@@ -1,5 +1,6 @@
 ﻿namespace Our.Umbraco.TourEditor.Controllers
 {
+    using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
@@ -12,6 +13,9 @@
     using global::Umbraco.Web.Trees;
 
     using Newtonsoft.Json;
+
+    using umbraco.BusinessLogic.Actions;
+    using global::Umbraco.Core.Services;
 
     /// <summary>
     /// The tour editor tree controller.
@@ -72,7 +76,19 @@
         /// <returns></returns>
         protected override MenuItemCollection GetMenuForNode(string id, FormDataCollection queryStrings)
         {
-            return new MenuItemCollection();
+            var menuItemCollection = new MenuItemCollection();
+
+            if (id == global::Umbraco.Core.Constants.System.Root.ToString())
+            {
+                menuItemCollection.Items.Add<ActionNew>(
+                    this.Services.TextService.Localize($"actions/{ActionNew.Instance.Alias}"));
+
+                menuItemCollection.Items.Add<RefreshNode, ActionRefresh>(this.Services.TextService.Localize(string.Format("actions/{0}", ActionRefresh.Instance.Alias)), true);
+
+                menuItemCollection.DefaultMenuAlias = ActionNew.Instance.Alias;
+            }
+
+            return menuItemCollection;
         }
 
         /// <summary>
