@@ -6,7 +6,8 @@
         var apiUrl = Umbraco.Sys.ServerVariables["Our.Umbraco.TourEditor"].TourEditorApi;
 
         var resource = {
-            createTourFile: createTourFile
+            createTourFile: createTourFile,
+            deleteTourFile: deleteTourFile
         };
 
         return resource;
@@ -16,6 +17,14 @@
             return umbRequestHelper.resourcePromise(
                 $http.post(apiUrl + "CreateTourFile?filename=" + filename),
                 "Failed creating tourfile"
+            );
+        };
+
+        function deleteTourFile(filename) {
+
+            return umbRequestHelper.resourcePromise(
+                $http.post(apiUrl + "DeleteTourFile?filename=" + filename),
+                "Failed deleting tourfile"
             );
         };
 
