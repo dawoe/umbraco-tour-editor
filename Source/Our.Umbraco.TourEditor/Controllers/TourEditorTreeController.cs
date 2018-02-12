@@ -20,7 +20,7 @@
     /// <summary>
     /// The tour editor tree controller.
     /// </summary>
-    [Tree(global::Umbraco.Core.Constants.Applications.Settings, Constants.TreeAlias, "Tour editor", sortOrder: 99)]
+    [Tree(global::Umbraco.Core.Constants.Applications.Settings, Constants.TreeAlias, "Tour files", sortOrder: 99)]
     [PluginController(Constants.PluginName)]
     public class TourEditorTreeController : TreeController
     {
