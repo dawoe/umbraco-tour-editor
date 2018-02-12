@@ -83,9 +83,16 @@
                 menuItemCollection.Items.Add<ActionNew>(
                     this.Services.TextService.Localize($"actions/{ActionNew.Instance.Alias}"));
 
-                menuItemCollection.Items.Add<RefreshNode, ActionRefresh>(this.Services.TextService.Localize(string.Format("actions/{0}", ActionRefresh.Instance.Alias)), true);
+                menuItemCollection.Items.Add<RefreshNode, ActionRefresh>(
+                    this.Services.TextService.Localize(string.Format("actions/{0}", ActionRefresh.Instance.Alias)),
+                    true);
 
                 menuItemCollection.DefaultMenuAlias = ActionNew.Instance.Alias;
+            }
+            else
+            {
+                menuItemCollection.Items.Add<ActionDelete>(
+                    this.Services.TextService.Localize($"actions/{ActionDelete.Instance.Alias}"));
             }
 
             return menuItemCollection;
