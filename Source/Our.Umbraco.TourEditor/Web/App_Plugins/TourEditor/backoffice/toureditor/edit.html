@@ -1,3 +1,22 @@
 ﻿<div ng-controller="Our.Umbraco.TourEditor.EditFileController as vm">
     <umb-load-indicator ng-if="vm.page.loading"></umb-load-indicator>
+
+    <form name="tourFileForm"
+          ng-submit="vm.save()"
+          novalidate
+          val-form-manager
+          ng-if="!vm.page.loading">
+        
+        <umb-editor-view>
+            
+            <umb-editor-header menu="vm.page.menu"
+                               name="vm.data.fileName"
+                               name-locked="true"
+                               hide-icon="true"
+                               hide-description="true"
+                               hide-alias="true">
+            </umb-editor-header>
+
+        </umb-editor-view>
+    </form>
 </div>
