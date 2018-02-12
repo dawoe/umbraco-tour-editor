@@ -2,9 +2,14 @@
     "use strict";
 
     function TourListController($scope) {
-        var vm = this;
+        var vm = this;        
+        vm.tours = $scope.model.tours;
 
-        vm.tours = $scope.model;       
+        function editTour(item, index) {
+            $scope.model.editCallback(item, index);
+        }
+
+        vm.editTour = editTour;
     }
 
     angular.module("umbraco").controller("Our.Umbraco.TourEditor.TourListController",

@@ -19,9 +19,20 @@
                 "icon": "",
                 "view": umbRequestHelper.convertVirtualToAbsolutePath(subviewsPath + "tourlist.html"),
                 "active": true
+            },
+            {
+                "name": "Tour details",
+                "icon": "",
+                "view": umbRequestHelper.convertVirtualToAbsolutePath(subviewsPath + "tourdetails.html"),
+                "active": false
             }];
 
         vm.subviewModel = null;
+
+        function editTourCallBack(item, index) {
+            vm.page.navigation[0].active = false;
+            vm.page.navigation[1].active = true;
+        }
 
         function loadTourFile() {
             vm.page.loading = true;
@@ -31,7 +42,10 @@
 
                     editorState.set(vm.data);
 
-                    vm.subviewModel = vm.data.tours;
+                    vm.subviewModel = {
+                        "tours": vm.data.tours,
+                        "editCallback": editTourCallBack
+                    };
 
                     vm.page.loading = false;
                 },

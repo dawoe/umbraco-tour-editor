@@ -29,6 +29,7 @@
                     <td>{{item.steps.length}}</td>
                 </div>
                 <div class="umb-table-cell umb-table-cell--auto-width" style="overflow: visible;">
+                    <i class="icon-edit" style="cursor: pointer" ng-click="vm.editTour(item, $index)" prevent-default> </i>
                     <!--<i class="icon-trash" style="cursor: pointer" ng-click="vm.showPrompt(item)" prevent-default> </i>
                     <umb-confirm-action ng-if="item.deletePrompt"
                                         direction="left"
