@@ -122,7 +122,7 @@
         /// The <see cref="HttpResponseMessage"/>.
         /// </returns>
         [HttpGet]
-        public HttpResponseMessage GetToursFromFile(string filename)
+        public HttpResponseMessage GetTourFile(string filename)
         {
             // filename may not empty
             if (string.IsNullOrEmpty(filename))
