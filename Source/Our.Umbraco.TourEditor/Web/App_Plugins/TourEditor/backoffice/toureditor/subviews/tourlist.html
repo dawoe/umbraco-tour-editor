@@ -1,3 +1,42 @@
-﻿<div>
-    Tour list
+﻿<div ng-controller="Our.Umbraco.TourEditor.TourListController as vm">
+    <div class="umb-table" ng-if="vm.tours.length > 0">
+        <!-- Listviews head section -->
+        <div class="umb-table-head">
+            <div class="umb-table-row">
+                <div class="umb-table-cell not-fixed">
+                    Name
+                </div>
+                <div class="umb-table-cell">
+                    Group
+                </div>
+                <div class="umb-table-cell">
+                    Steps
+                </div>
+                <div class="umb-table-cell  umb-table-cell--auto-width">
+                    &nbsp;
+                </div>
+            </div>
+        </div>
+        <div class="umb-table-body">
+            <div class="umb-table-row" ng-repeat="item in vm.tours">
+                <div class="umb-table-cell not-fixed">
+                    {{item.name}}
+                </div>
+                <div class="umb-table-cell">
+                    <td>{{item.group}}</td>
+                </div>
+                <div class="umb-table-cell">
+                    <td>{{item.steps.length}}</td>
+                </div>
+                <div class="umb-table-cell umb-table-cell--auto-width" style="overflow: visible;">
+                    <!--<i class="icon-trash" style="cursor: pointer" ng-click="vm.showPrompt(item)" prevent-default> </i>
+                    <umb-confirm-action ng-if="item.deletePrompt"
+                                        direction="left"
+                                        on-confirm="vm.confirmAction($index,item)"
+                                        on-cancel="vm.hidePrompt(item)">
+                    </umb-confirm-action>-->
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
