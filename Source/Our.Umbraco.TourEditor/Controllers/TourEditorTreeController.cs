@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.IO;
-    using System.Linq;
     using System.Net.Http.Formatting;
 
     using global::Umbraco.Core.IO;
@@ -12,10 +11,10 @@
     using global::Umbraco.Web.Mvc;
     using global::Umbraco.Web.Trees;
 
-    using Newtonsoft.Json;
-
     using umbraco.BusinessLogic.Actions;
     using global::Umbraco.Core.Services;
+
+    using Our.Umbraco.TourEditor.Helpers;
 
     /// <summary>
     /// The tour editor tree controller.
@@ -47,9 +46,10 @@
                 var coreToursPath = Path.Combine(IOHelper.MapPath(SystemDirectories.Config), "BackOfficeTours");
                 if (Directory.Exists(coreToursPath))
                 {
+                    var tourHelper = new TourHelper();
                     foreach (var tourFile in Directory.EnumerateFiles(coreToursPath, "*.json"))
                     {
-                        this.TryParseTourFile(tourFile, result);
+                        tourHelper.TryParseTourFile(tourFile, result);
                     }
                 }
 
@@ -96,49 +96,6 @@
             }
 
             return menuItemCollection;
-        }
-
-        /// <summary>
-        /// Tries to parse the tour file contents and add's to the result collection
-        /// </summary>
-        /// <param name="tourFile">
-        /// The tour file.
-        /// </param>
-        /// <param name="result">
-        /// The result.
-        /// </param>
-        /// <exception cref="IOException">
-        /// </exception>
-        /// <exception cref="JsonReaderException">
-        /// </exception>
-        private void TryParseTourFile(string tourFile, ICollection<BackOfficeTourFile> result)
-        {
-            var fileName = Path.GetFileNameWithoutExtension(tourFile);
-            if (fileName == null) return;
-
-
-            try
-            {
-                var contents = File.ReadAllText(tourFile);
-                var tours = JsonConvert.DeserializeObject<BackOfficeTour[]>(contents);
-
-                var tour = new BackOfficeTourFile
-                {
-                    FileName = Path.GetFileNameWithoutExtension(tourFile),
-                    PluginName = string.Empty,
-                    Tours = tours.ToArray()
-                };
-
-                result.Add(tour);
-            }
-            catch (IOException e)
-            {
-                throw new IOException("Error while trying to read file: " + tourFile, e);
-            }
-            catch (JsonReaderException e)
-            {
-                throw new JsonReaderException("Error while trying to parse content as tour data: " + tourFile, e);
-            }
         }
     }
 }
