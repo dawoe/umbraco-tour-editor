@@ -69,5 +69,44 @@
                 return this.Request.CreateNotificationValidationErrorResponse("Error creating tour file");
             }
         }
+
+        [HttpPost]
+        [HttpDelete]
+        public HttpResponseMessage DeleteTourFile(string filename)
+        {
+            // filename may not empty
+            if (string.IsNullOrEmpty(filename))
+            {
+                return new HttpResponseMessage(HttpStatusCode.BadRequest);
+            }
+
+            // can not contain invalid chars
+            if (filename.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0)
+            {
+                return this.Request.CreateNotificationValidationErrorResponse("File name contains invalid characters");
+            }
+
+            var toursFolder = Path.Combine(IOHelper.MapPath(SystemDirectories.Config), "BackOfficeTours");
+
+
+            // file should exist
+            var filePath = Path.Combine(toursFolder, filename + ".json");
+            if (!File.Exists(filePath))
+            {
+                return this.Request.CreateNotificationValidationErrorResponse("A file with this name does not exist");
+            }
+
+            try
+            {
+                File.Delete(filePath);
+
+                return this.Request.CreateNotificationSuccessResponse("Tour file deleted succesfully");
+            }
+            catch (Exception e)
+            {
+                this.Logger.Error<TourEditorApiController>("Error deleting tour file", e);
+                return this.Request.CreateNotificationValidationErrorResponse("Error deleting tour file");
+            }
+        }
     }
 }
