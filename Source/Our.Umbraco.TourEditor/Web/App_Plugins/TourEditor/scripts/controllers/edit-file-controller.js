@@ -1,8 +1,10 @@
 ﻿(function () {
     "use strict";
 
-    function EditFileController($scope, $routeParams, editorState, appState, navigationService, notificationsService, tourResource) {
+    function EditFileController($scope, $routeParams, editorState, appState, umbRequestHelper, navigationService, notificationsService, tourResource) {
         var vm = this;
+
+        var subviewsPath = "~/App_Plugins/TourEditor/backoffice/toureditor/subviews/";
 
         vm.page = {};
         vm.data = null;
@@ -11,6 +13,16 @@
         vm.page.menu.currentSection = appState.getSectionState("currentSection");
         vm.page.menu.currentNode = null;
 
+        vm.page.navigation = [
+            {
+                "name": "Tour list",
+                "icon": "",
+                "view": umbRequestHelper.convertVirtualToAbsolutePath(subviewsPath + "tourlist.html"),
+                "active": true
+            }];
+
+        vm.subviewModel = null;
+
         function loadTourFile() {
             vm.page.loading = true;
             return tourResource.getTourFile($routeParams.id).then(
@@ -18,6 +30,8 @@
                     vm.data = data;
 
                     editorState.set(vm.data);
+
+                    vm.subviewModel = vm.data.tours;
 
                     vm.page.loading = false;
                 },
@@ -46,7 +60,8 @@
             '$scope',
             '$routeParams',
             'editorState',
-            'appState',            
+            'appState',
+            'umbRequestHelper',
             'navigationService',
             'notificationsService',
             'Our.Umbraco.TourEditor.TourResource',
