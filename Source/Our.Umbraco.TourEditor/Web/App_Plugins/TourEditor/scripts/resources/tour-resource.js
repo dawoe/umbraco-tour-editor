@@ -7,7 +7,8 @@
 
         var resource = {
             createTourFile: createTourFile,
-            deleteTourFile: deleteTourFile
+            deleteTourFile: deleteTourFile,
+            getTourFile : getTourFile
         };
 
         return resource;
@@ -27,6 +28,13 @@
                 "Failed deleting tourfile"
             );
         };
+
+        function getTourFile(filename) {
+            return umbRequestHelper.resourcePromise(
+                $http.get(apiUrl + "GetTourFile?filename=" + filename),
+                "Failed loading tourfile"
+            );
+        }
 
     }
 
