@@ -12,10 +12,9 @@
         return resource;
 
         function createTourFile(filename) {
-            var data = JSON.stringify({ filename: filename });
-
+           
             return umbRequestHelper.resourcePromise(
-                $http.post(apiUrl + "CreateTourFile", data),
+                $http.post(apiUrl + "CreateTourFile?filename=" + filename),
                 "Failed creating tourfile"
             );
         };

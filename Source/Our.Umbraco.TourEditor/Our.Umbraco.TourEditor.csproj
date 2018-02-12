@@ -276,7 +276,9 @@
   <ItemGroup>
     <Content Include="Web\App_Plugins\TourEditor\backoffice\toureditor\create.html" />
     <Content Include="Web\App_Plugins\TourEditor\backoffice\toureditor\edit.html" />
+    <Content Include="Web\App_Plugins\TourEditor\scripts\controllers\create-file-controller.js" />
     <Content Include="Web\App_Plugins\TourEditor\scripts\resources\tour-resource.js" />
+    <Content Include="Web\App_Plugins\TourEditor\toureditor.css" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />
