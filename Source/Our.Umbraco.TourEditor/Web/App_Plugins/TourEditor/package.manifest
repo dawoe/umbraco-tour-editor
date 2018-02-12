@@ -1,0 +1,5 @@
+﻿{
+  "javascript": [
+      "~/App_Plugins/TourEditor/scripts/resources/tour-resource.js"
+  ] 
+}
