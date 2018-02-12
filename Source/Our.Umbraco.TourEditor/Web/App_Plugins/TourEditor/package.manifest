@@ -2,5 +2,8 @@
   "javascript": [
     "~/App_Plugins/TourEditor/scripts/controllers/create-file-controller.js",
     "~/App_Plugins/TourEditor/scripts/resources/tour-resource.js"
+  ],
+  "css": [
+    "~/App_Plugins/TourEditor/toureditor.css"
   ] 
 }
