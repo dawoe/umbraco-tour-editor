@@ -1,6 +1,7 @@
 ﻿namespace Our.Umbraco.TourEditor.Controllers
 {
     using System;
+    using System.Collections.Generic;
     using System.IO;
     using System.Net;
     using System.Net.Http;
@@ -14,6 +15,8 @@
     using global::Umbraco.Web.WebApi;
 
     using Newtonsoft.Json;
+
+    using Our.Umbraco.TourEditor.Helpers;
 
     /// <summary>
     /// The tour editor api controller.
@@ -106,6 +109,57 @@
             {
                 this.Logger.Error<TourEditorApiController>("Error deleting tour file", e);
                 return this.Request.CreateNotificationValidationErrorResponse("Error deleting tour file");
+            }
+        }
+
+        /// <summary>
+        /// The get tours from file.
+        /// </summary>
+        /// <param name="filename">
+        /// The filename.
+        /// </param>
+        /// <returns>
+        /// The <see cref="HttpResponseMessage"/>.
+        /// </returns>
+        [HttpGet]
+        public HttpResponseMessage GetToursFromFile(string filename)
+        {
+            // filename may not empty
+            if (string.IsNullOrEmpty(filename))
+            {
+                return new HttpResponseMessage(HttpStatusCode.BadRequest);
+            }
+
+            // can not contain invalid chars
+            if (filename.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0)
+            {
+                return this.Request.CreateNotificationValidationErrorResponse("File name contains invalid characters");
+            }
+
+            var toursFolder = Path.Combine(IOHelper.MapPath(SystemDirectories.Config), "BackOfficeTours");
+
+
+            // file should exist
+            var filePath = Path.Combine(toursFolder, filename + ".json");
+            if (!File.Exists(filePath))
+            {
+                return this.Request.CreateNotificationValidationErrorResponse("A file with this name does not exist");
+            }
+
+            try
+            {
+                var tourHelper = new TourHelper();
+
+                var result = new List<BackOfficeTourFile>();
+                
+                tourHelper.TryParseTourFile(filePath, result);
+
+                return this.Request.CreateResponse(HttpStatusCode.OK, result[0]);
+            }
+            catch (Exception e)
+            {
+                this.Logger.Error<TourEditorApiController>("Error loading tour file", e);
+                return this.Request.CreateNotificationValidationErrorResponse("Error loading tour file");
             }
         }
     }
