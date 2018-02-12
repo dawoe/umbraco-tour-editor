@@ -1,3 +1,19 @@
 ﻿<div>
-    Create view
+  
+    <div class="umb-pane">
+        <h5>Create tour file</h5>
+    </div>
+  
+    <div class="umb-pane">
+        <form name="createTourFile"
+              ng-submit="vm.createItem()"
+              val-form-manager>
+
+            <umb-control-group label="Enter a item-name" hide-label="true">
+                <input type="text" name="filename" ng-model="vm.filename" class="umb-textstring textstring input-block-level" required />
+            </umb-control-group>
+
+            <button type="submit" class="btn btn-primary"><localize key="general_create">Create</localize></button>
+        </form>
+    </div>  
 </div>
