@@ -1,7 +1,7 @@
 ﻿(function () {
     "use strict";
 
-    function EditFileController($scope, $routeParams, editorState, appState, umbRequestHelper, navigationService, notificationsService, tourResource) {
+    function EditFileController($scope, $routeParams, editorState, appState, umbRequestHelper, navigationService, notificationsService, eventsService, tourResource) {
         var vm = this;
 
         var subviewsPath = "~/App_Plugins/TourEditor/backoffice/toureditor/subviews/";
@@ -12,6 +12,7 @@
         vm.page.menu = {};
         vm.page.menu.currentSection = appState.getSectionState("currentSection");
         vm.page.menu.currentNode = null;
+        var evts = [];
 
         vm.page.navigation = [
             {
@@ -25,14 +26,7 @@
                 "icon": "",
                 "view": umbRequestHelper.convertVirtualToAbsolutePath(subviewsPath + "tourdetails.html"),
                 "active": false
-            }];
-
-        vm.subviewModel = null;
-
-        function editTourCallBack(item, index) {
-            vm.page.navigation[0].active = false;
-            vm.page.navigation[1].active = true;
-        }
+            }];       
 
         function loadTourFile() {
             vm.page.loading = true;
@@ -41,12 +35,7 @@
                     vm.data = data;
 
                     editorState.set(vm.data);
-
-                    vm.subviewModel = {
-                        "tours": vm.data.tours,
-                        "editCallback": editTourCallBack
-                    };
-
+                    
                     vm.page.loading = false;
                 },
 
@@ -66,6 +55,18 @@
         }
 
         init();
+
+        evts.push(eventsService.on("toureditor.edittour", function (name, error) {
+            vm.page.navigation[0].active = false;
+            vm.page.navigation[1].active = true;
+        }));
+
+        //ensure to unregister from all events!
+        $scope.$on('$destroy', function () {
+            for (var e in evts) {
+                eventsService.unsubscribe(evts[e]);
+            }
+        });       
     }
 
 
@@ -77,7 +78,8 @@
             'appState',
             'umbRequestHelper',
             'navigationService',
-            'notificationsService',
+            'notificationsService', 
+            'eventsService',
             'Our.Umbraco.TourEditor.TourResource',
             EditFileController
         ]);

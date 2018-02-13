@@ -1,12 +1,12 @@
 ﻿(function () {
     "use strict";
 
-    function TourListController($scope) {
+    function TourListController($scope, eventsService) {
         var vm = this;        
-        vm.tours = $scope.model.tours;
+        vm.tours = $scope.model;
 
         function editTour(item, index) {
-            $scope.model.editCallback(item, index);
+            eventsService.emit('toureditor.edittour', index);
         }
 
         vm.editTour = editTour;
@@ -14,7 +14,8 @@
 
     angular.module("umbraco").controller("Our.Umbraco.TourEditor.TourListController",
         [
-            '$scope',            
+            '$scope',
+            'eventsService',
             TourListController
         ]);
 
