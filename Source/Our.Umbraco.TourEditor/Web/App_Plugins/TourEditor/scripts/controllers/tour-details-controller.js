@@ -1,9 +1,18 @@
 ﻿(function () {
     "use strict";
 
-    function TourDetailsController($scope, eventsService) {
+    function TourDetailsController($scope, eventsService, sectionResource) {
         var vm = this;
         vm.tour = null;
+        vm.allSections = [];
+
+        vm.properties = {
+            'Name': { 'label': 'Name', 'description': 'Enter the name for this tour' },
+            'Group': { 'label': 'Group', 'description': 'Enter the group name for this tour', 'propertyErrorMessage': 'Enter the group name for this tour' },
+            'Alias': { 'label': 'Alias', 'description': 'Enter the alias for this tour', 'propertyErrorMessage': 'This is a required field' },
+            'Sections': { 'label': 'Sections', 'description' : 'Select the sections needed for this tour' },
+            'Enabled': { 'label': 'Enable this setting' }
+        };
 
         var evts = [];
 
@@ -18,12 +27,22 @@
             }
         });
 
+        function init() {
+            sectionResource.getAllSections().then(function (data) {
+                console.log(data);
+                vm.allSections = data;
+            });
+        }
+
+        init();
+
     }
 
     angular.module("umbraco").controller("Our.Umbraco.TourEditor.TourDetailsController",
         [
             '$scope',
             'eventsService',
+            'sectionResource',
             TourDetailsController
         ]);
 

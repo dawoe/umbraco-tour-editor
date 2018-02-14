@@ -1,3 +1,29 @@
 ﻿<div ng-controller="Our.Umbraco.TourEditor.TourDetailsController as vm">
-    Tour : {{vm.tour.name}}
+    <form name="detailsForm" val-form-manager ng-if="vm.tour !== null">
+
+
+        <umb-property property="vm.properties.Name">
+            <input type="text" ng-model="vm.tour.name" class="umb-editor" required />              
+        </umb-property>
+        
+        <umb-property property="vm.properties.Alias">
+            <umb-generate-alias
+                alias="vm.tour.alias"
+                alias-from="vm.tour.name"
+                enable-lock="true"
+            ></umb-generate-alias>            
+        </umb-property>
+        
+        <umb-property property="vm.properties.Group">
+            <input type="text" ng-model="vm.tour.group" class="umb-editor" required />
+        </umb-property>
+        
+        <umb-property property="vm.properties.Sections">
+            <ul>
+                <li ng-repeat="section in vm.tour.requiredSections">
+                    {{section}}
+                </li>
+            </ul>
+        </umb-property>
+    </form>
 </div>
