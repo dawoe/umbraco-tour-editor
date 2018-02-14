@@ -9,6 +9,22 @@
             eventsService.emit('toureditor.edittour', index);
         }
 
+        function addTour() {
+            var newTour = {
+                "name": "",
+                "alias": "",
+                "group": "",
+                "requiredSections": [],
+                "steps": []
+            };
+
+            vm.tours.push(newTour);
+
+            eventsService.emit('toureditor.edittour', vm.tours.length-1);
+        }
+
+        vm.addTour = addTour;
+
         vm.editTour = editTour;
     }
 
