@@ -19,11 +19,14 @@
         </umb-property>
         
         <umb-property property="vm.properties.Sections">
-            <ul>
-                <li ng-repeat="section in vm.tour.requiredSections">
-                    {{section}}
-                </li>
-            </ul>
+            <umb-node-preview
+                style="max-width: 100%;"
+                ng-repeat="section in vm.selectedSections"
+                icon="section.icon"
+                name="section.name"
+                allow-remove="true"
+                on-remove="vm.removeSection($index, vm.selectedSections)">
+            </umb-node-preview>
         </umb-property>
     </form>
 </div>

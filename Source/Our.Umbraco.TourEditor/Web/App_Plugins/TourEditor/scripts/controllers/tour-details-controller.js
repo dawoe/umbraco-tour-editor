@@ -5,6 +5,7 @@
         var vm = this;
         vm.tour = null;
         vm.allSections = [];
+        vm.selectedSections = [];
 
         vm.properties = {
             'Name': { 'label': 'Name', 'description': 'Enter the name for this tour' },
@@ -18,6 +19,12 @@
 
         evts.push(eventsService.on("toureditor.edittour", function (name, arg) {
             vm.tour = $scope.model[arg];
+
+            // get the selected sections from data
+            vm.selectedSections = _.filter(vm.allSections,
+                function(section) {
+                    return _.contains(vm.tour.requiredSections, section.alias);
+                });            
         }));
 
         //ensure to unregister from all events!
@@ -27,10 +34,50 @@
             }
         });
 
+        function openSectionPicker() {
+            vm.sectionPicker = {
+                view: 'sectionpicker',
+                selection: vm.selectedSections,
+                closeButtonLabel: vm.labels.cancel,
+                show: true,
+                submit: function (model) {
+                    vm.sectionPicker.show = false;
+                    vm.sectionPicker = null;
+                },
+                close: function (oldModel) {
+                    if (oldModel.selection) {
+                        vm.userGroup.sections = oldModel.selection;
+                    }
+                    vm.sectionPicker.show = false;
+                    vm.sectionPicker = null;
+                }
+            };
+        }
+
+        vm.openSectionPicker = openSectionPicker;
+
+        function removeSection(index, selection) {
+            if (selection && selection.length > 0) {
+                selection.splice(index, 1);
+            }
+
+            // update selection of sections on data
+            vm.tour.requiredSections = _.map(selection, function(section) { return section.alias });
+
+        }
+
+        vm.removeSection = removeSection;
+
         function init() {
             sectionResource.getAllSections().then(function (data) {
-                console.log(data);
                 vm.allSections = data;
+                setSectionIcon(vm.allSections);
+            });
+        }
+
+        function setSectionIcon(sections) {
+            angular.forEach(sections, function (section) {
+                section.icon = 'icon-section ' + section.cssclass;
             });
         }
 
