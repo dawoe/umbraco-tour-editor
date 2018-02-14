@@ -18,7 +18,9 @@
             var newTour = {
                 "name": "",
                 "alias": "",
-                "group": "",
+                "group": "", 
+                "groupOrder" : 100,
+                "allowDisable": true,
                 "requiredSections": [],
                 "steps": []
             };
