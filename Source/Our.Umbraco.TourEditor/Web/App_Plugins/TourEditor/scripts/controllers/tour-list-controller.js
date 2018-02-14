@@ -10,6 +10,10 @@
             eventsService.emit('toureditor.edittour', index);
         }
 
+        function removeTour(index) {
+            vm.tours.splice(index);
+        }
+
         function addTour() {
             var newTour = {
                 "name": "",
@@ -25,7 +29,7 @@
         }
 
         vm.addTour = addTour;
-
+        vm.removeTour = removeTour;
         vm.editTour = editTour;
     }
 
