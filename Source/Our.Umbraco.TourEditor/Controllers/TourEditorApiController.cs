@@ -198,7 +198,7 @@
 
             try
             {
-                var content = JsonConvert.SerializeObject(tourfile);
+                var content = JsonConvert.SerializeObject(tourfile.Tours);
 
                 File.WriteAllText(filePath, content);
 

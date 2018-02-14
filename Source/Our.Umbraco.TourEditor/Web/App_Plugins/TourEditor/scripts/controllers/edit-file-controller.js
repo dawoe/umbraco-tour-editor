@@ -45,15 +45,6 @@
             );
         }
 
-        function init() {
-            loadTourFile().then(function() {
-                navigationService.syncTree({ tree: "toureditor", path: "-1," + $routeParams.id }).then(function (syncArgs) {
-                    vm.page.menu.currentNode = syncArgs.node;
-                });
-            });
-           
-        }
-
         function returnToTourList() {
             vm.page.navigation[0].active = true;
             vm.page.navigation[1].active = false;
@@ -63,6 +54,28 @@
 
         vm.returnToTourList = returnToTourList;
 
+        function saveTourFile() {
+            tourResource.saveTourFile(vm.data).then(
+                function (data) {
+                    notificationsService.showNotification(data.notifications[0]);
+                    loadTourFile();
+                },
+                function(err) {
+                    notificationsService.showNotification(err.data.notifications[0]);
+                });
+        }
+
+        vm.saveTourFile = saveTourFile;
+
+        function init() {
+            loadTourFile().then(function() {
+                navigationService.syncTree({ tree: "toureditor", path: "-1," + $routeParams.id }).then(function (syncArgs) {
+                    vm.page.menu.currentNode = syncArgs.node;
+                });
+            });
+           
+        }
+        
         init();
 
         evts.push(eventsService.on("toureditor.edittour", function (name, error) {
