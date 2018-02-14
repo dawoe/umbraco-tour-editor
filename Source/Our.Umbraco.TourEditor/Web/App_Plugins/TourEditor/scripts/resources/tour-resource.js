@@ -8,7 +8,8 @@
         var resource = {
             createTourFile: createTourFile,
             deleteTourFile: deleteTourFile,
-            getTourFile : getTourFile
+            getTourFile: getTourFile,
+            saveTourFile : saveTourFile
         };
 
         return resource;
@@ -33,6 +34,16 @@
             return umbRequestHelper.resourcePromise(
                 $http.get(apiUrl + "GetTourFile?filename=" + filename),
                 "Failed loading tourfile"
+            );
+        }
+
+        function saveTourFile(fileData) {
+
+            var data = JSON.stringify(fileData);
+
+            return umbRequestHelper.resourcePromise(
+                $http.post(apiUrl + "SaveTourFile", data),
+                "Failed saving tourfile"
             );
         }
 
