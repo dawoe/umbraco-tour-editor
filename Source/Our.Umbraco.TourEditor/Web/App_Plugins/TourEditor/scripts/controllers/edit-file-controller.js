@@ -54,6 +54,15 @@
            
         }
 
+        function returnToTourList() {
+            vm.page.navigation[0].active = true;
+            vm.page.navigation[1].active = false;
+
+            eventsService.emit('toureditor.returntolist');
+        }
+
+        vm.returnToTourList = returnToTourList;
+
         init();
 
         evts.push(eventsService.on("toureditor.edittour", function (name, error) {

@@ -4,6 +4,7 @@
     function TourDetailsController($scope, eventsService, sectionResource) {
         var vm = this;
         vm.tour = null;
+        vm.tourIndex = -1;
         vm.allSections = [];
         vm.selectedSections = [];
 
@@ -18,6 +19,7 @@
         var evts = [];
 
         evts.push(eventsService.on("toureditor.edittour", function (name, arg) {
+            vm.tourIndex = arg;
             vm.tour = $scope.model[arg];
 
             // get the selected sections from data
@@ -25,6 +27,12 @@
                 function(section) {
                     return _.contains(vm.tour.requiredSections, section.alias);
                 });            
+        }));
+
+        evts.push(eventsService.on("toureditor.returntolist", function (name, arg) {
+
+            vm.tour = null;           
+            vm.selectedSections = [];
         }));
 
         //ensure to unregister from all events!
