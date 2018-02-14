@@ -49,6 +49,10 @@
                 closeButtonLabel: 'Cancel',
                 show: true,
                 submit: function (model) {
+
+                    // update selection of sections on data
+                    vm.tour.requiredSections = _.map(model.selection, function (section) { return section.alias });
+
                     vm.sectionPicker.show = false;
                     vm.sectionPicker = null;
                 },
