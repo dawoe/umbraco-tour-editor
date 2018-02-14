@@ -1,46 +1,53 @@
 ﻿<div ng-controller="Our.Umbraco.TourEditor.TourDetailsController as vm">
-    <form name="detailsForm" val-form-manager ng-if="vm.tour !== null">
+    <umb-box>
+        <umb-box-header title="Tour settings"></umb-box-header>
+        <umb-box-content>
 
 
-        <umb-property property="vm.properties.Name">
-            <input type="text" ng-model="vm.tour.name" class="umb-editor" required />              
-        </umb-property>
-        
-        <umb-property property="vm.properties.Alias">
-            <umb-generate-alias
-                alias="vm.tour.alias"
-                alias-from="vm.tour.name"
-                enable-lock="true"
-            ></umb-generate-alias>            
-        </umb-property>
-        
-        <umb-property property="vm.properties.Group">
-            <input type="text" ng-model="vm.tour.group" class="umb-editor" required />
-        </umb-property>
-        
-        <umb-property property="vm.properties.Sections">
-            <umb-node-preview
-                style="max-width: 100%;"
-                ng-repeat="section in vm.selectedSections"
-                icon="section.icon"
-                name="section.name"
-                allow-remove="true"
-                on-remove="vm.removeSection($index, vm.selectedSections)">
-            </umb-node-preview>
-            <a href=""
-               style="max-width: 100%;"
-               class="umb-node-preview-add"
-               ng-click="vm.openSectionPicker()"
-               prevent-default>
-                <localize key="general_add">Add</localize>
-            </a>
-        </umb-property>
-    </form>
-    
-    <umb-overlay
-        ng-if="vm.sectionPicker.show"
-        model="vm.sectionPicker"
-        view="vm.sectionPicker.view"
-        position="right">
+            <form name="detailsForm" val-form-manager ng-if="vm.tour !== null">
+
+                <umb-property property="vm.properties.Name">
+                    <input type="text" ng-model="vm.tour.name" class="umb-editor" required />
+                </umb-property>
+
+                <umb-property property="vm.properties.Alias">
+                    <umb-generate-alias alias="vm.tour.alias"
+                                        alias-from="vm.tour.name"
+                                        enable-lock="true"></umb-generate-alias>
+                </umb-property>
+
+                <umb-property property="vm.properties.Group">
+                    <input type="text" ng-model="vm.tour.group" class="umb-editor" required />
+                </umb-property>
+
+                <umb-property property="vm.properties.Sections">
+                    <umb-node-preview style="max-width: 100%;"
+                                      ng-repeat="section in vm.selectedSections"
+                                      icon="section.icon"
+                                      name="section.name"
+                                      allow-remove="true"
+                                      on-remove="vm.removeSection($index, vm.selectedSections)">
+                    </umb-node-preview>
+                    <a href=""
+                       style="max-width: 100%;"
+                       class="umb-node-preview-add"
+                       ng-click="vm.openSectionPicker()"
+                       prevent-default>
+                        <localize key="general_add">Add</localize>
+                    </a>
+                </umb-property>
+            </form>
+        </umb-box-content>
+    </umb-box>
+    <umb-box>
+        <umb-box-header title="Tour steps"></umb-box-header>
+        <umb-box-content>
+            step list will go here
+        </umb-box-content>
+    </umb-box>
+    <umb-overlay ng-if="vm.sectionPicker.show"
+                 model="vm.sectionPicker"
+                 view="vm.sectionPicker.view"
+                 position="right">
     </umb-overlay>
 </div>
