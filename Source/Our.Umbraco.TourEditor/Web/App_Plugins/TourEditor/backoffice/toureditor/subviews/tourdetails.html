@@ -27,6 +27,20 @@
                 allow-remove="true"
                 on-remove="vm.removeSection($index, vm.selectedSections)">
             </umb-node-preview>
+            <a href=""
+               style="max-width: 100%;"
+               class="umb-node-preview-add"
+               ng-click="vm.openSectionPicker()"
+               prevent-default>
+                <localize key="general_add">Add</localize>
+            </a>
         </umb-property>
     </form>
+    
+    <umb-overlay
+        ng-if="vm.sectionPicker.show"
+        model="vm.sectionPicker"
+        view="vm.sectionPicker.view"
+        position="right">
+    </umb-overlay>
 </div>

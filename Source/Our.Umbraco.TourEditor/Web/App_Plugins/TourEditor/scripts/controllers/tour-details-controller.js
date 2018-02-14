@@ -46,7 +46,7 @@
             vm.sectionPicker = {
                 view: 'sectionpicker',
                 selection: vm.selectedSections,
-                closeButtonLabel: vm.labels.cancel,
+                closeButtonLabel: 'Cancel',
                 show: true,
                 submit: function (model) {
                     vm.sectionPicker.show = false;
@@ -54,7 +54,7 @@
                 },
                 close: function (oldModel) {
                     if (oldModel.selection) {
-                        vm.userGroup.sections = oldModel.selection;
+                        vm.selectedSections = oldModel.selection;
                     }
                     vm.sectionPicker.show = false;
                     vm.sectionPicker = null;
