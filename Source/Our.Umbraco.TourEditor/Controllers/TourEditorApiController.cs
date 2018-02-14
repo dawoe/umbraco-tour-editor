@@ -47,9 +47,9 @@
             {
                 return this.Request.CreateNotificationValidationErrorResponse("File name contains invalid characters");
             }
-            
+
             var toursFolder = Path.Combine(IOHelper.MapPath(SystemDirectories.Config), "BackOfficeTours");
-            
+
 
             // file should not exist
             var filePath = Path.Combine(toursFolder, filename + ".json");
@@ -151,7 +151,7 @@
                 var tourHelper = new TourHelper();
 
                 var result = new List<BackOfficeTourFile>();
-                
+
                 tourHelper.TryParseTourFile(filePath, result);
 
                 return this.Request.CreateResponse(HttpStatusCode.OK, result[0]);
@@ -160,6 +160,54 @@
             {
                 this.Logger.Error<TourEditorApiController>("Error loading tour file", e);
                 return this.Request.CreateNotificationValidationErrorResponse("Error loading tour file");
+            }
+        }
+
+        /// <summary>
+        /// Saves the tour file
+        /// </summary>
+        /// <param name="tourfile">
+        /// The tourfile.
+        /// </param>
+        /// <returns>
+        /// The <see cref="HttpResponseMessage"/>.
+        /// </returns>
+        [HttpPost]
+        public HttpResponseMessage SaveTourFile(BackOfficeTourFile tourfile)
+        {
+            // filename may not empty
+            if (tourfile == null || string.IsNullOrEmpty(tourfile.FileName))
+            {
+                return new HttpResponseMessage(HttpStatusCode.BadRequest);
+            }
+
+            // can not contain invalid chars
+            if (tourfile.FileName.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0)
+            {
+                return this.Request.CreateNotificationValidationErrorResponse("File name contains invalid characters");
+            }
+
+            var toursFolder = Path.Combine(IOHelper.MapPath(SystemDirectories.Config), "BackOfficeTours");
+
+            // file should exist
+            var filePath = Path.Combine(toursFolder, tourfile.FileName + ".json");
+            if (!File.Exists(filePath))
+            {
+                return this.Request.CreateNotificationValidationErrorResponse("A file with this name does not exist");
+            }
+
+            try
+            {
+                var content = JsonConvert.SerializeObject(tourfile);
+
+                File.WriteAllText(filePath, content);
+
+                return this.Request.CreateNotificationSuccessResponse("Tour file saved succesfully");
+            }
+            catch (Exception e)
+            {
+                this.Logger.Error<TourEditorApiController>("Error saving tour file", e);
+                return this.Request.CreateNotificationValidationErrorResponse("Error saving tour file");
             }
         }
     }
