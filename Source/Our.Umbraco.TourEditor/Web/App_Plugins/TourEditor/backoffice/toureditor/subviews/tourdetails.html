@@ -42,7 +42,21 @@
     <umb-box>
         <umb-box-header title="Tour steps"></umb-box-header>
         <umb-box-content>
-            step list will go here
+            <umb-node-preview style="max-width: 100%;margin-bottom:20px"
+                              ng-repeat="item in vm.tour.steps"
+                              name="item.title"                              
+                              allow-edit="true"
+                              allow-remove="true"
+                              on-edit="vm.editStep($index)"
+                              on-remove="vm.removeStep($index)"
+            ></umb-node-preview>
+            <a href=""
+               style="max-width: 100%;"
+               class="umb-node-preview-add"
+               ng-click="vm.addStep()"
+               prevent-default>
+                <localize key="general_add">Add</localize>
+            </a>        
         </umb-box-content>
     </umb-box>
     <umb-overlay ng-if="vm.sectionPicker.show"
