@@ -20,7 +20,7 @@
 
         evts.push(eventsService.on("toureditor.edittour", function (name, arg) {
             vm.tourIndex = arg;
-            vm.tour = $scope.model[arg];
+            vm.tour = $scope.model.tours[arg];
 
             // get the selected sections from data
             vm.selectedSections = _.filter(vm.allSections,

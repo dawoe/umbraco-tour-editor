@@ -6,7 +6,7 @@
         vm.tours = $scope.model.tours;
         vm.filename = $scope.model.fileName;
 
-        function editTour(item, index) {
+        function editTour(index) {
             eventsService.emit('toureditor.edittour', index);
         }
 
