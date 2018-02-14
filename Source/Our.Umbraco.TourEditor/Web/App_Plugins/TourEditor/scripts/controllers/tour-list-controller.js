@@ -3,7 +3,8 @@
 
     function TourListController($scope, eventsService) {
         var vm = this;        
-        vm.tours = $scope.model;
+        vm.tours = $scope.model.tours;
+        vm.filename = $scope.model.fileName;
 
         function editTour(item, index) {
             eventsService.emit('toureditor.edittour', index);
