@@ -10,8 +10,8 @@
         vm.form = null;
 
         vm.properties = {
-            'Name': { 'label': 'Name', 'description': 'Enter the name for this tour' },
-            'Group': { 'label': 'Group', 'description': 'Enter the group name for this tour', 'propertyErrorMessage': 'Enter the group name for this tour' },
+            'Name': { 'label': 'Name', 'description': 'Enter the name for this tour', 'propertyErrorMessage': 'The name is a required field' },
+            'Group': { 'label': 'Group', 'description': 'Enter the group name for this tour', 'propertyErrorMessage': 'The  group name is a required field' },
             'Alias': { 'label': 'Alias', 'description': 'Enter the alias for this tour', 'propertyErrorMessage': 'This is a required field' },
             'Sections': { 'label': 'Sections', 'description' : 'Select the sections needed for this tour' },
             'Enabled': { 'label': 'Enable this setting' }
