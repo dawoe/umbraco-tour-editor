@@ -113,6 +113,12 @@
 
         vm.addStep = addStep;
 
+        function removeStep(index) {
+            vm.tour.steps.splice(index);
+        }
+
+        vm.removeStep = removeStep;
+
         function init() {
             sectionResource.getAllSections().then(function (data) {
                 vm.allSections = data;
