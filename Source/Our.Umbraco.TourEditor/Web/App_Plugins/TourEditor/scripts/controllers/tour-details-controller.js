@@ -80,6 +80,27 @@
 
         vm.removeSection = removeSection;
 
+        function addStep() {
+            var newStep = {
+                "title": "",
+                "content": "",
+                "type": null,
+                "element": null,
+                "elementPreventClick": false,
+                "backdropOpacity": null,
+                "event": null,
+                "view": null,
+                "eventElement": null,
+                "customProperties" : null
+            };
+
+            vm.tour.steps.push(newStep);
+
+            //eventsService.emit('toureditor.edittour', vm.tours.length - 1);
+        }
+
+        vm.addStep = addStep;
+
         function init() {
             sectionResource.getAllSections().then(function (data) {
                 vm.allSections = data;
