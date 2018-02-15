@@ -1,3 +1,10 @@
-﻿<div>
-    Stepdetails
+﻿<div ng-controller="Our.Umbraco.TourEditor.StepDetailsController as vm">
+    <umb-box>
+        <umb-box-header title="Step settings"></umb-box-header>
+        <umb-box-content>
+            <umb-property property="vm.properties.Title">
+                <input type="text" ng-model="vm.step.title" class="umb-editor" required />
+            </umb-property>
+        </umb-box-content>
+    </umb-box>
 </div>

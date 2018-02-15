@@ -102,7 +102,12 @@
 
                 vm.tour.steps.push(newStep);
 
-                eventsService.emit('toureditor.editstep', vm.tour.steps.length - 1);
+                eventsService.emit('toureditor.editstep',
+                    {
+                        "stepIndex" :  vm.tour.steps.length - 1,
+                        "tourIndex" : vm.tourIndex
+                    });
+
             }            
         }
 
