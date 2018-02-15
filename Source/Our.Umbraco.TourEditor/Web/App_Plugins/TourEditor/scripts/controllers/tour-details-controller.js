@@ -113,6 +113,19 @@
 
         vm.addStep = addStep;
 
+        function editStep(index) {
+            if (formHelper.submitForm({ scope: $scope, formCtrl: vm.form })) {
+                eventsService.emit('toureditor.editstep',
+                    {
+                        "stepIndex": index,
+                        "tourIndex": vm.tourIndex
+                    });
+
+            }           
+        }
+
+        vm.editStep = editStep;
+
         function removeStep(index) {
             vm.tour.steps.splice(index);
         }
