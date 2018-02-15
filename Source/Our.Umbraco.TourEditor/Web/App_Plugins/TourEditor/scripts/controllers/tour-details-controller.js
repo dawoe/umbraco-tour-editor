@@ -85,22 +85,25 @@
         vm.removeSection = removeSection;
 
         function addStep() {
-            var newStep = {
-                "title": "",
-                "content": "",
-                "type": null,
-                "element": null,
-                "elementPreventClick": false,
-                "backdropOpacity": null,
-                "event": null,
-                "view": null,
-                "eventElement": null,
-                "customProperties" : null
-            };
 
-            vm.tour.steps.push(newStep);
+            if (formHelper.submitForm({ scope: $scope, formCtrl: vm.form })) {
+                var newStep = {
+                    "title": "",
+                    "content": "",
+                    "type": null,
+                    "element": null,
+                    "elementPreventClick": false,
+                    "backdropOpacity": null,
+                    "event": null,
+                    "view": null,
+                    "eventElement": null,
+                    "customProperties": null
+                };
 
-            eventsService.emit('toureditor.editstep', vm.tour.steps.length - 1);
+                vm.tour.steps.push(newStep);
+
+                eventsService.emit('toureditor.editstep', vm.tour.steps.length - 1);
+            }            
         }
 
         vm.addStep = addStep;
