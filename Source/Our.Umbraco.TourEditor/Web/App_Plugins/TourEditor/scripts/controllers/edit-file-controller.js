@@ -52,9 +52,6 @@
         }
 
         function returnToTourList() {
-            vm.page.navigation[0].active = true;
-            vm.page.navigation[1].active = false;
-
             eventsService.emit('toureditor.returntolist');
         }
 
@@ -83,6 +80,12 @@
         }
         
         init();
+
+        evts.push(eventsService.on("toureditor.returntolistSuccess", function (name, error) {
+            vm.page.navigation[0].active = true;
+            vm.page.navigation[1].active = false;
+            vm.page.navigation[2].active = false;
+        }));
 
         evts.push(eventsService.on("toureditor.edittour", function (name, error) {
             vm.page.navigation[0].active = false;

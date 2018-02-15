@@ -1,12 +1,13 @@
 ﻿(function () {
     "use strict";
 
-    function TourDetailsController($scope, eventsService, sectionResource) {
+    function TourDetailsController($scope, eventsService, sectionResource, formHelper) {
         var vm = this;
         vm.tour = null;
         vm.tourIndex = -1;
         vm.allSections = [];
         vm.selectedSections = [];
+        vm.form = null;
 
         vm.properties = {
             'Name': { 'label': 'Name', 'description': 'Enter the name for this tour' },
@@ -30,9 +31,12 @@
         }));
 
         evts.push(eventsService.on("toureditor.returntolist", function (name, arg) {
-
-            vm.tour = null;           
-            vm.selectedSections = [];
+            if (formHelper.submitForm({ scope: $scope, formCtrl: vm.form })) {               
+                vm.tour = null;
+                vm.selectedSections = [];
+                vm.form = null;
+                eventsService.emit('toureditor.returntolistSuccess');
+            } 
         }));
 
         //ensure to unregister from all events!
@@ -123,6 +127,7 @@
             '$scope',
             'eventsService',
             'sectionResource',
+            'formHelper',
             TourDetailsController
         ]);
 
