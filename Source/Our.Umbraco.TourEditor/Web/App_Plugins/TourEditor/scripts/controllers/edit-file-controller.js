@@ -26,7 +26,13 @@
                 "icon": "",
                 "view": umbRequestHelper.convertVirtualToAbsolutePath(subviewsPath + "tourdetails.html"),
                 "active": false
-            }];       
+            },
+            {
+                "name": "Steps details",
+                "icon": "",
+                "view": umbRequestHelper.convertVirtualToAbsolutePath(subviewsPath + "stepdetails.html"),
+                "active": false
+            }];
 
         function loadTourFile() {
             vm.page.loading = true;
@@ -81,6 +87,13 @@
         evts.push(eventsService.on("toureditor.edittour", function (name, error) {
             vm.page.navigation[0].active = false;
             vm.page.navigation[1].active = true;
+            vm.page.navigation[2].active = false;
+        }));
+
+        evts.push(eventsService.on("toureditor.editstep", function (name, error) {
+            vm.page.navigation[0].active = false;
+            vm.page.navigation[1].active = false;
+            vm.page.navigation[2].active = true;
         }));
 
         //ensure to unregister from all events!

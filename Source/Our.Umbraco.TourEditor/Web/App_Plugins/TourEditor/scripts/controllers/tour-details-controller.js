@@ -96,7 +96,7 @@
 
             vm.tour.steps.push(newStep);
 
-            //eventsService.emit('toureditor.edittour', vm.tours.length - 1);
+            eventsService.emit('toureditor.editstep', vm.tour.steps.length - 1);
         }
 
         vm.addStep = addStep;
