@@ -16,23 +16,23 @@
 	
 	 <!-- SHARED PROPERTIES -->
 	 <PropertyGroup>
-		<PackageName>Our.Umbraco.RedirectsViewer</PackageName>
-		<MinUmbracoVersion>7.7.0</MinUmbracoVersion>
-		<Readme><![CDATA[This package implements a property editor that allows you to view and manage 301 redirects]]></Readme>
+		<PackageName>Our.Umbraco.TourEditor</PackageName>
+		<MinUmbracoVersion>7.8.0</MinUmbracoVersion>
+		<Readme><![CDATA[This package adds a tree to settings section that allows you to create and edit tours, so you don't need to edit the json files directly]]></Readme>
 		<AuthorName>Dave Woestenborghs</AuthorName>
 		<AuthorUrl>https://github.com/dawoe/</AuthorUrl>
 		<PackageLicenseName>MIT license</PackageLicenseName>
 		<PackageLicenseUrl>http://www.opensource.org/licenses/mit-license.php</PackageLicenseUrl>
-		<ProjectUrl>https://github.com/dawoe/umbraco-redirectsviewer</ProjectUrl>
+		<ProjectUrl>https://github.com/dawoe/umbraco-tour-editor</ProjectUrl>
 	 </PropertyGroup>
 	 
 	 <!-- NUGET ONLY PROPERTIES -->
 	  <PropertyGroup>
-		<PackageId>Our.Umbraco.RedirectsViewer</PackageId>		
+		<PackageId>Our.Umbraco.TourEditor</PackageId>		
 		<Copyright>Copyright &#169; Dave Woestenborghs and contributors.</Copyright>
 		<Owners>Dave Woestenborghs</Owners>
-		<Description>This package implements a property editor that allows you to view and manage 301 redirects</Description>
-		<IconUrl>https://github.com/dawoe/umbraco-redirectsviewer/raw/develop/Images/icon.png</IconUrl>
+		<Description>This package adds a tree to settings section that allows you to create and edit tours, so you don't need to edit the json files directly</Description>
+		<IconUrl>https://github.com/dawoe/umbraco-tour-editor/raw/develop/Images/icon.png</IconUrl>
 		<Tags>umbraco</Tags>
 		<Language>en-GB</Language>
 		<RequireLicenseAcceptance>false</RequireLicenseAcceptance>
@@ -62,16 +62,12 @@
 		<BuildUmbDir>$(MSBuildProjectDirectory)\UmbracoBuild</BuildUmbDir>
 		<BuildNuGetDir>$(MSBuildProjectDirectory)\NugetBuild</BuildNuGetDir>
 		<ArtifactsDir>$(RootDir)\artifacts</ArtifactsDir>
-		<CoreProjectDir>$(RootDir)\Source\Our.Umbraco.RedirectsViewer</CoreProjectDir>	
-		<CoreProjectTestDir>$(RootDir)\Source\Our.Umbraco.RedirectsViewer.Tests</CoreProjectTestDir>			
+		<CoreProjectDir>$(RootDir)\Source\Our.Umbraco.TourEditor</CoreProjectDir>				
 	</PropertyGroup>
 	
 	<!-- PROJECTS TO BUILD -->
 	<ItemGroup>
-		<ProjectToBuild Include="$(CoreProjectDir)\Our.Umbraco.RedirectsViewer.csproj" >
-			<Properties>Configuration=Release</Properties>
-		</ProjectToBuild>
-		<ProjectToBuild Include="$(CoreProjectTestDir)\Our.Umbraco.RedirectsViewer.Tests.csproj" >
+		<ProjectToBuild Include="$(CoreProjectDir)\Our.Umbraco.TourEditor.csproj" >
 			<Properties>Configuration=Release</Properties>
 		</ProjectToBuild>		
 	</ItemGroup>
@@ -109,8 +105,8 @@
   <Target Name="PrepareFiles" DependsOnTargets="Compile">
     <ItemGroup>
       <!-- Shared -->
-      <BinFiles Include="$(CoreProjectDir)\bin\$(BuildConfig)\Our.Umbraco.RedirectsViewer.dll" />
-      <PdbFiles Include="$(CoreProjectDir)\bin\$(BuildConfig)\Our.Umbraco.RedirectsViewer.pdb" />
+      <BinFiles Include="$(CoreProjectDir)\bin\$(BuildConfig)\Our.Umbraco.TourEditor.dll" />
+      <PdbFiles Include="$(CoreProjectDir)\bin\$(BuildConfig)\Our.Umbraco.TourEditor.pdb" />
 	  <AppPluginFiles Include="$(CoreProjectDir)\Web\App_Plugins\**\*.*" />
 	 
       <!-- Umbraco specific -->
