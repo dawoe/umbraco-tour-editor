@@ -94,7 +94,7 @@
                     "type": null,
                     "element": null,
                     "elementPreventClick": false,
-                    "backdropOpacity": null,
+                    "backdropOpacity": 0.4,
                     "event": null,
                     "view": null,
                     "eventElement": null,

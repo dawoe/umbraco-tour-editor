@@ -16,7 +16,9 @@
             'Type': { 'label': 'Is intro step', 'description': 'Check if it is a intro step' },
             'Element': { 'label': 'Element', 'description': 'Enter the selector for the element you wish to highlight' },
             'Event': { 'label': 'Event', 'description': 'Enter the event needed to trigger the next step eg. click' },
-            'PreventClick': { 'label': 'Prevent clicking', 'description': 'Check this if you want to prevent the user clicking the highlighted element' }
+            'EventElement': { 'label': 'Event element', 'description': 'Enter the selector for the element you wish the event to happen on' },
+            'PreventClick': { 'label': 'Prevent clicking', 'description': 'Check this if you want to prevent the user clicking the highlighted element' },
+            'BackDropOpacity': { 'label': 'Backdrop opacity', 'description': 'The backdrop opacity', 'propertyErrorMessage': 'The backdrop opacity is a required field' }
         };
 
         evts.push(eventsService.on("toureditor.editstep", function (name, arg) {
