@@ -20,7 +20,7 @@
                 "alias": "",
                 "group": "", 
                 "groupOrder" : 100,
-                "allowDisable": true,
+                "allowDisable": false,
                 "requiredSections": [],
                 "steps": []
             };
