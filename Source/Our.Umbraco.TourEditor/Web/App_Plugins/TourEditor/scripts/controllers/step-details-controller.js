@@ -4,7 +4,8 @@
     function StepDetailsController($scope, eventsService, formHelper) {
         var vm = this;
         vm.step = null;
-        vm.stepIndex = -1;       
+        vm.stepIndex = -1;
+        vm.tourIndex = -1;
         vm.form = null;
         vm.isIntro = false;
 
@@ -23,7 +24,8 @@
 
         evts.push(eventsService.on("toureditor.editstep", function (name, arg) {
             vm.stepIndex = arg.stepIndex;
-            vm.step = $scope.model.tours[arg.tourIndex].steps[arg.stepIndex];
+            vm.tourIndex = arg.tourIndex;
+            vm.step = arg.step;
 
             vm.isIntro = vm.step.type === 'intro';
         }));

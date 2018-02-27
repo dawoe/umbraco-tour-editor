@@ -114,12 +114,13 @@
                     "customProperties": null
                 };
 
-                vm.tour.steps.push(newStep);
+                //vm.tour.steps.push(newStep);
 
                 eventsService.emit('toureditor.editstep',
                     {
-                        "stepIndex": vm.tour.steps.length - 1,
-                        "tourIndex": vm.tourIndex
+                        "stepIndex": vm.tour.steps.length,
+                        "tourIndex": vm.tourIndex,
+                        "step" : newStep
                     });
 
             }
@@ -129,11 +130,17 @@
 
         function editStep(index) {
             if (formHelper.submitForm({ scope: $scope, formCtrl: vm.form })) {
+
+                // deep clone
+                var step = JSON.parse(JSON.stringify(vm.tour.steps[index]));
+
+
                 eventsService.emit('toureditor.editstep',
                     {
                         "stepIndex": index,
-                        "tourIndex": vm.tourIndex
-                    });
+                        "tourIndex": vm.tourIndex,
+                        "step": step
+            });
 
             }
         }
