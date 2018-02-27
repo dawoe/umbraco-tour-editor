@@ -51,11 +51,11 @@
             );
         }
 
-        function returnToTourList() {
-            eventsService.emit('toureditor.returntolist');
+        function discardTourChanges() {
+            eventsService.emit('toureditor.discardtourchanges');
         }
 
-        vm.returnToTourList = returnToTourList;
+        vm.discardTourChanges = discardTourChanges;
 
         function saveTourFile() {
             tourResource.saveTourFile(vm.data).then(
@@ -81,7 +81,7 @@
         
         init();
 
-        evts.push(eventsService.on("toureditor.returntolistSuccess", function (name, error) {
+        evts.push(eventsService.on("toureditor.tourchangesdiscarded", function (name, error) {
             vm.page.navigation[0].active = true;
             vm.page.navigation[1].active = false;
             vm.page.navigation[2].active = false;
