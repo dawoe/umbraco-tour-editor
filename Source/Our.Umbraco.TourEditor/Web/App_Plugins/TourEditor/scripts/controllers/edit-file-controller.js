@@ -51,6 +51,12 @@
             );
         }
 
+        function updateTourChanges() {
+            eventsService.emit('toureditor.updatetourchanges');
+        }
+
+        vm.updateTourChanges = updateTourChanges;
+
         function discardTourChanges() {
             eventsService.emit('toureditor.discardtourchanges');
         }
@@ -81,19 +87,28 @@
         
         init();
 
-        evts.push(eventsService.on("toureditor.tourchangesdiscarded", function (name, error) {
+        evts.push(eventsService.on("toureditor.tourchangesdiscarded", function (name, args) {
             vm.page.navigation[0].active = true;
             vm.page.navigation[1].active = false;
             vm.page.navigation[2].active = false;
         }));
 
-        evts.push(eventsService.on("toureditor.edittour", function (name, error) {
+        evts.push(eventsService.on("toureditor.tourchangesupdate", function (name, args) {
+
+            vm.data.tours[args.index] = args.tour;
+
+            vm.page.navigation[0].active = true;
+            vm.page.navigation[1].active = false;
+            vm.page.navigation[2].active = false;
+        }));
+
+        evts.push(eventsService.on("toureditor.edittour", function (name, args) {
             vm.page.navigation[0].active = false;
             vm.page.navigation[1].active = true;
             vm.page.navigation[2].active = false;
         }));
 
-        evts.push(eventsService.on("toureditor.editstep", function (name, error) {
+        evts.push(eventsService.on("toureditor.editstep", function (name, args) {
             vm.page.navigation[0].active = false;
             vm.page.navigation[1].active = false;
             vm.page.navigation[2].active = true;

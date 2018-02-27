@@ -39,6 +39,20 @@
             eventsService.emit('toureditor.tourchangesdiscarded');
         }));
 
+        evts.push(eventsService.on("toureditor.updatetourchanges", function (name, arg) {
+            if (formHelper.submitForm({ scope: $scope, formCtrl: vm.form })) {
+                eventsService.emit('toureditor.tourchangesupdate',
+                    {
+                        "index": vm.tourIndex,
+                        "tour": vm.tour
+                });
+                vm.tour = null;
+                vm.tourIndex = -1;
+                vm.selectedSections = [];
+                vm.form = null;
+            }                      
+        }));
+
         //ensure to unregister from all events!
         $scope.$on('$destroy', function () {
             for (var e in evts) {

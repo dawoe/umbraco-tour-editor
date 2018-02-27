@@ -35,7 +35,7 @@
 
             //vm.tours.push(newTour);
 
-            eventsService.emit('toureditor.edittour', { "index": vm.tours.length-1, "tour" : newTour });
+            eventsService.emit('toureditor.edittour', { "index": vm.tours.length, "tour" : newTour });
         }
 
         vm.addTour = addTour;
