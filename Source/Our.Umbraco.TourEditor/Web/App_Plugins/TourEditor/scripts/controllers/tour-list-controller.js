@@ -7,7 +7,15 @@
         vm.filename = $scope.model.fileName;
 
         function editTour(index) {
-            eventsService.emit('toureditor.edittour', index);
+
+            // create a deep clone of the tour object
+            var tour = JSON.parse(JSON.stringify(vm.tours[index]));
+
+            eventsService.emit('toureditor.edittour',
+                {
+                    "index": index,
+                    "tour" : tour
+                });
         }
 
         function removeTour(index) {
@@ -25,9 +33,9 @@
                 "steps": []
             };
 
-            vm.tours.push(newTour);
+            //vm.tours.push(newTour);
 
-            eventsService.emit('toureditor.edittour', vm.tours.length-1);
+            eventsService.emit('toureditor.edittour', { "index": vm.tours.length, "tour" : newTour });
         }
 
         vm.addTour = addTour;

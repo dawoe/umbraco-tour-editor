@@ -51,11 +51,29 @@
             );
         }
 
-        function returnToTourList() {
-            eventsService.emit('toureditor.returntolist');
+        function updateTourChanges() {
+            eventsService.emit('toureditor.updatetourchanges');
         }
 
-        vm.returnToTourList = returnToTourList;
+        vm.updateTourChanges = updateTourChanges;
+
+        function discardTourChanges() {
+            eventsService.emit('toureditor.discardtourchanges');
+        }
+
+        vm.discardTourChanges = discardTourChanges;
+
+        function discardStepChanges() {
+            eventsService.emit('toureditor.discardstepchanges');
+        }
+
+        vm.discardStepChanges = discardStepChanges;
+
+        function updateStepChanges() {
+            eventsService.emit('toureditor.updatestepchanges');
+        }
+
+        vm.updateStepChanges = updateStepChanges;
 
         function saveTourFile() {
             tourResource.saveTourFile(vm.data).then(
@@ -81,19 +99,40 @@
         
         init();
 
-        evts.push(eventsService.on("toureditor.returntolistSuccess", function (name, error) {
-            vm.page.navigation[0].active = true;
-            vm.page.navigation[1].active = false;
-            vm.page.navigation[2].active = false;
-        }));
-
-        evts.push(eventsService.on("toureditor.edittour", function (name, error) {
+        evts.push(eventsService.on("toureditor.stepchangesdiscarded", function (name, args) {
             vm.page.navigation[0].active = false;
             vm.page.navigation[1].active = true;
             vm.page.navigation[2].active = false;
         }));
 
-        evts.push(eventsService.on("toureditor.editstep", function (name, error) {
+        evts.push(eventsService.on("toureditor.stepchangesupdate", function (name, args) {
+            vm.page.navigation[0].active = false;
+            vm.page.navigation[1].active = true;
+            vm.page.navigation[2].active = false;
+        }));
+
+        evts.push(eventsService.on("toureditor.tourchangesdiscarded", function (name, args) {
+            vm.page.navigation[0].active = true;
+            vm.page.navigation[1].active = false;
+            vm.page.navigation[2].active = false;
+        }));
+
+        evts.push(eventsService.on("toureditor.tourchangesupdate", function (name, args) {
+
+            vm.data.tours[args.index] = args.tour;
+
+            vm.page.navigation[0].active = true;
+            vm.page.navigation[1].active = false;
+            vm.page.navigation[2].active = false;
+        }));
+
+        evts.push(eventsService.on("toureditor.edittour", function (name, args) {
+            vm.page.navigation[0].active = false;
+            vm.page.navigation[1].active = true;
+            vm.page.navigation[2].active = false;
+        }));
+
+        evts.push(eventsService.on("toureditor.editstep", function (name, args) {
             vm.page.navigation[0].active = false;
             vm.page.navigation[1].active = false;
             vm.page.navigation[2].active = true;
