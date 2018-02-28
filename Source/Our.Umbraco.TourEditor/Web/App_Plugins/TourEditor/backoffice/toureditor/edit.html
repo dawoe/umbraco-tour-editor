@@ -31,6 +31,7 @@
                 <umb-editor-footer-content-right>
                     <umb-button action="vm.discardTourChanges()" label="Discard changes" type="button" ng-if="vm.page.navigation[1].active"></umb-button>
                     <umb-button action="vm.updateTourChanges()" label="Update" type="button" ng-if="vm.page.navigation[1].active" button-style="success"></umb-button>
+                    <umb-button action="vm.discardStepChanges()" label="Discard changes" type="button" ng-if="vm.page.navigation[2].active"></umb-button>
                     <umb-button action="vm.saveTourFile()" label="Save" type="button" ng-if="vm.page.navigation[0].active"  button-style="success"></umb-button>
                 </umb-editor-footer-content-right>
             </umb-editor-footer>

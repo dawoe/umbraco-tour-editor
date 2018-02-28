@@ -63,6 +63,12 @@
 
         vm.discardTourChanges = discardTourChanges;
 
+        function discardStepChanges() {
+            eventsService.emit('toureditor.discardstepchanges');
+        }
+
+        vm.discardStepChanges = discardStepChanges;
+
         function saveTourFile() {
             tourResource.saveTourFile(vm.data).then(
                 function (data) {
@@ -86,6 +92,12 @@
         }
         
         init();
+
+        evts.push(eventsService.on("toureditor.stepchangesdiscarded", function (name, args) {
+            vm.page.navigation[0].active = false;
+            vm.page.navigation[1].active = true;
+            vm.page.navigation[2].active = false;
+        }));
 
         evts.push(eventsService.on("toureditor.tourchangesdiscarded", function (name, args) {
             vm.page.navigation[0].active = true;

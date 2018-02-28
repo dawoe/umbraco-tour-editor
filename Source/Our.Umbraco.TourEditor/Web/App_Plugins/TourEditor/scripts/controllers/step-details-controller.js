@@ -30,6 +30,16 @@
             vm.isIntro = vm.step.type === 'intro';
         }));
 
+        evts.push(eventsService.on("toureditor.discardstepchanges", function (name, arg) {
+            vm.stepIndex = -1;
+            vm.tourIndex = -1;
+            vm.step = null;
+
+            vm.isIntro = false;
+
+            eventsService.emit('toureditor.stepchangesdiscarded');
+        }));
+
         
         //ensure to unregister from all events!
         $scope.$on('$destroy', function () {
