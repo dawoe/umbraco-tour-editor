@@ -40,6 +40,22 @@
             eventsService.emit('toureditor.stepchangesdiscarded');
         }));
 
+        evts.push(eventsService.on("toureditor.updatestepchanges", function (name, arg) {
+            if (formHelper.submitForm({ scope: $scope, formCtrl: vm.form })) {
+                eventsService.emit('toureditor.stepchangesupdate',
+                    {
+                        "stepIndex": vm.stepIndex,
+                        "tourIndex" : vm.tourIndex,
+                        "step": vm.step
+                    });
+                vm.stepIndex = -1;
+                vm.tourIndex = -1;
+                vm.step = null;
+                vm.isIntro = false;
+                vm.form = null;
+            }
+        }));
+
         
         //ensure to unregister from all events!
         $scope.$on('$destroy', function () {

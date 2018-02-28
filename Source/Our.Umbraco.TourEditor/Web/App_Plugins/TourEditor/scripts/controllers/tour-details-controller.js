@@ -53,6 +53,10 @@
             }                      
         }));
 
+        evts.push(eventsService.on("toureditor.stepchangesupdate", function (name, args) {
+            vm.tour.steps[args.stepIndex] = args.step;
+        }));
+
         //ensure to unregister from all events!
         $scope.$on('$destroy', function () {
             for (var e in evts) {
