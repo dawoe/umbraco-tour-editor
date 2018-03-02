@@ -15,7 +15,7 @@
             'Title': { 'label': 'Title', 'description': 'Enter the title for this step', 'propertyErrorMessage': 'The title is a required field' },
             'Content': { 'label': 'Text', 'description': 'Enter the text for this step' },
             'Type': { 'label': 'Is intro step', 'description': 'Check if it is a intro step' },
-            'Element': { 'label': 'Element', 'description': 'Enter the selector for the element you wish to highlight' },
+            'Element': { 'label': 'Element', 'description': 'Enter the selector for the element you wish to highlight', 'propertyErrorMessage' : 'The element field is required' },
             'Event': { 'label': 'Event', 'description': 'Enter the event needed to trigger the next step eg. click' },
             'EventElement': { 'label': 'Event element', 'description': 'Enter the selector for the element you wish the event to happen on' },
             'PreventClick': { 'label': 'Prevent clicking', 'description': 'Check this if you want to prevent the user clicking the highlighted element' },

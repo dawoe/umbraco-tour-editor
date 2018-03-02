@@ -13,7 +13,7 @@
                     <input type="checkbox" ng-model="vm.isIntro" />
                 </umb-property>
                 <umb-property property="vm.properties.Element">
-                    <input type="text" ng-model="vm.step.element" class="umb-editor" />
+                    <input type="text" ng-model="vm.step.element" class="umb-editor" ng-required="vm.step.type !== 'intro'" />
                 </umb-property>
                 <umb-property property="vm.properties.PreventClick">
                     <input type="checkbox" ng-model="vm.step.elementPreventClick" />
