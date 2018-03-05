@@ -21,7 +21,7 @@
             'PreventClick': { 'label': 'Prevent clicking', 'description': 'Check this if you want to prevent the user clicking the highlighted element' },
             'BackDropOpacity': { 'label': 'Backdrop opacity', 'description': 'The backdrop opacity', 'propertyErrorMessage': 'The backdrop opacity is a required field' },
             'View': { 'label': 'Custom view', 'description': 'Enter the path to a custom view for this step' },
-            'CustomProperties': { 'label': 'Custom properties', 'description': 'If you use a custom view, you can pass in custom properties as JSON object' }
+            'CustomProperties': { 'label': 'Custom properties', 'description': 'If you use a custom view, you can pass in custom properties as JSON object', 'propertyErrorMessage': 'Custom properties is not valid JSON' }
         };
 
         evts.push(eventsService.on("toureditor.editstep", function (name, arg) {
