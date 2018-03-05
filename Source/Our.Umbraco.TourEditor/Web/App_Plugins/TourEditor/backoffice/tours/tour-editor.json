@@ -1,0 +1,86 @@
+[
+  {
+    "name": "Creating a tour file",
+    "alias": "createATourFile",
+    "group": "Tour Editor",
+    "groupOrder": 100,
+    "allowDisable": false,
+    "requiredSections": [
+      "settings"
+    ],
+    "steps": [
+      {
+        "title": "Introduction",
+        "content": "In this tour we will show you how to create a new tour file.",
+        "type": "intro",
+        "element": null,
+        "elementPreventClick": false,
+        "backdropOpacity": 0.5,
+        "event": null,
+        "view": null,
+        "eventElement": null,
+        "customProperties": null
+      },
+      {
+        "title": "Go to settings",
+        "content": "Click on the settings icon to go to the settings section",
+        "type": null,
+        "element": "[data-element='section-settings']",
+        "elementPreventClick": false,
+        "backdropOpacity": null,
+        "event": "click",
+        "view": null,
+        "eventElement": null,
+        "customProperties": null
+      },
+      {
+        "title": "Locate the tour files tree",
+        "content": "Find the tour files tree in the navigation",
+        "type": null,
+        "element": "#tree [data-element='tree-item-toureditor']",
+        "elementPreventClick": true,
+        "backdropOpacity": null,
+        "event": null,
+        "view": null,
+        "eventElement": null,
+        "customProperties": null
+      },
+      {
+        "title": "Create a new file",
+        "content": "Click on the 3 dots to bring up the create dialog",
+        "type": null,
+        "element": "#tree [data-element='tree-item-toureditor']",
+        "elementPreventClick": false,
+        "backdropOpacity": null,
+        "event": "click",
+        "view": null,
+        "eventElement": "#tree [data-element='tree-item-toureditor'] [data-element='tree-item-options']",
+        "customProperties": null
+      },
+      {
+        "title": "Enter the filename",
+        "content": "<p>Your Document Type needs a name. Enter <code>create-dictionary</code> in the field and click <b>Next</b>",
+        "type": null,
+        "element": "[data-element='toureditor-filename']",
+        "elementPreventClick": false,
+        "backdropOpacity": null,
+        "event": null,
+        "view": "/App_Plugins/TourEditor/backoffice/tours/views/tourname.html",
+        "eventElement": null,
+        "customProperties": null
+      },
+      {
+        "title": "Push the create button",
+        "content": "<p>Pushe the create button to create your file</p>",
+        "type": null,
+        "element": "[data-element='toureditor-createfile']",
+        "elementPreventClick": false,
+        "backdropOpacity": null,
+        "event": "click",
+        "view": null,
+        "eventElement": "[data-element='toureditor-createfile']",
+        "customProperties": null
+      }
+    ]
+  }
+]
