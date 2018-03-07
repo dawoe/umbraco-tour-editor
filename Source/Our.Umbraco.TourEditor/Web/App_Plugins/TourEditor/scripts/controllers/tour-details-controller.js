@@ -8,6 +8,7 @@
         vm.allSections = [];
         vm.selectedSections = [];
         vm.form = null;
+        vm.isNew = false;
 
         vm.properties = {
             'Name': { 'label': 'Name', 'description': 'Enter the name for this tour', 'propertyErrorMessage': 'The name is a required field' },
@@ -23,6 +24,7 @@
         evts.push(eventsService.on("toureditor.edittour", function (name, arg) {
             vm.tourIndex = arg.index;
             vm.tour = arg.tour;
+            vm.isNew = arg.isNew;
 
             // get the selected sections from data
             vm.selectedSections = _.filter(vm.allSections,
@@ -36,6 +38,7 @@
             vm.tourIndex = -1;
             vm.selectedSections = [];
             vm.form = null;
+            vm.isNew = false;
             eventsService.emit('toureditor.tourchangesdiscarded');
         }));
 
@@ -50,6 +53,7 @@
                 vm.tourIndex = -1;
                 vm.selectedSections = [];
                 vm.form = null;
+                vm.isNew = false;
             }                      
         }));
 
