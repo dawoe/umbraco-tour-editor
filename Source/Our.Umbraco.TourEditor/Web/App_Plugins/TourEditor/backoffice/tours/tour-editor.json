@@ -170,6 +170,54 @@
         "view": null,
         "eventElement": null,
         "customProperties": null
+      },
+      {
+        "title": "Setting needed section access",
+        "content": "<p>You need to select the sections the user needs access to, to be able to run this tour</p>",
+        "type": null,
+        "element": "[data-element='toureditor-sectionspicker']",
+        "elementPreventClick": false,
+        "backdropOpacity": 0.4,
+        "event": "click",
+        "view": null,
+        "eventElement": null,
+        "customProperties": null
+      },
+      {
+        "title": "Setting needed section access",
+        "content": "<p>Select settings in the available list</p>",
+        "type": null,
+        "element": "[data-element='overlay'] .traysettings",
+        "elementPreventClick": false,
+        "backdropOpacity": 0.4,
+        "event": "click",
+        "view": null,
+        "eventElement": null,
+        "customProperties": null
+      },
+      {
+        "title": "Setting needed section access",
+        "content": "<p>Click the submit button to update the selection</p>",
+        "type": null,
+        "element": "[data-element='overlay'] [data-element='button-overlaySubmit']",
+        "elementPreventClick": false,
+        "backdropOpacity": 0.4,
+        "event": "click",
+        "view": null,
+        "eventElement": "[data-element='overlay'] [data-element='button-overlaySubmit']",
+        "customProperties": null
+      },
+      {
+        "title": "Allowing disable",
+        "content": "<p>If you would check this,  this adds &quot;Don't show this tour again button&quot; to the intro step. But for now just click next</p>",
+        "type": null,
+        "element": "[data-element='toureditor-tourdisable']",
+        "elementPreventClick": true,
+        "backdropOpacity": 0.4,
+        "event": null,
+        "view": null,
+        "eventElement": null,
+        "customProperties": null
       }
     ]
   }
