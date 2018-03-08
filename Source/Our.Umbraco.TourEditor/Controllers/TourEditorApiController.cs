@@ -257,10 +257,7 @@
 
             // get plugin tours
             foreach (var plugin in Directory.EnumerateDirectories(IOHelper.MapPath(SystemDirectories.AppPlugins)))
-            {
-                var pluginName = Path.GetFileName(plugin.TrimEnd('\\'));                
-                             
-
+            {                                                
                 foreach (var backofficeDir in Directory.EnumerateDirectories(plugin, "backoffice"))
                 {
                     foreach (var tourDir in Directory.EnumerateDirectories(backofficeDir, "tours"))
@@ -281,6 +278,74 @@
             }
 
             return this.Request.CreateResponse(HttpStatusCode.OK, aliases);
+        }
+
+        /// <summary>
+        /// Get all groups in tours, except those from current file
+        /// </summary>
+        /// <param name="filename">
+        /// The filename.
+        /// </param>
+        /// <returns>
+        /// The <see cref="HttpResponseMessage"/>.
+        /// </returns>
+        public HttpResponseMessage GetGroups(string filename)
+        {
+            // filename may not empty
+            if (string.IsNullOrEmpty(filename))
+            {
+                return new HttpResponseMessage(HttpStatusCode.BadRequest);
+            }
+
+            // can not contain invalid chars
+            if (filename.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0)
+            {
+                return this.Request.CreateNotificationValidationErrorResponse("File name contains invalid characters");
+            }
+
+            var result = new List<BackOfficeTourFile>();
+
+            var tourHelper = new TourHelper();
+
+
+            // get core tours
+            var coreToursPath = Path.Combine(IOHelper.MapPath(SystemDirectories.Config), "BackOfficeTours");
+
+            if (Directory.Exists(coreToursPath))
+            {
+                foreach (var tourFile in Directory.EnumerateFiles(coreToursPath, "*.json"))
+                {
+                    if (Path.GetFileNameWithoutExtension(tourFile) != filename)
+                    {
+                        // if it's not current file we will get it
+                        tourHelper.TryParseTourFile(tourFile, result);
+                    }
+                }
+            }
+
+            // get plugin tours
+            foreach (var plugin in Directory.EnumerateDirectories(IOHelper.MapPath(SystemDirectories.AppPlugins)))
+            {
+                foreach (var backofficeDir in Directory.EnumerateDirectories(plugin, "backoffice"))
+                {
+                    foreach (var tourDir in Directory.EnumerateDirectories(backofficeDir, "tours"))
+                    {
+                        foreach (var tourFile in Directory.EnumerateFiles(tourDir, "*.json"))
+                        {
+                            tourHelper.TryParseTourFile(tourFile, result);
+                        }
+                    }
+                }
+            }
+
+            var groups = new List<string>();
+
+            foreach (var tourfile in result)
+            {
+                groups.AddRange(tourfile.Tours.Select(x => x.Group));
+            }
+
+            return this.Request.CreateResponse(HttpStatusCode.OK, groups.Distinct());
         }
     }
 }
