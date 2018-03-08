@@ -10,7 +10,8 @@
 
         vm.model = {
             "data": null,
-            "aliases" : []
+            "aliases": [],
+            "groups" : []
         };
 
         vm.page.loading = false;
@@ -68,15 +69,29 @@
             });
         }
 
-        function loadAliases() {
-            return tourResource.getAliases($routeParams.id).then(
+        function loadGroups() {
+            return tourResource.getGroups($routeParams.id).then(
                 function (data) {
-                    vm.model.aliases = data;                    
+                    vm.model.groups = data;                   
                 },
                 function (err) {
                     notificationsService.showNotification(err.data.notifications[0]);
                 }
+            );
+        }
+
+        function loadAliases() {
+
+            return loadGroups().then(function() {
+                return tourResource.getAliases($routeParams.id).then(
+                    function (data) {
+                        vm.model.aliases = data;
+                    },
+                    function (err) {
+                        notificationsService.showNotification(err.data.notifications[0]);
+                    }
                 );
+            });            
         }
 
         function updateTourChanges() {
