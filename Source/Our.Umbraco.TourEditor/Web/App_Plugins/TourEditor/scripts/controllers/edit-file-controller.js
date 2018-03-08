@@ -149,6 +149,11 @@
 
             vm.model.data.tours[args.index] = args.tour;
 
+            if (args.isNew) {
+                // if it is a new one add the alias to the list
+                vm.model.aliases.push(args.tour.alias);
+            }
+
             vm.page.navigation[0].active = true;
             vm.page.navigation[1].active = false;
             vm.page.navigation[2].active = false;

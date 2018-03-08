@@ -50,7 +50,8 @@
                 eventsService.emit('toureditor.tourchangesupdate',
                     {
                         "index": vm.tourIndex,
-                        "tour": vm.tour
+                        "tour": vm.tour,
+                        "isNew" : vm.isNew
                 });
                 vm.tour = null;
                 vm.tourIndex = -1;
