@@ -282,8 +282,8 @@
     <Content Include="Web\App_Plugins\TourEditor\backoffice\toureditor\subviews\stepdetails.html" />
     <Content Include="Web\App_Plugins\TourEditor\backoffice\toureditor\subviews\tourdetails.html" />
     <Content Include="Web\App_Plugins\TourEditor\backoffice\toureditor\subviews\tourlist.html" />
-    <Content Include="Web\App_Plugins\TourEditor\backoffice\tours\scripts\tourname.js" />
-    <Content Include="Web\App_Plugins\TourEditor\backoffice\tours\views\tourname.html" />
+    <Content Include="Web\App_Plugins\TourEditor\backoffice\tours\scripts\requiredinput-controller.js" />
+    <Content Include="Web\App_Plugins\TourEditor\backoffice\tours\views\requiredinput.html" />
     <Content Include="Web\App_Plugins\TourEditor\scripts\controllers\create-file-controller.js" />
     <Content Include="Web\App_Plugins\TourEditor\scripts\controllers\delete-file-controller.js" />
     <Content Include="Web\App_Plugins\TourEditor\scripts\controllers\edit-file-controller.js" />

@@ -53,9 +53,9 @@
         "elementPreventClick": false,
         "backdropOpacity": null,
         "event": null,
-        "view": "/App_Plugins/TourEditor/backoffice/tours/views/tourname.html",
+        "view": "/App_Plugins/TourEditor/backoffice/tours/views/requiredinput.html",
         "eventElement": null,
-        "customProperties": null
+        "customProperties": { "input" :  "extending-media-type" }
       },
       {
         "title": "Push the create button",
