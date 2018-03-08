@@ -29,6 +29,11 @@
             vm.tourIndex = arg.tourIndex;
             vm.step = arg.step;
 
+            // convert custom properties json object to string for editing
+            if (vm.step.customProperties) {
+                vm.step.customPropertiesText = JSON.stringify(vm.step.customProperties);
+            }
+
             vm.isIntro = vm.step.type === 'intro';
         }));
 
