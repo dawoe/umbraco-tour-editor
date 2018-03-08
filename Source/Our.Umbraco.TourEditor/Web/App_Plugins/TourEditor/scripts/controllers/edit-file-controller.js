@@ -45,6 +45,16 @@
 
                         editorState.set(vm.data);
 
+                        // get all aliases in current file
+                        var fileAliases = _.map(vm.data.tours,
+                            function(x) {
+                                return x.alias;
+                            });
+                        
+
+                        // combine the with aliases from other files
+                        vm.aliases = vm.aliases.concat(fileAliases);
+                       
                         vm.page.loading = false;
                     },
                     function(err) {
