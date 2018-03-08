@@ -41,7 +41,7 @@
 
                 attrs.$observe('valUniqueAlias', function (newVal) {
                     if (newVal) {
-                        existingAliases = newVal;
+                        existingAliases = eval(newVal);
                     }
 
                     uniqueAliasValidator(ctrl.$viewValue);
