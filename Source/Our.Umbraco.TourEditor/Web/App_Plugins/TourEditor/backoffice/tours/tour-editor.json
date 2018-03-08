@@ -47,7 +47,7 @@
       },
       {
         "title": "Enter the filename",
-        "content": "<p>Your Document Type needs a name. Enter <code>extending-media-type</code> in the field and click <b>Next</b>",
+        "content": "<p>Your Document Type needs a name. Enter <em><strong>extending-media-type</strong></em> in the field and click Next</p>",
         "type": null,
         "element": "[data-element='toureditor-filename']",
         "elementPreventClick": false,
@@ -97,7 +97,7 @@
       },
       {
         "title": "Enter the tour name",
-        "content": "<p>You need to name your tour. Enter <code>Adding alt text to image</code> in the field and click <b>Next</b></p>",
+        "content": "<p>You need to name your tour. Enter <em><strong>Adding alt text to image</strong></em> in the field and click Next</p>",
         "type": null,
         "element": "[ data-element='toureditor-tourname']",
         "elementPreventClick": false,
@@ -135,7 +135,7 @@
       },
       {
         "title": "Enter the groupname",
-        "content": "<p>The group name is used to group tours in the help drawer. Enter <code>Changing media types</code> in the field</p>",
+        "content": "<p>The group name is used to group tours in the help drawer. Enter <em><strong>Changing media types</strong></em> in the field</p>",
         "type": null,
         "element": "[data-element='toureditor-group']",
         "elementPreventClick": false,
@@ -172,7 +172,7 @@
         "customProperties": null
       },
       {
-        "title": "Setting needed section access",
+        "title": "Section access",
         "content": "<p>You need to select the sections the user needs access to, to be able to run this tour</p>",
         "type": null,
         "element": "[data-element='toureditor-sectionspicker']",
@@ -184,8 +184,8 @@
         "customProperties": null
       },
       {
-        "title": "Setting needed section access",
-        "content": "<p>Select settings in the available list</p>",
+        "title": "Selecting required sections",
+        "content": "<p>Select <em><strong>settings</strong> </em>in the available list</p>",
         "type": null,
         "element": "[data-element='overlay'] .traysettings",
         "elementPreventClick": false,
@@ -196,7 +196,7 @@
         "customProperties": null
       },
       {
-        "title": "Setting needed section access",
+        "title": "Updating required sections",
         "content": "<p>Click the submit button to update the selection</p>",
         "type": null,
         "element": "[data-element='overlay'] [data-element='button-overlaySubmit']",
@@ -281,7 +281,7 @@
       },
       {
         "title": "Adding a step",
-        "content": "<p>Click on the &quot;Add step&quot; button to add a step to tour. Without step the tour will not work</p>",
+        "content": "<p>Click on the \"Add step\" button to add a step to tour. Without step the tour will not work</p>",
         "type": null,
         "element": "[data-element=\"toureditor-addtour\"]",
         "elementPreventClick": false,
