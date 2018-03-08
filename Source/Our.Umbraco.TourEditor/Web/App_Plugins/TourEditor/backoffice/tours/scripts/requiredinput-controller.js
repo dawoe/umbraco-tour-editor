@@ -7,7 +7,7 @@
         vm.error = false;
         vm.initNextStep = initNextStep;
         function initNextStep() {
-            if (element.val().toLowerCase() === vm.inputvalue) {
+            if (element.val().toLowerCase() === vm.inputvalue.toLowerCase()) {
                 $scope.model.nextStep();
             } else {
                 vm.error = true;
