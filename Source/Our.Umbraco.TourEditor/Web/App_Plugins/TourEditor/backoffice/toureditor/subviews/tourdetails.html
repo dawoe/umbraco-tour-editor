@@ -20,6 +20,12 @@
 
                 <umb-property property="vm.properties.Group">
                     <input type="text" ng-model="vm.tour.group" class="umb-editor" required />
+                    <a href=""                       
+                       class="umb-node-preview-add"
+                       ng-click="vm.openGroupPicker()"
+                       prevent-default>
+                        Select existing
+                    </a>
                 </umb-property>
                 
                 <umb-property property="vm.properties.GroupOrder">
@@ -72,6 +78,11 @@
     <umb-overlay ng-if="vm.sectionPicker.show"
                  model="vm.sectionPicker"
                  view="vm.sectionPicker.view"
+                 position="right">
+    </umb-overlay>
+    <umb-overlay ng-if="vm.groupPicker.show"
+                 model="vm.groupPicker"
+                 view="vm.groupPicker.view"
                  position="right">
     </umb-overlay>
 </div>

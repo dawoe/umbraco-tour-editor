@@ -113,6 +113,37 @@
 
         vm.removeSection = removeSection;
 
+        function openGroupPicker() {
+
+            var groups = _.map(vm.groups,
+                function(x) {
+                    return {
+                        "name": x,
+                        "icon": "icon-tag"
+                    };
+                });
+
+            vm.groupPicker = {
+                view: 'itempicker',                
+                availableItems : groups,
+                closeButtonLabel: 'Cancel',
+                show: true,
+                submit: function (model) {                   
+                    vm.tour.group = model.selectedItem.name;
+
+                    vm.groupPicker.show = false;
+                    vm.groupPicker = null;
+                },
+                close: function (oldModel) {
+                    
+                    vm.groupPicker.show = false;
+                    vm.groupPicker = null;
+                }
+            };
+        }
+
+        vm.openGroupPicker = openGroupPicker;
+
         function addStep() {
 
             if (formHelper.submitForm({ scope: $scope, formCtrl: vm.form })) {
