@@ -6,7 +6,7 @@
         vm.error = false;
         vm.initNextStep = initNextStep;
         function initNextStep() {
-            if (element.val().toLowerCase() === 'create-dictionary') {
+            if (element.val().toLowerCase() === 'extending-media-types') {
                 $scope.model.nextStep();
             } else {
                 vm.error = true;
