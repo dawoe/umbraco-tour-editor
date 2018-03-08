@@ -9,13 +9,14 @@
             createTourFile: createTourFile,
             deleteTourFile: deleteTourFile,
             getTourFile: getTourFile,
-            saveTourFile : saveTourFile
+            saveTourFile: saveTourFile,
+            getAliases : getAliases
         };
 
         return resource;
 
         function createTourFile(filename) {
-           
+
             return umbRequestHelper.resourcePromise(
                 $http.post(apiUrl + "CreateTourFile?filename=" + filename),
                 "Failed creating tourfile"
@@ -44,6 +45,13 @@
             return umbRequestHelper.resourcePromise(
                 $http.post(apiUrl + "SaveTourFile", data),
                 "Failed saving tourfile"
+            );
+        }
+
+        function getAliases(filename) {
+            return umbRequestHelper.resourcePromise(
+                $http.get(apiUrl + "GetAliases?filename=" + filename),
+                "Failed loading tourfile"
             );
         }
 
