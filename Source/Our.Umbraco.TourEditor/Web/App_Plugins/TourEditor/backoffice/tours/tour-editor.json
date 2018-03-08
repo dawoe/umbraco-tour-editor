@@ -73,7 +73,7 @@
       },
       {
         "title": "Open the tour file",
-        "content": "Click the item in the tree to open the file for editing",
+        "content": "<p>Click the item in the tree to open the file for editing</p>",
         "type": null,
         "element": "[data-element='tree-item-extending-media-type']",
         "elementPreventClick": false,
@@ -85,7 +85,7 @@
       },
       {
         "title": "Adding a tour",
-        "content": "<p<Click on the add tour button to add a new tour to your file. There can be multiple tours in one file.</p>",
+        "content": "<p>Click on the add tour button to add a new tour to your file. There can be multiple tours in one file.</p>",
         "type": null,
         "element": "[data-element='toureditor-addtour']",
         "elementPreventClick": false,
@@ -217,6 +217,42 @@
         "event": null,
         "view": null,
         "eventElement": null,
+        "customProperties": null
+      },
+      {
+        "title": "Discard changes",
+        "content": "<p>You can discard all changes in this tour by clicking the &quot;Discard Changes&quot; button. But we don't want that now so just click next.</p>",
+        "type": null,
+        "element": "[data-element='toureditor-discardtourchanges ']",
+        "elementPreventClick": true,
+        "backdropOpacity": 0.4,
+        "event": null,
+        "view": null,
+        "eventElement": null,
+        "customProperties": null
+      },
+      {
+        "title": "Update tour changes",
+        "content": "<p>We want to keep our changes of course so click the &quot;Update tour&quot; button. Keep in mind your changes are not saved yet when clicking this button.</p>",
+        "type": null,
+        "element": "[data-element='toureditor-updatetourchanges ']",
+        "elementPreventClick": false,
+        "backdropOpacity": 0.4,
+        "event": "click",
+        "view": null,
+        "eventElement": "[data-element='toureditor-updatetourchanges ']",
+        "customProperties": null
+      },
+      {
+        "title": "Persisting changes",
+        "content": "<p>Now is a good moment to actually save our changes. So click the &quot;Save&quot; button to save everything to the tour file</p>",
+        "type": null,
+        "element": "[data-element='toureditor-savetour ']",
+        "elementPreventClick": false,
+        "backdropOpacity": 0.4,
+        "event": "click",
+        "view": null,
+        "eventElement": "[data-element='toureditor-savetour ']",
         "customProperties": null
       }
     ]
