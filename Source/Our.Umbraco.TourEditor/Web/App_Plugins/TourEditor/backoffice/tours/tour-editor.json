@@ -132,7 +132,45 @@
         "view": null,
         "eventElement": null,
         "customProperties": null
-      }	  
+      },
+      {
+        "title": "Enter the groupname",
+        "content": "<p>The group name is used to group tours in the help drawer. Enter <code>Changing media types</code> in the field</p>",
+        "type": null,
+        "element": "[data-element='toureditor-group']",
+        "elementPreventClick": false,
+        "backdropOpacity": 0.4,
+        "event": null,
+        "view": "/App_Plugins/TourEditor/backoffice/tours/views/requiredinput.html",
+        "eventElement": "",
+        "customProperties": {
+          "input": "Changing media types"
+        }
+      },
+      {
+        "title": "Selecting existing groupname",
+        "content": "<p>If you have existing tours than you can also select a exsiting groupname by clicking on the &quot;Select existing&quot; button</p>",
+        "type": null,
+        "element": "[data-element='toureditor-groupselect']",
+        "elementPreventClick": true,
+        "backdropOpacity": 0.4,
+        "event": null,
+        "view": null,
+        "eventElement": null,
+        "customProperties": null
+      },
+      {
+        "title": "Editing the group order",
+        "content": "<p>You can control the order of the groups in the help drawer by changing this number. For now we leave it to the default. So just click next</p>",
+        "type": null,
+        "element": "[data-element='toureditor-grouporder']",
+        "elementPreventClick": true,
+        "backdropOpacity": 0.4,
+        "event": null,
+        "view": null,
+        "eventElement": null,
+        "customProperties": null
+      }
     ]
   }
 ]
