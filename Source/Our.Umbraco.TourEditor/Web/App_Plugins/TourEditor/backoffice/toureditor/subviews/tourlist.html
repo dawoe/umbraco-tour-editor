@@ -8,7 +8,7 @@
     <umb-box>
         <umb-box-header title="Tours"></umb-box-header>
         <umb-box-content>            
-            <umb-node-preview style="max-width: 100%;margin-bottom:20px"
+            <umb-node-preview data-element="toureditor-tourlist" style="max-width: 100%;margin-bottom:20px"
                               ng-repeat="item in vm.tours"
                               name="item.name"
                               description="item.group"
@@ -18,7 +18,7 @@
                               on-remove="vm.removeTour($index)"
             >
             </umb-node-preview>
-            <a href=""
+            <a href="" data-element="toureditor-addtour"
                style="max-width: 100%;"
                class="umb-node-preview-add"
                ng-click="vm.addTour()"

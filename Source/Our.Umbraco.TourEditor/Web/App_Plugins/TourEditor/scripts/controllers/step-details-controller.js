@@ -29,6 +29,11 @@
             vm.tourIndex = arg.tourIndex;
             vm.step = arg.step;
 
+            // convert custom properties json object to string for editing
+            if (vm.step.customProperties) {
+                vm.step.customPropertiesText = JSON.stringify(vm.step.customProperties);
+            }
+
             vm.isIntro = vm.step.type === 'intro';
         }));
 
@@ -44,6 +49,12 @@
 
         evts.push(eventsService.on("toureditor.updatestepchanges", function (name, arg) {
             if (formHelper.submitForm({ scope: $scope, formCtrl: vm.form })) {
+
+                if (vm.step.customPropertiesText && vm.step.customPropertiesText != '') {
+                    // convert step to json object, otherwise it will not be saved
+                    vm.step.customProperties = JSON.parse(vm.step.customPropertiesText);
+                }
+
                 eventsService.emit('toureditor.stepchangesupdate',
                     {
                         "stepIndex": vm.stepIndex,

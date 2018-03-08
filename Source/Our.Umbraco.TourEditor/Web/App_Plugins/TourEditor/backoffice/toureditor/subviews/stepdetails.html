@@ -4,34 +4,34 @@
         <umb-box-content>
             <form name="stepDetailsForm" val-form-manager ng-if="vm.step !== null">
                 <umb-property property="vm.properties.Title">
-                    <input type="text" ng-model="vm.step.title" class="umb-editor" required />
+                    <input type="text" data-element="toureditor-stepname"  ng-model="vm.step.title" class="umb-editor" required />
                 </umb-property>
                 <umb-property property="vm.properties.Content">
-                    <textarea ng-model="vm.step.content"></textarea>
+                    <textarea data-element="toureditor-stepcontent"  ng-model="vm.step.content"></textarea>
                 </umb-property>
                 <umb-property property="vm.properties.Type">
-                    <input type="checkbox" ng-model="vm.isIntro" />
+                    <input data-element="toureditor-stepintro" type="checkbox" ng-model="vm.isIntro" />
                 </umb-property>
                 <umb-property property="vm.properties.BackDropOpacity">
-                    <input type="number" ng-model="vm.step.backdropOpacity" min="0" max="1" step="0.1" class="umb-editor" />
+                    <input data-element="toureditor-stepbackdrop"  type="number" ng-model="vm.step.backdropOpacity" min="0" max="1" step="0.1" class="umb-editor" />
                 </umb-property>
                 <umb-property property="vm.properties.Element" ng-if="vm.isIntro === false">
-                    <input type="text" ng-model="vm.step.element" class="umb-editor" ng-required="vm.step.type !== 'intro'" />
+                    <input data-element="toureditor-stepelement" type="text" ng-model="vm.step.element" class="umb-editor" ng-required="vm.step.type !== 'intro'" />
                 </umb-property>
                 <umb-property property="vm.properties.PreventClick" ng-if="vm.isIntro === false">
-                    <input type="checkbox" ng-model="vm.step.elementPreventClick" />
+                    <input data-element="toureditor-steppreventclick" type="checkbox" ng-model="vm.step.elementPreventClick" />
                 </umb-property>
                 <umb-property property="vm.properties.Event" ng-if="vm.isIntro === false">
-                    <input type="text" ng-model="vm.step.event" class="umb-editor" />
+                    <input data-element="toureditor-steppreventclick" type="text" ng-model="vm.step.event" class="umb-editor" />
                 </umb-property>
                 <umb-property property="vm.properties.EventElement" ng-if="vm.isIntro === false">
-                    <input type="text" ng-model="vm.step.eventElement" class="umb-editor" />
+                    <input data-element="toureditor-stepeventelement" type="text" ng-model="vm.step.eventElement" class="umb-editor" />
                 </umb-property>               
                 <umb-property property="vm.properties.View" ng-if="vm.isIntro === false">
-                    <input type="text" ng-model="vm.step.view" class="umb-editor" />                  
+                    <input data-element="toureditor-stepview" type="text" ng-model="vm.step.view" class="umb-editor" />                  
                 </umb-property>
                 <umb-property property="vm.properties.CustomProperties" ng-if="vm.isIntro === false && vm.step.view && vm.step.view !== ''">
-                    <textarea ng-model="vm.step.customProperties" val-is-json></textarea>
+                    <textarea data-element="toureditor-stepcustomprop" ng-model="vm.step.customPropertiesText" val-is-json></textarea>
                 </umb-property>
                 <span ng-init="vm.form=stepDetailsForm"></span>
             </form>

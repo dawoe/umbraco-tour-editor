@@ -1,6 +1,6 @@
 [
   {
-    "name": "Creating a tour file",
+    "name": "Creating and editing a tour file",
     "alias": "createATourFile",
     "group": "Tour Editor",
     "groupOrder": 100,
@@ -34,20 +34,8 @@
         "customProperties": null
       },
       {
-        "title": "Locate the tour files tree",
-        "content": "Find the tour files tree in the navigation",
-        "type": null,
-        "element": "#tree [data-element='tree-item-toureditor']",
-        "elementPreventClick": true,
-        "backdropOpacity": null,
-        "event": null,
-        "view": null,
-        "eventElement": null,
-        "customProperties": null
-      },
-      {
         "title": "Create a new file",
-        "content": "Click on the 3 dots to bring up the create dialog",
+        "content": "<p>Hover the Tour files tree and click the <b>three small dots</b> to open the <b>context menu</b>.</p>",
         "type": null,
         "element": "#tree [data-element='tree-item-toureditor']",
         "elementPreventClick": false,
@@ -59,15 +47,17 @@
       },
       {
         "title": "Enter the filename",
-        "content": "<p>Your Document Type needs a name. Enter <code>create-dictionary</code> in the field and click <b>Next</b>",
+        "content": "<p>Your Document Type needs a name. Enter <code>extending-media-type</code> in the field and click <b>Next</b>",
         "type": null,
         "element": "[data-element='toureditor-filename']",
         "elementPreventClick": false,
         "backdropOpacity": null,
         "event": null,
-        "view": "/App_Plugins/TourEditor/backoffice/tours/views/tourname.html",
+        "view": "/App_Plugins/TourEditor/backoffice/tours/views/requiredinput.html",
         "eventElement": null,
-        "customProperties": null
+        "customProperties": {
+          "input": "extending-media-type"
+        }
       },
       {
         "title": "Push the create button",
@@ -79,6 +69,226 @@
         "event": "click",
         "view": null,
         "eventElement": "[data-element='toureditor-createfile']",
+        "customProperties": null
+      },
+      {
+        "title": "Open the tour file",
+        "content": "<p>Click the item in the tree to open the file for editing</p>",
+        "type": null,
+        "element": "[data-element='tree-item-extending-media-type']",
+        "elementPreventClick": false,
+        "backdropOpacity": 0.4,
+        "event": "click",
+        "view": null,
+        "eventElement": null,
+        "customProperties": null
+      },
+      {
+        "title": "Adding a tour",
+        "content": "<p>Click on the add tour button to add a new tour to your file. There can be multiple tours in one file.</p>",
+        "type": null,
+        "element": "[data-element='toureditor-addtour']",
+        "elementPreventClick": false,
+        "backdropOpacity": 0.4,
+        "event": "click",
+        "view": null,
+        "eventElement": null,
+        "customProperties": null
+      },
+      {
+        "title": "Enter the tour name",
+        "content": "<p>You need to name your tour. Enter <code>Adding alt text to image</code> in the field and click <b>Next</b></p>",
+        "type": null,
+        "element": "[ data-element='toureditor-tourname']",
+        "elementPreventClick": false,
+        "backdropOpacity": 0.4,
+        "event": null,
+        "view": "/App_Plugins/TourEditor/backoffice/tours/views/requiredinput.html",
+        "eventElement": null,
+        "customProperties": {
+          "input": "Adding alt text to image"
+        }
+      },
+      {
+        "title": "Alias ",
+        "content": "<p>Each tour needs a unique alias. It's generated for you based on the tour name.</p>",
+        "type": null,
+        "element": "[data-element='toureditor-touralias']",
+        "elementPreventClick": true,
+        "backdropOpacity": 0.4,
+        "event": null,
+        "view": null,
+        "eventElement": null,
+        "customProperties": null
+      },
+      {
+        "title": "Changing the alias ",
+        "content": "<p>While creating a new tour step you have the option to change the generated alias by clicking on the lock item. We will skip this part for now so just click next</p>",
+        "type": null,
+        "element": "[data-element='toureditor-touralias'] .umb-locked-field__toggle",
+        "elementPreventClick": true,
+        "backdropOpacity": 0.4,
+        "event": null,
+        "view": null,
+        "eventElement": null,
+        "customProperties": null
+      },
+      {
+        "title": "Enter the groupname",
+        "content": "<p>The group name is used to group tours in the help drawer. Enter <code>Changing media types</code> in the field</p>",
+        "type": null,
+        "element": "[data-element='toureditor-group']",
+        "elementPreventClick": false,
+        "backdropOpacity": 0.4,
+        "event": null,
+        "view": "/App_Plugins/TourEditor/backoffice/tours/views/requiredinput.html",
+        "eventElement": "",
+        "customProperties": {
+          "input": "Changing media types"
+        }
+      },
+      {
+        "title": "Selecting existing groupname",
+        "content": "<p>If you have existing tours than you can also select a exsiting groupname by clicking on the &quot;Select existing&quot; button</p>",
+        "type": null,
+        "element": "[data-element='toureditor-groupselect']",
+        "elementPreventClick": true,
+        "backdropOpacity": 0.4,
+        "event": null,
+        "view": null,
+        "eventElement": null,
+        "customProperties": null
+      },
+      {
+        "title": "Editing the group order",
+        "content": "<p>You can control the order of the groups in the help drawer by changing this number. For now we leave it to the default. So just click next</p>",
+        "type": null,
+        "element": "[data-element='toureditor-grouporder']",
+        "elementPreventClick": true,
+        "backdropOpacity": 0.4,
+        "event": null,
+        "view": null,
+        "eventElement": null,
+        "customProperties": null
+      },
+      {
+        "title": "Setting needed section access",
+        "content": "<p>You need to select the sections the user needs access to, to be able to run this tour</p>",
+        "type": null,
+        "element": "[data-element='toureditor-sectionspicker']",
+        "elementPreventClick": false,
+        "backdropOpacity": 0.4,
+        "event": "click",
+        "view": null,
+        "eventElement": null,
+        "customProperties": null
+      },
+      {
+        "title": "Setting needed section access",
+        "content": "<p>Select settings in the available list</p>",
+        "type": null,
+        "element": "[data-element='overlay'] .traysettings",
+        "elementPreventClick": false,
+        "backdropOpacity": 0.4,
+        "event": "click",
+        "view": null,
+        "eventElement": null,
+        "customProperties": null
+      },
+      {
+        "title": "Setting needed section access",
+        "content": "<p>Click the submit button to update the selection</p>",
+        "type": null,
+        "element": "[data-element='overlay'] [data-element='button-overlaySubmit']",
+        "elementPreventClick": false,
+        "backdropOpacity": 0.4,
+        "event": "click",
+        "view": null,
+        "eventElement": "[data-element='overlay'] [data-element='button-overlaySubmit']",
+        "customProperties": null
+      },
+      {
+        "title": "Allowing disable",
+        "content": "<p>If you would check this,  this adds &quot;Don't show this tour again button&quot; to the intro step. But for now just click next</p>",
+        "type": null,
+        "element": "[data-element='toureditor-tourdisable']",
+        "elementPreventClick": true,
+        "backdropOpacity": 0.4,
+        "event": null,
+        "view": null,
+        "eventElement": null,
+        "customProperties": null
+      },
+      {
+        "title": "Discard changes",
+        "content": "<p>You can discard all changes in this tour by clicking the &quot;Discard Changes&quot; button. But we don't want that now so just click next.</p>",
+        "type": null,
+        "element": "[data-element='toureditor-discardtourchanges ']",
+        "elementPreventClick": true,
+        "backdropOpacity": 0.4,
+        "event": null,
+        "view": null,
+        "eventElement": null,
+        "customProperties": null
+      },
+      {
+        "title": "Update tour changes",
+        "content": "<p>We want to keep our changes of course so click the &quot;Update tour&quot; button. Keep in mind your changes are not saved yet when clicking this button.</p>",
+        "type": null,
+        "element": "[data-element='toureditor-updatetourchanges ']",
+        "elementPreventClick": false,
+        "backdropOpacity": 0.4,
+        "event": "click",
+        "view": null,
+        "eventElement": "[data-element='toureditor-updatetourchanges ']",
+        "customProperties": null
+      },
+      {
+        "title": "Persisting changes",
+        "content": "<p>Now is a good moment to actually save our changes. So click the &quot;Save&quot; button to save everything to the tour file</p>",
+        "type": null,
+        "element": "[data-element='toureditor-savetour ']",
+        "elementPreventClick": false,
+        "backdropOpacity": 0.4,
+        "event": "click",
+        "view": null,
+        "eventElement": "[data-element='toureditor-savetour ']",
+        "customProperties": null
+      },
+      {
+        "title": "Removing a tour",
+        "content": "<p>You can remove a tour from the list by clicking the remove link. But for now just click Next</p>",
+        "type": null,
+        "element": "[data-element='toureditor-tourlist'] a[title='Remove']",
+        "elementPreventClick": true,
+        "backdropOpacity": 0.4,
+        "event": null,
+        "view": null,
+        "eventElement": null,
+        "customProperties": null
+      },
+      {
+        "title": "Editing a existing tour",
+        "content": "<p>For editing a existing tour click on the edit button. Let's to that so we can start adding steps</p>",
+        "type": null,
+        "element": "[data-element='toureditor-tourlist'] a[title='Open']",
+        "elementPreventClick": false,
+        "backdropOpacity": 0.4,
+        "event": "click",
+        "view": null,
+        "eventElement": null,
+        "customProperties": null
+      },
+      {
+        "title": "Adding a step",
+        "content": "<p>Click on the &quot;Add step&quot; button to add a step to tour. Without step the tour will not work</p>",
+        "type": null,
+        "element": "[data-element=\"toureditor-addtour\"]",
+        "elementPreventClick": false,
+        "backdropOpacity": 0.4,
+        "event": "click",
+        "view": null,
+        "eventElement": null,
         "customProperties": null
       }
     ]
