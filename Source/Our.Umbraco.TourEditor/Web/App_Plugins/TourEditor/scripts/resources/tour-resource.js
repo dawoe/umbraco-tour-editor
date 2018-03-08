@@ -10,7 +10,8 @@
             deleteTourFile: deleteTourFile,
             getTourFile: getTourFile,
             saveTourFile: saveTourFile,
-            getAliases : getAliases
+            getAliases: getAliases,
+            getGroups : getGroups
         };
 
         return resource;
@@ -55,6 +56,12 @@
             );
         }
 
+        function getGroups(filename) {
+            return umbRequestHelper.resourcePromise(
+                $http.get(apiUrl + "GetGroups?filename=" + filename),
+                "Failed loading tourfile"
+            );
+        }
     }
 
     angular.module("umbraco.resources").factory("Our.Umbraco.TourEditor.TourResource", TourResource);

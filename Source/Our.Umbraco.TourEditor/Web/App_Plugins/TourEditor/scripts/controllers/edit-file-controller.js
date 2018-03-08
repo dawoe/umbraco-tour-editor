@@ -10,7 +10,8 @@
 
         vm.model = {
             "data": null,
-            "aliases" : []
+            "aliases": [],
+            "groups" : []
         };
 
         vm.page.loading = false;
@@ -59,6 +60,16 @@
                         // combine the with aliases from other files
                         vm.model.aliases = vm.model.aliases.concat(fileAliases);
 
+                        // get all groups in current file
+                        var groups = _.map(vm.model.data.tours,
+                            function (x) {
+                                return x.group;
+                            });
+
+
+                        // combine unique the with groups from other files
+                        vm.model.groups = vm.model.groups.concat(_.unique(groups));                      
+
                         vm.page.loading = false;
                     },
                     function(err) {
@@ -68,15 +79,29 @@
             });
         }
 
-        function loadAliases() {
-            return tourResource.getAliases($routeParams.id).then(
+        function loadGroups() {
+            return tourResource.getGroups($routeParams.id).then(
                 function (data) {
-                    vm.model.aliases = data;                    
+                    vm.model.groups = data;                   
                 },
                 function (err) {
                     notificationsService.showNotification(err.data.notifications[0]);
                 }
+            );
+        }
+
+        function loadAliases() {
+
+            return loadGroups().then(function() {
+                return tourResource.getAliases($routeParams.id).then(
+                    function (data) {
+                        vm.model.aliases = data;
+                    },
+                    function (err) {
+                        notificationsService.showNotification(err.data.notifications[0]);
+                    }
                 );
+            });            
         }
 
         function updateTourChanges() {
@@ -152,6 +177,13 @@
             if (args.isNew) {
                 // if it is a new one add the alias to the list
                 vm.model.aliases.push(args.tour.alias);
+            }
+
+            // add the group to the list if it's a new one
+            var group = args.tour.group;
+
+            if (vm.model.groups.indexOf(group) === -1) {
+                vm.model.groups.push(group);
             }
 
             vm.page.navigation[0].active = true;

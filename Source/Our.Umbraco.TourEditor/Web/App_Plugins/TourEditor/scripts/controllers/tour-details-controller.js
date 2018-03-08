@@ -8,6 +8,7 @@
         vm.allSections = [];
         vm.selectedSections = [];
         vm.aliases = [];
+        vm.groups = [];
         vm.form = null;
         vm.isNew = false;
 
@@ -27,6 +28,7 @@
             vm.tour = arg.tour;
             vm.isNew = arg.isNew;
             vm.aliases = arg.aliases;
+            vm.groups = arg.groups;           
 
             // get the selected sections from data
             vm.selectedSections = _.filter(vm.allSections,
@@ -110,6 +112,37 @@
         }
 
         vm.removeSection = removeSection;
+
+        function openGroupPicker() {
+
+            var groups = _.map(vm.groups,
+                function(x) {
+                    return {
+                        "name": x,
+                        "icon": "icon-tag"
+                    };
+                });
+
+            vm.groupPicker = {
+                view: 'itempicker',                
+                availableItems : groups,
+                closeButtonLabel: 'Cancel',
+                show: true,
+                submit: function (model) {                   
+                    vm.tour.group = model.selectedItem.name;
+
+                    vm.groupPicker.show = false;
+                    vm.groupPicker = null;
+                },
+                close: function (oldModel) {
+                    
+                    vm.groupPicker.show = false;
+                    vm.groupPicker = null;
+                }
+            };
+        }
+
+        vm.openGroupPicker = openGroupPicker;
 
         function addStep() {
 
