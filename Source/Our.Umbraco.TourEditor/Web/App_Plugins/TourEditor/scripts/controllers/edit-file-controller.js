@@ -60,6 +60,16 @@
                         // combine the with aliases from other files
                         vm.model.aliases = vm.model.aliases.concat(fileAliases);
 
+                        // get all groups in current file
+                        var groups = _.map(vm.model.data.tours,
+                            function (x) {
+                                return x.group;
+                            });
+
+
+                        // combine unique the with groups from other files
+                        vm.model.groups = vm.model.groups.concat(_.unique(groups));                      
+
                         vm.page.loading = false;
                     },
                     function(err) {
