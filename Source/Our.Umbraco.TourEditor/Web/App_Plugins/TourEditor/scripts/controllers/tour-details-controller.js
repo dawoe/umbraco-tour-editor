@@ -161,7 +161,7 @@
         vm.editStep = editStep;
 
         function removeStep(index) {
-            vm.tour.steps.splice(index);
+            vm.tour.steps.splice(index, 1);
         }
 
         vm.removeStep = removeStep;
