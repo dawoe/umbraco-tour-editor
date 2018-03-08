@@ -274,7 +274,19 @@
         "element": "[data-element='toureditor-tourlist'] a[title='Open']",
         "elementPreventClick": false,
         "backdropOpacity": 0.4,
-        "event": 'click',
+        "event": "click",
+        "view": null,
+        "eventElement": null,
+        "customProperties": null
+      },
+      {
+        "title": "Adding a step",
+        "content": "<p>Click on the &quot;Add step&quot; button to add a step to tour. Without step the tour will not work</p>",
+        "type": null,
+        "element": "[data-element=\"toureditor-addtour\"]",
+        "elementPreventClick": false,
+        "backdropOpacity": 0.4,
+        "event": "click",
         "view": null,
         "eventElement": null,
         "customProperties": null
