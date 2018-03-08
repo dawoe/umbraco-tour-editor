@@ -8,6 +8,7 @@
         vm.allSections = [];
         vm.selectedSections = [];
         vm.aliases = [];
+        vm.groups = [];
         vm.form = null;
         vm.isNew = false;
 
@@ -27,6 +28,7 @@
             vm.tour = arg.tour;
             vm.isNew = arg.isNew;
             vm.aliases = arg.aliases;
+            vm.groups = arg.groups;           
 
             // get the selected sections from data
             vm.selectedSections = _.filter(vm.allSections,
