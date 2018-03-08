@@ -14,26 +14,18 @@
 
                 var uniqueAliasValidator = function (viewValue) {
 
+
+                    if (viewValue) {
+                        if (_.contains(existingAliases, viewValue) === false) {
+                            ctrl.$setValidity('valUniqueAlias', true);
+                            ctrl.errorMsg = "";
+                            return viewValue;
+                        }
+                    }
+
                     ctrl.$setValidity('valUniqueAlias', false);
                     ctrl.errorMsg = "Alias must be unique";
-                    return undefined;
-
-                    ////NOTE: we don't validate on empty values, use required validator for that
-                    //if (!viewValue || isJson(viewValue)) {
-                    //    // it is valid
-                    //    ctrl.$setValidity('valIsJson', true);
-                    //    //assign a message to the validator
-                    //    ctrl.errorMsg = "";
-                    //    return viewValue;
-                    //}
-                    //else {
-                    //    // it is invalid, return undefined (no model update)
-                    //    ctrl.$setValidity('valIsJson', false);
-                    //    //assign a message to the validator
-                    //    ctrl.errorMsg = "Custom properties is not valid JSON";
-                    //    return undefined;
-                    //}
-
+                    return undefined;                                       
                 };
 
                 ctrl.$formatters.push(uniqueAliasValidator);
