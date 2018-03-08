@@ -7,8 +7,12 @@
         var subviewsPath = "~/App_Plugins/TourEditor/backoffice/toureditor/subviews/";
 
         vm.page = {};
-        vm.data = null;
-        vm.aliases = [];
+
+        vm.model = {
+            "data": null,
+            "aliases" : []
+        };
+
         vm.page.loading = false;
         vm.page.menu = {};
         vm.page.menu.currentSection = appState.getSectionState("currentSection");
@@ -40,21 +44,21 @@
 
             return loadAliases().then(function() {
                 return tourResource.getTourFile($routeParams.id).then(
-                    function(data) {
-                        vm.data = data;
+                    function(data) {                     
+                        vm.model.data = data;
 
-                        editorState.set(vm.data);
+                        editorState.set(vm.model.data);
 
                         // get all aliases in current file
-                        var fileAliases = _.map(vm.data.tours,
+                        var fileAliases = _.map(vm.model.data.tours,
                             function(x) {
                                 return x.alias;
                             });
                         
 
                         // combine the with aliases from other files
-                        vm.aliases = vm.aliases.concat(fileAliases);
-                       
+                        vm.model.aliases = vm.model.aliases.concat(fileAliases);
+
                         vm.page.loading = false;
                     },
                     function(err) {
@@ -67,7 +71,7 @@
         function loadAliases() {
             return tourResource.getAliases($routeParams.id).then(
                 function (data) {
-                    vm.aliases = data;                    
+                    vm.model.aliases = data;                    
                 },
                 function (err) {
                     notificationsService.showNotification(err.data.notifications[0]);
@@ -100,7 +104,7 @@
         vm.updateStepChanges = updateStepChanges;
 
         function saveTourFile() {
-            tourResource.saveTourFile(vm.data).then(
+            tourResource.saveTourFile(vm.model.data).then(
                 function (data) {
                     notificationsService.showNotification(data.notifications[0]);
                     loadTourFile();
@@ -143,7 +147,7 @@
 
         evts.push(eventsService.on("toureditor.tourchangesupdate", function (name, args) {
 
-            vm.data.tours[args.index] = args.tour;
+            vm.model.data.tours[args.index] = args.tour;
 
             vm.page.navigation[0].active = true;
             vm.page.navigation[1].active = false;
