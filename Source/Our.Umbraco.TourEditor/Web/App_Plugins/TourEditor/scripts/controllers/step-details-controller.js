@@ -44,6 +44,12 @@
 
         evts.push(eventsService.on("toureditor.updatestepchanges", function (name, arg) {
             if (formHelper.submitForm({ scope: $scope, formCtrl: vm.form })) {
+
+                if (vm.step.customPropertiesText && vm.step.customPropertiesText != '') {
+                    // convert step to json object, otherwise it will not be saved
+                    vm.step.customProperties = JSON.parse(vm.step.customPropertiesText);
+                }
+
                 eventsService.emit('toureditor.stepchangesupdate',
                     {
                         "stepIndex": vm.stepIndex,
