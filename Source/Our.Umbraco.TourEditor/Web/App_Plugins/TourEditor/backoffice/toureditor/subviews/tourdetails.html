@@ -7,11 +7,11 @@
             <form name="detailsForm" val-form-manager ng-if="vm.tour !== null">
 
                 <umb-property property="vm.properties.Name">
-                    <input type="text" ng-model="vm.tour.name" class="umb-editor" required />
+                    <input type="text" data-element="toureditor-tourname" ng-model="vm.tour.name" class="umb-editor" required />
                 </umb-property>
 
                 <umb-property property="vm.properties.Alias">
-                    <umb-generate-alias alias="vm.tour.alias"
+                    <umb-generate-alias data-element="toureditor-touralias" alias="vm.tour.alias"
                                         alias-from="vm.tour.name"
                                         enable-lock="true" ng-if="vm.isNew"></umb-generate-alias>
                     <input type="hidden" ng-model="vm.tour.alias" val-unique-alias="{{vm.aliases}}" ng-if="vm.isNew"/>
@@ -19,8 +19,9 @@
                 </umb-property>
 
                 <umb-property property="vm.properties.Group">
-                    <input type="text" ng-model="vm.tour.group" class="umb-editor" required />
-                    <a href=""                       
+                    <input type="text" data-element="toureditor-group" ng-model="vm.tour.group" class="umb-editor" required />
+                    <a href=""  
+                       data-element="toureditor-groupselect"                     
                        class="umb-node-preview-add"
                        ng-click="vm.openGroupPicker()"
                        prevent-default>
@@ -29,11 +30,11 @@
                 </umb-property>
                 
                 <umb-property property="vm.properties.GroupOrder">
-                    <input type="number" ng-model="vm.tour.groupOrder" class="umb-editor" required />
+                    <input type="number" data-element="toureditor-grouporder" ng-model="vm.tour.groupOrder" class="umb-editor" required />
                 </umb-property>
 
                 <umb-property property="vm.properties.Sections">
-                    <umb-node-preview style="max-width: 100%;"
+                    <umb-node-preview data-element="toureditor-sections" style="max-width: 100%;"
                                       ng-repeat="section in vm.selectedSections"
                                       icon="section.icon"
                                       name="section.name"
@@ -41,6 +42,7 @@
                                       on-remove="vm.removeSection($index, vm.selectedSections)">
                     </umb-node-preview>
                     <a href=""
+                       data-element="toureditor-sectionspicker"
                        style="max-width: 100%;"
                        class="umb-node-preview-add"
                        ng-click="vm.openSectionPicker()"
@@ -49,7 +51,7 @@
                     </a>
                 </umb-property>
                 <umb-property property="vm.properties.AllowDisable">                
-                    <input type="checkbox" ng-model="vm.tour.allowDisable"/>
+                    <input type="checkbox" data-element="toureditor-tourdisable" ng-model="vm.tour.allowDisable"/>
                 </umb-property>
                 <span ng-init="vm.form=detailsForm"></span>
             </form>
