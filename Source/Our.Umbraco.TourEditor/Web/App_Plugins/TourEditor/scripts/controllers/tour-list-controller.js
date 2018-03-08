@@ -2,9 +2,10 @@
     "use strict";
 
     function TourListController($scope, eventsService) {
-        var vm = this;        
-        vm.tours = $scope.model.tours;
-        vm.filename = $scope.model.fileName;
+        var vm = this;
+        vm.tours = $scope.model.data.tours;
+        vm.filename = $scope.model.data.fileName;
+        vm.aliases = $scope.model.aliases;
 
         function editTour(index) {
 
@@ -14,20 +15,32 @@
             eventsService.emit('toureditor.edittour',
                 {
                     "index": index,
-                    "tour" : tour
+                    "tour": tour,
+                    "isNew": false,
+                    "aliases": vm.aliases
                 });
         }
 
         function removeTour(index) {
-            vm.tours.splice(index);
+            // remove the alias
+            var alias = vm.tours[index].alias;
+
+            var aliasIndex = vm.aliases.indexOf(alias);
+
+            if (aliasIndex > -1) {
+                vm.aliases.splice(aliasIndex,1);
+            }
+
+            // remove the tour
+            vm.tours.splice(index,1);
         }
 
         function addTour() {
             var newTour = {
                 "name": "",
                 "alias": "",
-                "group": "", 
-                "groupOrder" : 100,
+                "group": "",
+                "groupOrder": 100,
                 "allowDisable": false,
                 "requiredSections": [],
                 "steps": []
@@ -35,7 +48,8 @@
 
             //vm.tours.push(newTour);
 
-            eventsService.emit('toureditor.edittour', { "index": vm.tours.length, "tour" : newTour });
+            eventsService.emit('toureditor.edittour',
+                { "index": vm.tours.length, "tour": newTour, "isNew": true, "aliases": vm.aliases });
         }
 
         vm.addTour = addTour;

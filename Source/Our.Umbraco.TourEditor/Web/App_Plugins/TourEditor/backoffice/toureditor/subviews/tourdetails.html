@@ -13,7 +13,9 @@
                 <umb-property property="vm.properties.Alias">
                     <umb-generate-alias alias="vm.tour.alias"
                                         alias-from="vm.tour.name"
-                                        enable-lock="true"></umb-generate-alias>
+                                        enable-lock="true" ng-if="vm.isNew"></umb-generate-alias>
+                    <input type="hidden" ng-model="vm.tour.alias" val-unique-alias="{{vm.aliases}}" ng-if="vm.isNew"/>
+                    <span ng-if="!vm.isNew">{{vm.tour.alias}}</span>
                 </umb-property>
 
                 <umb-property property="vm.properties.Group">
