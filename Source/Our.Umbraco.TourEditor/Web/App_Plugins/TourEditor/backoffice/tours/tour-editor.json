@@ -1,6 +1,6 @@
 [
   {
-    "name": "Creating a tour file",
+    "name": "Creating and editing a tour file",
     "alias": "createATourFile",
     "group": "Tour Editor",
     "groupOrder": 100,
@@ -34,20 +34,8 @@
         "customProperties": null
       },
       {
-        "title": "Locate the tour files tree",
-        "content": "Find the tour files tree in the navigation",
-        "type": null,
-        "element": "#tree [data-element='tree-item-toureditor']",
-        "elementPreventClick": true,
-        "backdropOpacity": null,
-        "event": null,
-        "view": null,
-        "eventElement": null,
-        "customProperties": null
-      },
-      {
         "title": "Create a new file",
-        "content": "Click on the 3 dots to bring up the create dialog",
+        "content": "<p>Hover the Tour files tree and click the <b>three small dots</b> to open the <b>context menu</b>.</p>",
         "type": null,
         "element": "#tree [data-element='tree-item-toureditor']",
         "elementPreventClick": false,
@@ -59,7 +47,7 @@
       },
       {
         "title": "Enter the filename",
-        "content": "<p>Your Document Type needs a name. Enter <code>create-dictionary</code> in the field and click <b>Next</b>",
+        "content": "<p>Your Document Type needs a name. Enter <code>extending-media-type</code> in the field and click <b>Next</b>",
         "type": null,
         "element": "[data-element='toureditor-filename']",
         "elementPreventClick": false,
@@ -79,6 +67,30 @@
         "event": "click",
         "view": null,
         "eventElement": "[data-element='toureditor-createfile']",
+        "customProperties": null
+      },
+      {
+        "title": "Open the tour file",
+        "content": "Click the item in the tree to open the file for editing",
+        "type": null,
+        "element": "[data-element='tree-item-extending-media-type']",
+        "elementPreventClick": false,
+        "backdropOpacity": 0.4,
+        "event": "click",
+        "view": null,
+        "eventElement": null,
+        "customProperties": null
+      },
+      {
+        "title": "Adding a tour",
+        "content": "Click on the add tour button to add a new tour to your file. There can be multiple tours in one file.",
+        "type": null,
+        "element": "[data-element='toureditor-addtour']",
+        "elementPreventClick": false,
+        "backdropOpacity": 0.4,
+        "event": "click",
+        "view": null,
+        "eventElement": null,
         "customProperties": null
       }
     ]
