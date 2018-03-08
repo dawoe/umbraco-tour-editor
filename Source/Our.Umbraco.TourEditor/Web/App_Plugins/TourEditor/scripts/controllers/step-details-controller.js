@@ -9,6 +9,36 @@
         vm.form = null;
         vm.isIntro = false;
 
+        // config for rte
+        vm.rte = {           
+            view: 'rte',
+            config: {
+                editor: {
+                    "toolbar": [
+                        "code",
+                        "undo",
+                        "redo",
+                        "cut",
+                        "copy",
+                        "paste",
+                        "bold",
+                        "italic",
+                        "alignleft",
+                        "aligncenter",
+                        "alignright",
+                        "bullist",
+                        "numlist",
+                        "outdent",
+                        "indent",
+                        "charmap"
+                    ],
+                    stylesheets: [],
+                    dimensions: { height: 250, width: 500 }
+                }
+            },
+            value : ''
+        };
+
         var evts = [];
 
         vm.properties = {
@@ -34,6 +64,9 @@
                 vm.step.customPropertiesText = JSON.stringify(vm.step.customProperties);
             }
 
+            // set content of rte
+            vm.rte.value = vm.step.content;
+
             vm.isIntro = vm.step.type === 'intro';
         }));
 
@@ -54,6 +87,9 @@
                     // convert step to json object, otherwise it will not be saved
                     vm.step.customProperties = JSON.parse(vm.step.customPropertiesText);
                 }
+
+                // store the value from the rte with the step
+                vm.step.content = vm.rte.value;
 
                 eventsService.emit('toureditor.stepchangesupdate',
                     {

@@ -6,8 +6,8 @@
                 <umb-property property="vm.properties.Title">
                     <input type="text" data-element="toureditor-stepname"  ng-model="vm.step.title" class="umb-editor" required />
                 </umb-property>
-                <umb-property property="vm.properties.Content">
-                    <textarea data-element="toureditor-stepcontent"  ng-model="vm.step.content"></textarea>
+                <umb-property property="vm.properties.Content">                    
+                    <umb-editor model="vm.rte"  data-element="toureditor-stepcontent"/>
                 </umb-property>
                 <umb-property property="vm.properties.Type">
                     <input data-element="toureditor-stepintro" type="checkbox" ng-model="vm.isIntro" />
