@@ -55,7 +55,9 @@
         "event": null,
         "view": "/App_Plugins/TourEditor/backoffice/tours/views/requiredinput.html",
         "eventElement": null,
-        "customProperties": { "input" :  "extending-media-type" }
+        "customProperties": {
+          "input": "extending-media-type"
+        }
       },
       {
         "title": "Push the create button",
@@ -83,7 +85,7 @@
       },
       {
         "title": "Adding a tour",
-        "content": "Click on the add tour button to add a new tour to your file. There can be multiple tours in one file.",
+        "content": "<p<Click on the add tour button to add a new tour to your file. There can be multiple tours in one file.</p>",
         "type": null,
         "element": "[data-element='toureditor-addtour']",
         "elementPreventClick": false,
@@ -92,7 +94,45 @@
         "view": null,
         "eventElement": null,
         "customProperties": null
-      }
+      },
+      {
+        "title": "Enter the tour name",
+        "content": "<p>You need to name your tour. Enter <code>Adding alt text to image</code> in the field and click <b>Next</b></p>",
+        "type": null,
+        "element": "[ data-element='toureditor-tourname']",
+        "elementPreventClick": false,
+        "backdropOpacity": 0.4,
+        "event": null,
+        "view": "/App_Plugins/TourEditor/backoffice/tours/views/requiredinput.html",
+        "eventElement": null,
+        "customProperties": {
+          "input": "Adding alt text to image"
+        }
+      },
+      {
+        "title": "Alias ",
+        "content": "<p>Each tour needs a unique alias. It's generated for you based on the tour name.</p>",
+        "type": null,
+        "element": "[data-element='toureditor-touralias']",
+        "elementPreventClick": true,
+        "backdropOpacity": 0.4,
+        "event": null,
+        "view": null,
+        "eventElement": null,
+        "customProperties": null
+      },
+      {
+        "title": "Changing the alias ",
+        "content": "<p>While creating a new tour step you have the option to change the generated alias by clicking on the lock item. We will skip this part for now so just click next</p>",
+        "type": null,
+        "element": "[data-element='toureditor-touralias'] .umb-locked-field__toggle",
+        "elementPreventClick": true,
+        "backdropOpacity": 0.4,
+        "event": null,
+        "view": null,
+        "eventElement": null,
+        "customProperties": null
+      }	  
     ]
   }
 ]
