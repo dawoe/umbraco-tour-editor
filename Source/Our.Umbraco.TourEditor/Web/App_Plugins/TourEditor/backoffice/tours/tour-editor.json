@@ -254,6 +254,30 @@
         "view": null,
         "eventElement": "[data-element='toureditor-savetour ']",
         "customProperties": null
+      },
+      {
+        "title": "Removing a tour",
+        "content": "<p>You can remove a tour from the list by clicking the remove link. But for now just click Next</p>",
+        "type": null,
+        "element": "[data-element='toureditor-tourlist'] a[title='Remove']",
+        "elementPreventClick": true,
+        "backdropOpacity": 0.4,
+        "event": null,
+        "view": null,
+        "eventElement": null,
+        "customProperties": null
+      },
+      {
+        "title": "Editing a existing tour",
+        "content": "<p>For editing a existing tour click on the edit button. Let's to that so we can start adding steps</p>",
+        "type": null,
+        "element": "[data-element='toureditor-tourlist'] a[title='Open']",
+        "elementPreventClick": false,
+        "backdropOpacity": 0.4,
+        "event": 'click',
+        "view": null,
+        "eventElement": null,
+        "customProperties": null
       }
     ]
   }
