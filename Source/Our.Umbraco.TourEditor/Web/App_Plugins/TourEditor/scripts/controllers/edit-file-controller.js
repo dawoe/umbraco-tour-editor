@@ -8,6 +8,7 @@
 
         vm.page = {};
         vm.data = null;
+        vm.aliases = [];
         vm.page.loading = false;
         vm.page.menu = {};
         vm.page.menu.currentSection = appState.getSectionState("currentSection");
@@ -36,19 +37,32 @@
 
         function loadTourFile() {
             vm.page.loading = true;
-            return tourResource.getTourFile($routeParams.id).then(
-                function(data) {
-                    vm.data = data;
 
-                    editorState.set(vm.data);
-                    
-                    vm.page.loading = false;
+            return loadAliases().then(function() {
+                return tourResource.getTourFile($routeParams.id).then(
+                    function(data) {
+                        vm.data = data;
+
+                        editorState.set(vm.data);
+
+                        vm.page.loading = false;
+                    },
+                    function(err) {
+                        notificationsService.showNotification(err.data.notifications[0]);
+                    }
+                );
+            });
+        }
+
+        function loadAliases() {
+            return tourResource.getAliases($routeParams.id).then(
+                function (data) {
+                    vm.aliases = data;                    
                 },
-
-                function(err) {
+                function (err) {
                     notificationsService.showNotification(err.data.notifications[0]);
                 }
-            );
+                );
         }
 
         function updateTourChanges() {
@@ -81,7 +95,7 @@
                     notificationsService.showNotification(data.notifications[0]);
                     loadTourFile();
                 },
-                function(err) {
+                function (err) {
                     notificationsService.showNotification(err.data.notifications[0]);
                 });
         }
@@ -89,14 +103,14 @@
         vm.saveTourFile = saveTourFile;
 
         function init() {
-            loadTourFile().then(function() {
+            loadTourFile().then(function () {
                 navigationService.syncTree({ tree: "toureditor", path: "-1," + $routeParams.id }).then(function (syncArgs) {
                     vm.page.menu.currentNode = syncArgs.node;
                 });
             });
-           
+
         }
-        
+
         init();
 
         evts.push(eventsService.on("toureditor.stepchangesdiscarded", function (name, args) {
@@ -143,7 +157,7 @@
             for (var e in evts) {
                 eventsService.unsubscribe(evts[e]);
             }
-        });       
+        });
     }
 
 
@@ -155,7 +169,7 @@
             'appState',
             'umbRequestHelper',
             'navigationService',
-            'notificationsService', 
+            'notificationsService',
             'eventsService',
             'Our.Umbraco.TourEditor.TourResource',
             EditFileController
