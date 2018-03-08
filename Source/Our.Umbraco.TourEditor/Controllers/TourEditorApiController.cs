@@ -247,7 +247,7 @@
             {
                 foreach (var tourFile in Directory.EnumerateFiles(coreToursPath, "*.json"))
                 {
-                    if (tourFile == $"{filename}.json")
+                    if (Path.GetFileNameWithoutExtension(tourFile) != filename)
                     {
                         // if it's not current file we will get it
                         tourHelper.TryParseTourFile(tourFile, result);
