@@ -179,6 +179,13 @@
                 vm.model.aliases.push(args.tour.alias);
             }
 
+            // add the group to the list if it's a new one
+            var group = args.tour.group;
+
+            if (vm.model.groups.indexOf(group) === -1) {
+                vm.model.groups.push(group);
+            }
+
             vm.page.navigation[0].active = true;
             vm.page.navigation[1].active = false;
             vm.page.navigation[2].active = false;
