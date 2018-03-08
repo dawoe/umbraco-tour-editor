@@ -5,6 +5,7 @@
         var vm = this;        
         vm.tours = $scope.model.data.tours;
         vm.filename = $scope.model.data.fileName;
+        vm.aliases = $scope.model.aliases;
 
         function editTour(index) {
 
@@ -15,7 +16,8 @@
                 {
                     "index": index,
                     "tour": tour,
-                    "isNew" : false
+                    "isNew": false,
+                    "aliases" : vm.aliases
                 });
         }
 
@@ -36,7 +38,8 @@
 
             //vm.tours.push(newTour);
 
-            eventsService.emit('toureditor.edittour', { "index": vm.tours.length, "tour" : newTour, "isNew" : true });
+            eventsService.emit('toureditor.edittour',
+                { "index": vm.tours.length, "tour": newTour, "isNew": true, "aliases" : vm.aliases });
         }
 
         vm.addTour = addTour;

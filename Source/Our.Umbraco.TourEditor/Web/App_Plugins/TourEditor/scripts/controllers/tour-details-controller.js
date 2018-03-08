@@ -7,6 +7,7 @@
         vm.tourIndex = -1;
         vm.allSections = [];
         vm.selectedSections = [];
+        vm.aliases = [];
         vm.form = null;
         vm.isNew = false;
 
@@ -25,6 +26,7 @@
             vm.tourIndex = arg.index;
             vm.tour = arg.tour;
             vm.isNew = arg.isNew;
+            vm.aliases = arg.aliases;
 
             // get the selected sections from data
             vm.selectedSections = _.filter(vm.allSections,
@@ -39,6 +41,7 @@
             vm.selectedSections = [];
             vm.form = null;
             vm.isNew = false;
+            vm.aliases = [];
             eventsService.emit('toureditor.tourchangesdiscarded');
         }));
 
@@ -54,6 +57,7 @@
                 vm.selectedSections = [];
                 vm.form = null;
                 vm.isNew = false;
+                vm.aliases = [];
             }                      
         }));
 
