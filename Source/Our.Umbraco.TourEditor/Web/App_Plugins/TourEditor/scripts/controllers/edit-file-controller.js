@@ -106,6 +106,8 @@
 
         function updateTourChanges() {
             eventsService.emit('toureditor.updatetourchanges');
+            notificationsService.warning("Don't forget to save your changes",
+                "To persist your changes you need to save the file");
         }
 
         vm.updateTourChanges = updateTourChanges;
@@ -124,6 +126,8 @@
 
         function updateStepChanges() {
             eventsService.emit('toureditor.updatestepchanges');
+            notificationsService.warning("Don't forget to save your changes",
+                "To save your changes you also need to update the tour and save the file");
         }
 
         vm.updateStepChanges = updateStepChanges;
