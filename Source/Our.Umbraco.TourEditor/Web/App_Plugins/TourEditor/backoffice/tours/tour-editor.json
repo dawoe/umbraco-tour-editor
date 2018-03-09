@@ -283,7 +283,7 @@
         "title": "Adding a step",
         "content": "<p>Click on the \"Add step\" button to add a step to tour. Without step the tour will not work</p>",
         "type": null,
-        "element": "[data-element=\"toureditor-addtour\"]",
+        "element": "[data-element=\"toureditor-addstep\"]",
         "elementPreventClick": false,
         "backdropOpacity": 0.4,
         "event": "click",
