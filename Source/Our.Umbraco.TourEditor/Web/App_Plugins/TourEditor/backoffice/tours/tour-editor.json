@@ -416,20 +416,6 @@
         }
       },
       {
-        "title": "Step name",
-        "content": "<p>Fill in <em><strong>Navigate to settings</strong></em></p>",
-        "type": null,
-        "element": "[data-element='toureditor-stepname']",
-        "elementPreventClick": false,
-        "backdropOpacity": 0.4,
-        "event": null,
-        "view": "/App_Plugins/TourEditor/backoffice/tours/views/requiredinput.html",
-        "eventElement": "",
-        "customProperties": {
-          "input": "Navigate to settings"
-        }
-      },
-      {
         "title": "Step element",
         "content": "<p>Here you can enter a css selector for the element you wish to be highlighted in the tour step.</p><p>Enter <em><strong>[data-element='section-settings']</strong></em></p><p>This will highlight the settings Icon in the navigation</p>",
         "type": null,
@@ -442,6 +428,104 @@
         "customProperties": {
           "input": "[data-element='section-settings']"
         }
+      },
+      {
+        "title": "Prevent clicking",
+        "content": "<p>If you want to hightlight a element with out the user to be able to click on it, check this check box. For now just click Next</p>",
+        "type": null,
+        "element": "[data-element=\"toureditor-steppreventclick\"]",
+        "elementPreventClick": true,
+        "backdropOpacity": 0.4,
+        "event": null,
+        "view": null,
+        "eventElement": null,
+        "customProperties": null
+      },
+      {
+        "title": "Event",
+        "content": "<p>Enter the javascript event you want to use to trigger the next step. Fill in <em><strong>click</strong></em></p>",
+        "type": null,
+        "element": "[data-element=\"toureditor-stepevent\"]",
+        "elementPreventClick": false,
+        "backdropOpacity": 0.4,
+        "event": null,
+        "view": "/App_Plugins/TourEditor/backoffice/tours/views/requiredinput.html",
+        "eventElement": "",
+        "customProperties": {
+          "input": "click"
+        }
+      },
+      {
+        "title": "Event element",
+        "content": "<p>If wish the event to happen on a other element than the highlighted one you can enter the css selector here.</p><p>For now just click Next</p>",
+        "type": null,
+        "element": "[data-element=\"toureditor-stepeventelement\"]",
+        "elementPreventClick": true,
+        "backdropOpacity": 0.4,
+        "event": null,
+        "view": null,
+        "eventElement": null,
+        "customProperties": null
+      },
+      {
+        "title": "Custom view",
+        "content": "<p>You can wire up your own custom view for a tour step. You can specifiy the path here.</p><p> If you enter a view path, a extra field will become visible allowing you to enter custom properties that are passed to the view. This needs to be valid JSON</p><p>For now just click Next</p>",
+        "type": null,
+        "element": "[data-element=\"toureditor-stepview\"]",
+        "elementPreventClick": true,
+        "backdropOpacity": 0.4,
+        "event": null,
+        "view": null,
+        "eventElement": null,
+        "customProperties": null
+      },
+      {
+        "title": "Update step changes",
+        "content": "<p>Click the \"Update changes\" button to update the changes on the tour.</p>",
+        "type": null,
+        "element": "[data-element=\"toureditor-updatestepchanges \"]",
+        "elementPreventClick": false,
+        "backdropOpacity": 0.4,
+        "event": "click",
+        "view": null,
+        "eventElement": null,
+        "customProperties": null
+      },
+      {
+        "title": "Update tour changes",
+        "content": "<p>We want to keep our changes of course so click the &quot;Update tour&quot; button. Keep in mind your changes are not saved yet when clicking this button.</p>",
+        "type": null,
+        "element": "[data-element='toureditor-updatetourchanges ']",
+        "elementPreventClick": false,
+        "backdropOpacity": 0.4,
+        "event": "click",
+        "view": null,
+        "eventElement": "[data-element='toureditor-updatetourchanges ']",
+        "customProperties": null
+      },
+      {
+        "title": "Persisting changes",
+        "content": "<p>Now is a good moment to actually save our changes. So click the &quot;Save&quot; button to save everything to the tour file</p>",
+        "type": null,
+        "element": "[data-element='toureditor-savetour ']",
+        "elementPreventClick": false,
+        "backdropOpacity": 0.4,
+        "event": "click",
+        "view": null,
+        "eventElement": "[data-element='toureditor-savetour ']",
+        "customProperties": null
+      },
+      {
+        "title": "View your tour",
+        "content": "<p>We now have created a very basic tour with one step in it. To view it you need to click the Help icon. It's possible you will need to refresh your browser to view the tour</p>",
+        "type": null,
+        "element": "[data-element=\"section-help\"]",
+        "elementPreventClick": false,
+        "backdropOpacity": 0.4,
+        "event": "click",
+        "view": null,
+        "eventElement": null,
+        "customProperties": null
       }
     ]
   }
