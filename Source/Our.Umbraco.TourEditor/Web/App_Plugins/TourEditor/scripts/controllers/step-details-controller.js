@@ -1,7 +1,7 @@
 ﻿(function () {
     "use strict";
 
-    function StepDetailsController($scope, eventsService, formHelper) {
+    function StepDetailsController($scope, $window, eventsService, formHelper) {
         var vm = this;
         vm.step = null;
         vm.stepIndex = -1;
@@ -68,6 +68,13 @@
             vm.rte.value = vm.step.content;
 
             vm.isIntro = vm.step.type === 'intro';
+
+            // scroll the step details to the top when starting editing..otherwise our tour won't work
+            var containerElement = angular.element('[data-element="editor-container"]');
+
+            if (containerElement && containerElement[0]) {                
+                containerElement[0].scrollTop = 0;
+            }
         }));
 
         evts.push(eventsService.on("toureditor.discardstepchanges", function (name, arg) {
@@ -130,6 +137,7 @@
     angular.module("umbraco").controller("Our.Umbraco.TourEditor.StepDetailsController",
         [
             '$scope',
+            '$window',
             'eventsService',           
             'formHelper',
             StepDetailsController
