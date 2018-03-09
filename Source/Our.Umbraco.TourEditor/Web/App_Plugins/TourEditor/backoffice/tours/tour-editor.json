@@ -269,7 +269,7 @@
       },
       {
         "title": "Editing a existing tour",
-        "content": "<p>For editing a existing tour click on the edit button. Let's to that so we can start adding steps</p>",
+        "content": "<p>For editing a existing tour click on the edit button. Let's do that so we can start adding steps</p>",
         "type": null,
         "element": "[data-element='toureditor-tourlist'] a[title='Open']",
         "elementPreventClick": false,
@@ -316,6 +316,132 @@
         "view": null,
         "eventElement": null,
         "customProperties": null
+      },
+      {
+        "title": "Make the step a intro step",
+        "content": "<p>It's good to have the first step as intro step. So you can tell your users what the tour is about. Click the checkbox to make this a intro step. </p>\n<p>The fields that are not needed for a intro step will be hidden</p>",
+        "type": null,
+        "element": "[data-element=\"toureditor-stepintro\"]",
+        "elementPreventClick": false,
+        "backdropOpacity": 0.4,
+        "event": "click",
+        "view": null,
+        "eventElement": null,
+        "customProperties": null
+      },
+      {
+        "title": "Change the background",
+        "content": "<p>By changing the backdrop opacity you can control the opacity of the overlay background of the tour step. For now just click Next</p>",
+        "type": null,
+        "element": "[data-element=\"toureditor-stepbackdrop\"]",
+        "elementPreventClick": true,
+        "backdropOpacity": 0.4,
+        "event": null,
+        "view": null,
+        "eventElement": null,
+        "customProperties": null
+      },
+      {
+        "title": "Discard step changes",
+        "content": "<p>You can discard the changes we just made by clicking the \"Discard changes\" button.</p>\n<p>For now just click next because we don't want to do that</p>",
+        "type": null,
+        "element": "[data-element=\"toureditor-discardstepchanges \"]",
+        "elementPreventClick": true,
+        "backdropOpacity": 0.4,
+        "event": null,
+        "view": null,
+        "eventElement": null,
+        "customProperties": null
+      },
+      {
+        "title": "Update step changes",
+        "content": "<p>Click the \"Update changes\" button to update the changes on the tour.</p>",
+        "type": null,
+        "element": "[data-element=\"toureditor-updatestepchanges \"]",
+        "elementPreventClick": false,
+        "backdropOpacity": 0.4,
+        "event": "click",
+        "view": null,
+        "eventElement": null,
+        "customProperties": null
+      },
+      {
+        "title": "Removing a step",
+        "content": "<p>You can remove a step from the tour by clicking the remove link. But for now just click Next</p>",
+        "type": null,
+        "element": "[data-element='toureditor-steplist'] a[title='Remove']",
+        "elementPreventClick": true,
+        "backdropOpacity": 0.4,
+        "event": null,
+        "view": null,
+        "eventElement": null,
+        "customProperties": null
+      },
+      {
+        "title": "Editing a existing step",
+        "content": "<p>For editing a existing tour step click on the edit button. But for now just click Next</p>",
+        "type": null,
+        "element": "[data-element='toureditor-steplist'] a[title='Open']",
+        "elementPreventClick": true,
+        "backdropOpacity": 0.4,
+        "event": null,
+        "view": null,
+        "eventElement": null,
+        "customProperties": null
+      },
+      {
+        "title": "Adding a another step",
+        "content": "<p>Click on the \"Add step\" button to add a step to tour.</p>",
+        "type": null,
+        "element": "[data-element=\"toureditor-addstep\"]",
+        "elementPreventClick": false,
+        "backdropOpacity": 0.4,
+        "event": "click",
+        "view": null,
+        "eventElement": null,
+        "customProperties": null
+      },
+      {
+        "title": "Step name",
+        "content": "<p>Fill in <em><strong>Navigate to settings</strong></em></p>",
+        "type": null,
+        "element": "[data-element='toureditor-stepname']",
+        "elementPreventClick": false,
+        "backdropOpacity": 0.4,
+        "event": null,
+        "view": "/App_Plugins/TourEditor/backoffice/tours/views/requiredinput.html",
+        "eventElement": "",
+        "customProperties": {
+          "input": "Navigate to settings"
+        }
+      },
+      {
+        "title": "Step name",
+        "content": "<p>Fill in <em><strong>Navigate to settings</strong></em></p>",
+        "type": null,
+        "element": "[data-element='toureditor-stepname']",
+        "elementPreventClick": false,
+        "backdropOpacity": 0.4,
+        "event": null,
+        "view": "/App_Plugins/TourEditor/backoffice/tours/views/requiredinput.html",
+        "eventElement": "",
+        "customProperties": {
+          "input": "Navigate to settings"
+        }
+      },
+      {
+        "title": "Step element",
+        "content": "<p>Here you can enter a css selector for the element you wish to be highlighted in the tour step.</p><p>Enter <em><strong>[data-element='section-settings']</strong></em></p><p>This will highlight the settings Icon in the navigation</p>",
+        "type": null,
+        "element": "[data-element='toureditor-stepelement']",
+        "elementPreventClick": false,
+        "backdropOpacity": 0.4,
+        "event": null,
+        "view": "/App_Plugins/TourEditor/backoffice/tours/views/requiredinput.html",
+        "eventElement": "",
+        "customProperties": {
+          "input": "[data-element='section-settings']"
+        }
       }
     ]
   }
