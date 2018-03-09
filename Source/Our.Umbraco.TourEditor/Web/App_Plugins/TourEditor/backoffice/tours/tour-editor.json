@@ -290,6 +290,32 @@
         "view": null,
         "eventElement": null,
         "customProperties": null
+      },
+      {
+        "title": "Step name",
+        "content": "<p>We need to give each step a name. This is shown in the header of the step. Fill in <em><strong>Introduction</strong></em></p>",
+        "type": null,
+        "element": "[data-element='toureditor-stepname']",
+        "elementPreventClick": false,
+        "backdropOpacity": 0.4,
+        "event": null,
+        "view": "/App_Plugins/TourEditor/backoffice/tours/views/requiredinput.html",
+        "eventElement": "",
+        "customProperties": {
+          "input": "Introduction"
+        }
+      },
+      {
+        "title": "Step content",
+        "content": "<p>You can add some text to each content in this field. Enter something and click next</p>",
+        "type": null,
+        "element": "[data-element=\"toureditor-stepcontent\"]",
+        "elementPreventClick": false,
+        "backdropOpacity": 0.4,
+        "event": null,
+        "view": null,
+        "eventElement": null,
+        "customProperties": null
       }
     ]
   }
