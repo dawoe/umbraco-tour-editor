@@ -8,6 +8,13 @@
         vm.aliases = $scope.model.aliases;
         vm.groups = $scope.model.groups;
 
+        vm.sortableOptions = {
+            distance: 10,
+            tolerance: 'move',
+            scroll: true,
+            zIndex: 6000
+        }
+
         function editTour(index) {
 
             // create a deep clone of the tour object
