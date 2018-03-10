@@ -12,6 +12,13 @@
         vm.form = null;
         vm.isNew = false;
 
+        vm.sortableOptions = {
+            distance: 10,
+            tolerance: 'move',
+            scroll: true,
+            zIndex: 6000            
+        }
+
         vm.properties = {
             'Name': { 'label': 'Name', 'description': 'Enter the name for this tour', 'propertyErrorMessage': 'The name is a required field' },
             'Group': { 'label': 'Group', 'description': 'Enter the group name for this tour. This is used to group tours in the help drawer', 'propertyErrorMessage': 'The  group name is a required field' },
