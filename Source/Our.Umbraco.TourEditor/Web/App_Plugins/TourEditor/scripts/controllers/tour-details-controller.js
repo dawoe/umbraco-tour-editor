@@ -11,6 +11,7 @@
         vm.groups = [];
         vm.form = null;
         vm.isNew = false;
+        vm.sectionsString = '';
 
         vm.sortableOptions = {
             distance: 10,
@@ -35,7 +36,12 @@
             vm.tour = arg.tour;
             vm.isNew = arg.isNew;
             vm.aliases = arg.aliases;
-            vm.groups = arg.groups;           
+            vm.groups = arg.groups;
+
+            // init the sections array
+            if (vm.tour.requiredSections === null) {
+                vm.tour.requiredSections = [];
+            }
 
             // get the selected sections from data
             vm.selectedSections = _.filter(vm.allSections,
@@ -204,7 +210,7 @@
             vm.tour.steps.splice(index, 1);
         }
 
-        vm.removeStep = removeStep;
+        vm.removeStep = removeStep;        
 
         function init() {
             sectionResource.getAllSections().then(function (data) {
@@ -220,6 +226,18 @@
         }
 
         init();
+
+        $scope.$watch('vm.tour.requiredSections', function () {
+
+            if (vm.tour) {
+                if (vm.tour.requiredSections) {
+                    vm.sectionsString = vm.tour.requiredSections.join();
+                } else {
+                    vm.sectionsString = '';
+                }
+            }
+
+        });
 
     }
 
