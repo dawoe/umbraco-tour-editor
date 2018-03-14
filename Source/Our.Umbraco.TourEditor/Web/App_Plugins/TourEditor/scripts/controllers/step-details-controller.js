@@ -81,6 +81,9 @@
             // set content of rte
             vm.rte.value = vm.step.content;
 
+            // set value for the slider
+            vm.slider.value = vm.step.backdropOpacity;
+
             vm.isIntro = vm.step.type === 'intro';
 
             // scroll the step details to the top when starting editing..otherwise our tour won't work
