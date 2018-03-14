@@ -49,7 +49,18 @@
                 "maxVal": 1,
                 "step" : 0.1,
                 "handle": "round",
-                "tooltip" : "show"
+                "tooltip": "show",
+                "enableRange": false,
+                "initVal2": 0,
+                "precision": null,
+                "tooltipSplit": false,
+                "tooltipFormat": null,
+                "tooltipPosition": null,
+                "reversed": false,
+                "ticks": "",
+                "ticksPositions": "",
+                "ticksLabels": "",
+                "ticksSnapBounds" : 0
             }
         };
 
