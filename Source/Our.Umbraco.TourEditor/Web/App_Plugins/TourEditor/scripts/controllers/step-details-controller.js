@@ -115,6 +115,9 @@
                 // store the value from the rte with the step
                 vm.step.content = vm.rte.value;
 
+                // store the value from the slider with the step
+                vm.step.backdropOpacity = vm.slider.value;
+
                 eventsService.emit('toureditor.stepchangesupdate',
                     {
                         "stepIndex": vm.stepIndex,
