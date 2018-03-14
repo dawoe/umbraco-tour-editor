@@ -11,6 +11,7 @@
         vm.groups = [];
         vm.form = null;
         vm.isNew = false;
+        vm.sectionsString = '';
 
         vm.sortableOptions = {
             distance: 10,
@@ -24,7 +25,7 @@
             'Group': { 'label': 'Group', 'description': 'Enter the group name for this tour. This is used to group tours in the help drawer', 'propertyErrorMessage': 'The  group name is a required field' },
             'GroupOrder': { 'label': 'Group order', 'description': 'Control the order of tour groups', 'propertyErrorMessage': 'The  group order is a required field' },
             'Alias': { 'label': 'Alias', 'description': 'Enter the unique alias for this tour', 'propertyErrorMessage': 'Alias is a required field and should be unique' },
-            'Sections': { 'label': 'Sections', 'description': 'Sections that the tour will access while running, if the user does not have access to the required tour sections, the tour will not load.   ' },
+            'Sections': { 'label': 'Sections', 'description': 'Sections that the tour will access while running, if the user does not have access to the required tour sections, the tour will not load.   ', 'propertyErrorMessage': 'You should select at least one section' },
             'AllowDisable': { 'label': 'Allow disabling', 'description': 'Adds a "Don\'t" show this tour again"-button to the intro step' }
         };
 
@@ -35,7 +36,12 @@
             vm.tour = arg.tour;
             vm.isNew = arg.isNew;
             vm.aliases = arg.aliases;
-            vm.groups = arg.groups;           
+            vm.groups = arg.groups;
+
+            // init the sections array
+            if (vm.tour.requiredSections === null) {
+                vm.tour.requiredSections = [];
+            }
 
             // get the selected sections from data
             vm.selectedSections = _.filter(vm.allSections,
@@ -204,7 +210,7 @@
             vm.tour.steps.splice(index, 1);
         }
 
-        vm.removeStep = removeStep;
+        vm.removeStep = removeStep;        
 
         function init() {
             sectionResource.getAllSections().then(function (data) {
@@ -220,6 +226,18 @@
         }
 
         init();
+
+        $scope.$watch('vm.tour.requiredSections', function () {
+
+            if (vm.tour) {
+                if (vm.tour.requiredSections) {
+                    vm.sectionsString = vm.tour.requiredSections.join();
+                } else {
+                    vm.sectionsString = '';
+                }
+            }
+
+        });
 
     }
 
