@@ -40,7 +40,8 @@
                                       name="section.name"
                                       allow-remove="true"
                                       on-remove="vm.removeSection($index, vm.selectedSections)">
-                    </umb-node-preview>
+                    </umb-node-preview>                                     
+                    <input type="hidden" ng-model="vm.sectionsString" required/>
                     <a href=""
                        data-element="toureditor-sectionspicker"
                        style="max-width: 100%;"
