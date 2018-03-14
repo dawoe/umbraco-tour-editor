@@ -13,7 +13,7 @@
                     <input data-element="toureditor-stepintro" type="checkbox" ng-model="vm.isIntro" />
                 </umb-property>
                 <umb-property property="vm.properties.BackDropOpacity">
-                    <input data-element="toureditor-stepbackdrop"  type="number" ng-model="vm.step.backdropOpacity" min="0" max="1" step="0.1" class="umb-editor" />
+                    <umb-editor model="vm.slider" data-element="toureditor-stepbackdrop" />                   
                 </umb-property>
                 <umb-property property="vm.properties.Element" ng-if="vm.isIntro === false">
                     <input data-element="toureditor-stepelement" type="text" ng-model="vm.step.element" class="umb-editor" ng-required="vm.step.type !== 'intro'" />
