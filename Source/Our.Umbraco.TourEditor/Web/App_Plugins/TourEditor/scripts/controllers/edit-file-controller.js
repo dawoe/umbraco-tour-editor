@@ -105,9 +105,7 @@
         }
 
         function updateTourChanges() {
-            eventsService.emit('toureditor.updatetourchanges');
-            notificationsService.warning("Don't forget to save your changes",
-                "To persist your changes you need to save the file");
+            eventsService.emit('toureditor.updatetourchanges');            
         }
 
         vm.updateTourChanges = updateTourChanges;
@@ -125,9 +123,7 @@
         vm.discardStepChanges = discardStepChanges;
 
         function updateStepChanges() {
-            eventsService.emit('toureditor.updatestepchanges');
-            notificationsService.warning("Don't forget to save your changes",
-                "To save your changes you also need to update the tour and save the file");
+            eventsService.emit('toureditor.updatestepchanges');            
         }
 
         vm.updateStepChanges = updateStepChanges;
@@ -166,6 +162,9 @@
             vm.page.navigation[0].active = false;
             vm.page.navigation[1].active = true;
             vm.page.navigation[2].active = false;
+
+            notificationsService.warning("Don't forget to save your changes",
+                "To save your changes you also need to update the tour and save the file");
         }));
 
         evts.push(eventsService.on("toureditor.tourchangesdiscarded", function (name, args) {
@@ -193,6 +192,9 @@
             vm.page.navigation[0].active = true;
             vm.page.navigation[1].active = false;
             vm.page.navigation[2].active = false;
+
+            notificationsService.warning("Don't forget to save your changes",
+                "To persist your changes you need to save the file");
         }));
 
         evts.push(eventsService.on("toureditor.edittour", function (name, args) {
