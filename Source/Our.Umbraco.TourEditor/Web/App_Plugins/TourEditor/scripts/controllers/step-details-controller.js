@@ -57,9 +57,9 @@
                 "tooltipFormat": null,
                 "tooltipPosition": null,
                 "reversed": false,
-                "ticks": "",
-                "ticksPositions": "",
-                "ticksLabels": "",
+                "ticks": "0,1",
+                "ticksPositions": "0,100",
+                "ticksLabels": "Light, Dark",
                 "ticksSnapBounds" : 0
             }
         };
