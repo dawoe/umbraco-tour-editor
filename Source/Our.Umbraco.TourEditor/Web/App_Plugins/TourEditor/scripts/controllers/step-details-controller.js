@@ -39,6 +39,20 @@
             value : ''
         };
 
+        vm.slider = {
+            view: 'slider',
+            value: '',
+            config : {
+                "orientation": "horizontal",
+                "initVal1": 0.5,
+                "minVal" : 0,
+                "maxVal": 1,
+                "step" : 0.1,
+                "handle": "round",
+                "tooltip" : "show"
+            }
+        };
+
         var evts = [];
 
         vm.properties = {
