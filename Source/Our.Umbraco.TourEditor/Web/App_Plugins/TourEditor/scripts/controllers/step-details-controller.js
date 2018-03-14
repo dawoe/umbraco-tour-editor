@@ -37,6 +37,33 @@
                 }
             },
             value : ''
+        };        
+
+        function resetSliderConfig() {
+            vm.slider = {
+                view: 'slider',
+                value: '',
+                config: {
+                    "orientation": "horizontal",
+                    "initVal1": 0.5,
+                    "minVal": 0,
+                    "maxVal": 1,
+                    "step": 0.1,
+                    "handle": "round",
+                    "tooltip": "show",
+                    "enableRange": false,
+                    "initVal2": 0,
+                    "precision": null,
+                    "tooltipSplit": false,
+                    "tooltipFormat": null,
+                    "tooltipPosition": null,
+                    "reversed": false,
+                    "ticks": "0,1",
+                    "ticksPositions": "0,100",
+                    "ticksLabels": "Light, Dark",
+                    "ticksSnapBounds": 0
+                }
+            };
         };
 
         var evts = [];
@@ -55,6 +82,9 @@
         };
 
         evts.push(eventsService.on("toureditor.editstep", function (name, arg) {
+
+            resetSliderConfig();
+
             vm.stepIndex = arg.stepIndex;
             vm.tourIndex = arg.tourIndex;
             vm.step = arg.step;
@@ -66,6 +96,9 @@
 
             // set content of rte
             vm.rte.value = vm.step.content;
+
+            // set value for the slider
+            vm.slider.value = vm.step.backdropOpacity;
 
             vm.isIntro = vm.step.type === 'intro';
 
@@ -97,6 +130,9 @@
 
                 // store the value from the rte with the step
                 vm.step.content = vm.rte.value;
+
+                // store the value from the slider with the step
+                vm.step.backdropOpacity = vm.slider.value;
 
                 eventsService.emit('toureditor.stepchangesupdate',
                     {
