@@ -9,6 +9,37 @@
         vm.form = null;
         vm.isIntro = false;
 
+        vm.eventList = [
+            {
+                "label": "Click",
+                "value": "click"
+            },
+            {
+                "label": "Double click",
+                "value": "dblclick"
+            },
+            {
+                "label": "Mouse over",
+                "value": "mouseover"
+            },
+            {
+                "label": "Mouse out",
+                "value": "mouseout"
+            },
+            {
+                "label": "Blur",
+                "value": "blur"
+            },
+            {
+                "label": "Change",
+                "value": "change"
+            },
+            {
+                "label": "Focus",
+                "value": "focus"
+            }
+        ];
+
         // config for rte
         vm.rte = {           
             view: 'rte',
@@ -100,6 +131,11 @@
             // set value for the slider
             vm.slider.value = vm.step.backdropOpacity;
 
+            // set event value so we have one selected
+            if (vm.step.event === null || vm.step.event === '') {
+                vm.step.event = 'click';
+            }
+
             vm.isIntro = vm.step.type === 'intro';
 
             // scroll the step details to the top when starting editing..otherwise our tour won't work
@@ -133,6 +169,11 @@
 
                 // store the value from the slider with the step
                 vm.step.backdropOpacity = vm.slider.value;
+
+                // set the even value to empty if it's a intro or prevent click is checked
+                if (vm.step.type === 'intro' || vm.step.elementPreventClick) {
+                    vm.step.event = null;
+                }
 
                 eventsService.emit('toureditor.stepchangesupdate',
                     {

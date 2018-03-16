@@ -21,8 +21,17 @@
                 <umb-property property="vm.properties.PreventClick" ng-if="vm.isIntro === false">
                     <input data-element="toureditor-steppreventclick" type="checkbox" ng-model="vm.step.elementPreventClick" />
                 </umb-property>
-                <umb-property property="vm.properties.Event" ng-if="vm.isIntro === false && vm.step.elementPreventClick === false">
-                    <input data-element="toureditor-stepevent" type="text" ng-model="vm.step.event" class="umb-editor" />
+                <umb-property property="vm.properties.Event" ng-if="vm.isIntro === false && vm.step.elementPreventClick === false">                                       
+                    <ul class="unstyled">
+                        <li ng-repeat="item in vm.eventList">
+                            <label class="radio">
+                                <input type="radio" name="radiobuttons-event"
+                                       value="{{item.value}}"
+                                       ng-model="vm.step.event" />
+                                {{item.label}}
+                            </label>
+                        </li>
+                    </ul>
                 </umb-property>
                 <umb-property property="vm.properties.EventElement" ng-if="vm.isIntro === false && vm.step.elementPreventClick === false && vm.step.event !== null && vm.step.event !== ''">
                     <input data-element="toureditor-stepeventelement" type="text" ng-model="vm.step.eventElement" class="umb-editor" />
