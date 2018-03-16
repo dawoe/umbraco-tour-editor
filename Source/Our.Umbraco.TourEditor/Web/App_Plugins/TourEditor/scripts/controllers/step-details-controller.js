@@ -170,6 +170,11 @@
                 // store the value from the slider with the step
                 vm.step.backdropOpacity = vm.slider.value;
 
+                // set the even value to empty if it's a intro or prevent click is checked
+                if (vm.step.type === 'intro' || vm.step.elementPreventClick) {
+                    vm.step.event = null;
+                }
+
                 eventsService.emit('toureditor.stepchangesupdate',
                     {
                         "stepIndex": vm.stepIndex,
