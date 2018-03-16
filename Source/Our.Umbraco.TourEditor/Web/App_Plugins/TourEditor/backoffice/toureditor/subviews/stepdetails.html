@@ -17,6 +17,13 @@
                 </umb-property>
                 <umb-property property="vm.properties.Element" ng-if="vm.isIntro === false">
                     <input data-element="toureditor-stepelement" type="text" ng-model="vm.step.element" class="umb-editor" ng-required="vm.step.type !== 'intro'" />
+                    <a href=""
+                       data-element="toureditor-stepelementpicker"
+                       class="umb-node-preview-add"
+                       ng-click="vm.openStepPicker()"
+                       prevent-default>
+                        Select existing
+                    </a>
                 </umb-property>
                 <umb-property property="vm.properties.PreventClick" ng-if="vm.isIntro === false">
                     <input data-element="toureditor-steppreventclick" type="checkbox" ng-model="vm.step.elementPreventClick" />
@@ -46,4 +53,9 @@
             </form>
         </umb-box-content>
     </umb-box>
+    <umb-overlay ng-if="vm.elementPicker.show"
+                 model="vm.elementPicker"
+                 view="vm.elementPicker.view"
+                 position="right">
+    </umb-overlay>
 </div>
