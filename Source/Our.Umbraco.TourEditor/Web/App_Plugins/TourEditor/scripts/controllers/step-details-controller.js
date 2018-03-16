@@ -131,6 +131,11 @@
             // set value for the slider
             vm.slider.value = vm.step.backdropOpacity;
 
+            // set event value so we have one selected
+            if (vm.step.event === null || vm.step.event === '') {
+                vm.step.event = 'click';
+            }
+
             vm.isIntro = vm.step.type === 'intro';
 
             // scroll the step details to the top when starting editing..otherwise our tour won't work
