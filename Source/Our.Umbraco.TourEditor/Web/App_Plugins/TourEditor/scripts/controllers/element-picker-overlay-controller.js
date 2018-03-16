@@ -4,6 +4,7 @@
     function ElementPickerOverlayController($scope) {
         var vm = this;
 
+        vm.sections = $scope.model.sections;
         
     }
 

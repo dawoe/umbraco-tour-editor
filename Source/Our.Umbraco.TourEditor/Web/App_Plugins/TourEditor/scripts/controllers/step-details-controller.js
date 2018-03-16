@@ -8,6 +8,7 @@
         vm.tourIndex = -1;
         vm.form = null;
         vm.isIntro = false;
+        vm.sections = [];
 
         vm.eventList = [
             {
@@ -120,6 +121,7 @@
                 view: umbRequestHelper.convertVirtualToAbsolutePath("~/App_Plugins/TourEditor/backoffice/toureditor/overlays/element-picker.html"),
                 closeButtonLabel: 'Cancel',
                 show: true,
+                sections : vm.sections,
                 submit: function (model) {                   
 
                     vm.elementPicker.show = false;
@@ -142,6 +144,7 @@
             vm.stepIndex = arg.stepIndex;
             vm.tourIndex = arg.tourIndex;
             vm.step = arg.step;
+            vm.sectiions = arg.sections;
 
             // convert custom properties json object to string for editing
             if (vm.step.customProperties) {
@@ -173,6 +176,7 @@
             vm.stepIndex = -1;
             vm.tourIndex = -1;
             vm.step = null;
+            vm.sections = [];
 
             vm.isIntro = false;
 
@@ -209,6 +213,7 @@
                 vm.step = null;
                 vm.isIntro = false;
                 vm.form = null;
+                vm.sections = [];
             }
         }));
 
