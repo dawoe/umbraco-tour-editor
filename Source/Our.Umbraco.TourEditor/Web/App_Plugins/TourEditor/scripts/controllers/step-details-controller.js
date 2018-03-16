@@ -9,6 +9,37 @@
         vm.form = null;
         vm.isIntro = false;
 
+        vm.eventList = [
+            {
+                "label": "Click",
+                "value": "click"
+            },
+            {
+                "label": "Double click",
+                "value": "dblclick"
+            },
+            {
+                "label": "Mouse over",
+                "value": "mouseover"
+            },
+            {
+                "label": "Mouse out",
+                "value": "mouseout"
+            },
+            {
+                "label": "Blur",
+                "value": "blur"
+            },
+            {
+                "label": "Change",
+                "value": "change"
+            },
+            {
+                "label": "Focus",
+                "value": "focus"
+            }
+        ];
+
         // config for rte
         vm.rte = {           
             view: 'rte',
