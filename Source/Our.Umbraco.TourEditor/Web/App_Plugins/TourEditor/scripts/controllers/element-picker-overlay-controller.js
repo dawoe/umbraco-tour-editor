@@ -21,6 +21,12 @@
             alias: "sections",
             items : vm.sections
         }];
+
+        function pickElement(eventElement) {           
+            $scope.model.submit("[data-element='" + eventElement + "']");
+        }
+
+        vm.pickElement = pickElement;
         
         vm.isLoading = false;
     }

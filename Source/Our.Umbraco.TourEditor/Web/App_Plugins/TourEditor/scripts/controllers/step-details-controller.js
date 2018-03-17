@@ -120,10 +120,11 @@
                 subtitle : 'You can select a element from a predefined list. Only the sections, and the trees and dashboards from those sections, configured in this tour are available',
                 view: umbRequestHelper.convertVirtualToAbsolutePath("~/App_Plugins/TourEditor/backoffice/toureditor/overlays/element-picker.html"),
                 closeButtonLabel: 'Cancel',
+                hideSubmitButton : true,
                 show: true,
                 sections : vm.sections,
-                submit: function (model) {                   
-
+                submit: function (model) {
+                    vm.step.element = model;
                     vm.elementPicker.show = false;
                     vm.elementPicker = null;
                 },
