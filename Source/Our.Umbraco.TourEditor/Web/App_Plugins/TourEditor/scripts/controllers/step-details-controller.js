@@ -144,7 +144,7 @@
             vm.stepIndex = arg.stepIndex;
             vm.tourIndex = arg.tourIndex;
             vm.step = arg.step;
-            vm.sectiions = arg.sections;
+            vm.sections = arg.sections;
 
             // convert custom properties json object to string for editing
             if (vm.step.customProperties) {

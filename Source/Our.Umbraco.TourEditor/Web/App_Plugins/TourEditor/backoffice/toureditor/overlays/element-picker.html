@@ -1,4 +1,11 @@
 ﻿<div ng-controller="Our.Umbraco.TourEditor.ElementPickerOverlayController as vm">
-    Element picker view
-
+    <umb-load-indicator ng-if="vm.isLoading"></umb-load-indicator>
+    <div ng-if="vm.isLoading === false">
+        <umb-tabs-nav model="vm.tabs"></umb-tabs-nav>
+        <umb-tabs-content>
+            <umb-tab id="tab{{tab.id}}" ng-repeat="tab in vm.tabs" rel="{{tab.id}}">
+                {{tab.items.join()}}
+            </umb-tab>
+        </umb-tabs-content>
+    </div>
 </div>
