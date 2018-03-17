@@ -5,7 +5,14 @@
         var vm = this;
 
         vm.isLoading = true;
-        vm.sections = $scope.model.sections;
+        vm.sections = _.map($scope.model.sections, function(x) {
+            return {
+                "alias": x.alias,
+                "icon": x.icon,
+                "name": x.name,
+                "element": "section-" + x.alias
+            };
+        });
 
         vm.tabs = [{
             active: true,

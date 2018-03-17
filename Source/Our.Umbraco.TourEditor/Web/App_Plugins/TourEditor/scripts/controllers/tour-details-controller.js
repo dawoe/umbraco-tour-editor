@@ -180,7 +180,7 @@
                         "stepIndex": vm.tour.steps.length,
                         "tourIndex": vm.tourIndex,
                         "step": newStep,
-                        "sections": vm.tour.requiredSections
+                        "sections": vm.selectedSections
                     });
 
             }
@@ -200,7 +200,7 @@
                         "stepIndex": index,
                         "tourIndex": vm.tourIndex,
                         "step": step,
-                        "sections": vm.tour.requiredSections
+                        "sections": vm.selectedSections
             });
 
             }

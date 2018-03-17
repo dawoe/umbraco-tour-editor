@@ -4,7 +4,19 @@
         <umb-tabs-nav model="vm.tabs"></umb-tabs-nav>
         <umb-tabs-content>
             <umb-tab id="tab{{tab.id}}" ng-repeat="tab in vm.tabs" rel="{{tab.id}}">
-                {{tab.items.join()}}
+                
+                   
+                    <ul class="umb-card-grid">
+                        <li ng-repeat="item in tab.items"
+                            data-element="element-{{item.alias}}"                                                      
+                            class="-four-in-row">
+                            <a class="umb-card-grid-item" href="" title="{{item.name}}">
+                                <i class="{{item.icon}}"></i>
+                                {{item.name}}
+                            </a>
+                        </li>
+                    </ul>
+                
             </umb-tab>
         </umb-tabs-content>
     </div>
