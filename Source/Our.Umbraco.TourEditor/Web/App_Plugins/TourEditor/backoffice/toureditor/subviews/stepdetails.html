@@ -30,7 +30,7 @@
                 </umb-property>
                 <umb-property property="vm.properties.Event" ng-if="vm.isIntro === false && vm.step.elementPreventClick === false">                                       
                     <ul class="unstyled">
-                        <li ng-repeat="item in vm.eventList">
+                        <li ng-repeat="item in vm.eventList" data-element="toureditor-stepevent">
                             <label class="radio">
                                 <input type="radio" name="radiobuttons-event"
                                        value="{{item.value}}"
