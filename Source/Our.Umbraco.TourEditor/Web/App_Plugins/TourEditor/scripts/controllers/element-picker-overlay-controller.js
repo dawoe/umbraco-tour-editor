@@ -77,15 +77,19 @@
                 vm.promises.push(treePromise);
 
                 // get dashboards for section
-                var dashBoardPromise = dashboardResource.getDashboard(alias).then(function(data) {                   
-                    vm.dashboards.push(
-                        {
-                            "alias": data.alias,
-                            "name": data.label,
-                            "icon": "icon-dashboard",
-                            "element" : "tab-" + data.alias
-                        }
-                    );
+                var dashBoardPromise = dashboardResource.getDashboard(alias).then(function (data) {
+                    for (var i = 0; i < data.length; i++) {
+                        var dashboard = data[i];
+                        vm.dashboards.push(
+                            {
+                                "alias": dashboard.alias,
+                                "name": dashboard.label,
+                                "icon": "icon-dashboard",
+                                "element": "tab-" + dashboard.alias
+                            }
+                        );
+                    }
+                    
                 });
 
                 vm.promises.push(dashBoardPromise);
