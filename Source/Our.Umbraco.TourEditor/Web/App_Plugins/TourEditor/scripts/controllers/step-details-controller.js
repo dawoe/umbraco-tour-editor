@@ -113,7 +113,7 @@
             'CustomProperties': { 'label': 'Custom properties', 'description': 'If you use a custom view, you can pass in custom properties as JSON object', 'propertyErrorMessage': 'Custom properties is not valid JSON' }
         };
 
-        function openStepPicker() {
+        function openStepPicker(isElement) {
             
             vm.elementPicker = {
                 title: 'Element picker',
@@ -124,7 +124,12 @@
                 show: true,
                 sections : vm.sections,
                 submit: function (model) {
-                    vm.step.element = model;
+                    if (isElement) {
+                        vm.step.element = model;
+                    } else {
+                        vm.step.eventElement = model;
+                    }
+                   
                     vm.elementPicker.show = false;
                     vm.elementPicker = null;
                 },
