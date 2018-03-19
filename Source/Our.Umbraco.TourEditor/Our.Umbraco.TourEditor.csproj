@@ -279,6 +279,7 @@
     <Content Include="Web\App_Plugins\TourEditor\backoffice\toureditor\create.html" />
     <Content Include="Web\App_Plugins\TourEditor\backoffice\toureditor\delete.html" />
     <Content Include="Web\App_Plugins\TourEditor\backoffice\toureditor\edit.html" />
+    <Content Include="Web\App_Plugins\TourEditor\backoffice\toureditor\overlays\element-picker.html" />
     <Content Include="Web\App_Plugins\TourEditor\backoffice\toureditor\subviews\stepdetails.html" />
     <Content Include="Web\App_Plugins\TourEditor\backoffice\toureditor\subviews\tourdetails.html" />
     <Content Include="Web\App_Plugins\TourEditor\backoffice\toureditor\subviews\tourlist.html" />
@@ -287,6 +288,7 @@
     <Content Include="Web\App_Plugins\TourEditor\scripts\controllers\create-file-controller.js" />
     <Content Include="Web\App_Plugins\TourEditor\scripts\controllers\delete-file-controller.js" />
     <Content Include="Web\App_Plugins\TourEditor\scripts\controllers\edit-file-controller.js" />
+    <Content Include="Web\App_Plugins\TourEditor\scripts\controllers\element-picker-overlay-controller.js" />
     <Content Include="Web\App_Plugins\TourEditor\scripts\controllers\step-details-controller.js" />
     <Content Include="Web\App_Plugins\TourEditor\scripts\controllers\tour-details-controller.js" />
     <Content Include="Web\App_Plugins\TourEditor\scripts\controllers\tour-list-controller.js" />

@@ -1,13 +1,45 @@
 ﻿(function () {
     "use strict";
 
-    function StepDetailsController($scope, $window, eventsService, formHelper) {
+    function StepDetailsController($scope, $window, eventsService, formHelper, umbRequestHelper) {
         var vm = this;
         vm.step = null;
         vm.stepIndex = -1;
         vm.tourIndex = -1;
         vm.form = null;
         vm.isIntro = false;
+        vm.sections = [];
+
+        vm.eventList = [
+            {
+                "label": "Click",
+                "value": "click"
+            },
+            {
+                "label": "Double click",
+                "value": "dblclick"
+            },
+            {
+                "label": "Mouse over",
+                "value": "mouseover"
+            },
+            {
+                "label": "Mouse out",
+                "value": "mouseout"
+            },
+            {
+                "label": "Blur",
+                "value": "blur"
+            },
+            {
+                "label": "Change",
+                "value": "change"
+            },
+            {
+                "label": "Focus",
+                "value": "focus"
+            }
+        ];
 
         // config for rte
         vm.rte = {           
@@ -37,6 +69,33 @@
                 }
             },
             value : ''
+        };        
+
+        function resetSliderConfig() {
+            vm.slider = {
+                view: 'slider',
+                value: '',
+                config: {
+                    "orientation": "horizontal",
+                    "initVal1": 0.5,
+                    "minVal": 0,
+                    "maxVal": 1,
+                    "step": 0.1,
+                    "handle": "round",
+                    "tooltip": "show",
+                    "enableRange": false,
+                    "initVal2": 0,
+                    "precision": null,
+                    "tooltipSplit": false,
+                    "tooltipFormat": null,
+                    "tooltipPosition": null,
+                    "reversed": false,
+                    "ticks": "0,1",
+                    "ticksPositions": "0,100",
+                    "ticksLabels": "Light, Dark",
+                    "ticksSnapBounds": 0
+                }
+            };
         };
 
         var evts = [];
@@ -54,10 +113,44 @@
             'CustomProperties': { 'label': 'Custom properties', 'description': 'If you use a custom view, you can pass in custom properties as JSON object', 'propertyErrorMessage': 'Custom properties is not valid JSON' }
         };
 
+        function openStepPicker(isElement) {
+            
+            vm.elementPicker = {
+                title: 'Element picker',
+                subtitle : 'You can select a element from a predefined list. Only the sections, and the trees and dashboards from those sections, configured in this tour are available',
+                view: umbRequestHelper.convertVirtualToAbsolutePath("~/App_Plugins/TourEditor/backoffice/toureditor/overlays/element-picker.html"),
+                closeButtonLabel: 'Cancel',
+                hideSubmitButton : true,
+                show: true,
+                sections : vm.sections,
+                submit: function (model) {
+                    if (isElement) {
+                        vm.step.element = model;
+                    } else {
+                        vm.step.eventElement = model;
+                    }
+                   
+                    vm.elementPicker.show = false;
+                    vm.elementPicker = null;
+                },
+                close: function (oldModel) {
+
+                    vm.elementPicker.show = false;
+                    vm.elementPicker = null;
+                }
+            };
+        }
+
+        vm.openStepPicker = openStepPicker;
+
         evts.push(eventsService.on("toureditor.editstep", function (name, arg) {
+
+            resetSliderConfig();
+
             vm.stepIndex = arg.stepIndex;
             vm.tourIndex = arg.tourIndex;
             vm.step = arg.step;
+            vm.sections = arg.sections;
 
             // convert custom properties json object to string for editing
             if (vm.step.customProperties) {
@@ -66,6 +159,14 @@
 
             // set content of rte
             vm.rte.value = vm.step.content;
+
+            // set value for the slider
+            vm.slider.value = vm.step.backdropOpacity;
+
+            // set event value so we have one selected
+            if (vm.step.event === null || vm.step.event === '') {
+                vm.step.event = 'click';
+            }
 
             vm.isIntro = vm.step.type === 'intro';
 
@@ -81,6 +182,7 @@
             vm.stepIndex = -1;
             vm.tourIndex = -1;
             vm.step = null;
+            vm.sections = [];
 
             vm.isIntro = false;
 
@@ -98,6 +200,14 @@
                 // store the value from the rte with the step
                 vm.step.content = vm.rte.value;
 
+                // store the value from the slider with the step
+                vm.step.backdropOpacity = vm.slider.value;
+
+                // set the even value to empty if it's a intro or prevent click is checked
+                if (vm.step.type === 'intro' || vm.step.elementPreventClick) {
+                    vm.step.event = null;
+                }
+
                 eventsService.emit('toureditor.stepchangesupdate',
                     {
                         "stepIndex": vm.stepIndex,
@@ -109,6 +219,7 @@
                 vm.step = null;
                 vm.isIntro = false;
                 vm.form = null;
+                vm.sections = [];
             }
         }));
 
@@ -138,8 +249,9 @@
         [
             '$scope',
             '$window',
-            'eventsService',           
+            'eventsService',
             'formHelper',
+            'umbRequestHelper',
             StepDetailsController
         ]);
 
