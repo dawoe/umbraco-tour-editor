@@ -196,6 +196,18 @@
         "customProperties": null
       },
       {
+        "title": "Selecting required sections",
+        "content": "<p>Select <em><strong>settings</strong> </em>in the available list</p>",
+        "type": null,
+        "element": "[data-element='overlay'] .traydeveloper",
+        "elementPreventClick": false,
+        "backdropOpacity": 0.4,
+        "event": "click",
+        "view": null,
+        "eventElement": null,
+        "customProperties": null
+      },
+      {
         "title": "Updating required sections",
         "content": "<p>Click the submit button to update the selection</p>",
         "type": null,
@@ -417,17 +429,27 @@
       },
       {
         "title": "Step element",
-        "content": "<p>Here you can enter a css selector for the element you wish to be highlighted in the tour step.</p><p>Enter <em><strong>[data-element='section-settings']</strong></em></p><p>This will highlight the settings Icon in the navigation</p>",
+        "content": "<p>Here you can enter a css selector for the element you wish to be highlighted in the tour step.</p>. <p>For now click next</p>",
         "type": null,
         "element": "[data-element='toureditor-stepelement']",
-        "elementPreventClick": false,
+        "elementPreventClick": true,
         "backdropOpacity": 0.4,
         "event": null,
-        "view": "/App_Plugins/TourEditor/backoffice/tours/views/requiredinput.html",
-        "eventElement": "",
-        "customProperties": {
-          "input": "[data-element='section-settings']"
-        }
+        "view": null,
+        "eventElement": null,
+        "customProperties": null
+      },
+      {
+        "title": "Step element selection",
+        "content": "<p>You can also select the element from a predefined list based on your sections in the tour",
+        "type": null,
+        "element": "[data-element='toureditor-stepelementpicker']",
+        "elementPreventClick": false,
+        "backdropOpacity": 0.4,
+        "event": "click",
+        "view": null,
+        "eventElement": null,
+        "customProperties" : null 
       },
       {
         "title": "Prevent clicking",
