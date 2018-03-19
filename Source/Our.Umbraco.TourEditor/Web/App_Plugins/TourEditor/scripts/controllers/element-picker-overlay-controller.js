@@ -1,12 +1,13 @@
 ﻿(function () {
     "use strict";
 
-    function ElementPickerOverlayController($scope, $q, treeResource) {
+    function ElementPickerOverlayController($scope, $q, treeResource, dashboardResource) {
         var vm = this;
 
         vm.isLoading = true;
         vm.promises = [];
         vm.trees = [];
+        vm.dashboards = [];
 
         // get sections in correct format for view
         vm.sections = _.map($scope.model.sections, function(x) {
@@ -31,7 +32,14 @@
             label: "Trees",
             alias: "trees",
             items : vm.trees
-        }];
+        },
+            {
+                active: false,
+                id: 3,
+                label: "Dashboards",
+                alias: "dashboards",
+                items: vm.dashboards
+            }];
 
        
 
@@ -51,8 +59,8 @@
             // store promises based on sections           
             for (var i = 0; i < vm.sections.length; i++) {
                 var alias = vm.sections[i].alias;
-
-                var promise = treeResource.loadApplication({"section": alias,"isDialig": true}).then(function(data) {
+                // get trees for section
+                var treePromise = treeResource.loadApplication({"section": alias,"isDialig": true}).then(function(data) {
                     if (data.isContainer) {
                         for (var i = 0; i < data.children.length; i++) {
                             var tree = data.children[i];
@@ -65,9 +73,22 @@
                         }
                     }
                 });
+                
+                vm.promises.push(treePromise);
 
-               
-                vm.promises.push(promise);
+                // get dashboards for section
+                var dashBoardPromise = dashboardResource.getDashboard(alias).then(function(data) {                   
+                    vm.dashboards.push(
+                        {
+                            "alias": data.alias,
+                            "name": data.label,
+                            "icon": "icon-dashboard",
+                            "element" : "tab-" + data.alias
+                        }
+                    );
+                });
+
+                vm.promises.push(dashBoardPromise);
             }            
         }
 
@@ -80,6 +101,7 @@
             '$scope',
             '$q',
             'treeResource',
+            'dashboardResource',
             ElementPickerOverlayController
         ]);
 
