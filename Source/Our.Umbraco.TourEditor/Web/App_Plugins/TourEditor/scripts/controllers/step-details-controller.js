@@ -1,13 +1,14 @@
 ﻿(function () {
     "use strict";
 
-    function StepDetailsController($scope, $window, eventsService, formHelper) {
+    function StepDetailsController($scope, $window, eventsService, formHelper, umbRequestHelper) {
         var vm = this;
         vm.step = null;
         vm.stepIndex = -1;
         vm.tourIndex = -1;
         vm.form = null;
         vm.isIntro = false;
+        vm.sections = [];
 
         vm.eventList = [
             {
@@ -112,6 +113,36 @@
             'CustomProperties': { 'label': 'Custom properties', 'description': 'If you use a custom view, you can pass in custom properties as JSON object', 'propertyErrorMessage': 'Custom properties is not valid JSON' }
         };
 
+        function openStepPicker(isElement) {
+            
+            vm.elementPicker = {
+                title: 'Element picker',
+                subtitle : 'You can select a element from a predefined list. Only the sections, and the trees and dashboards from those sections, configured in this tour are available',
+                view: umbRequestHelper.convertVirtualToAbsolutePath("~/App_Plugins/TourEditor/backoffice/toureditor/overlays/element-picker.html"),
+                closeButtonLabel: 'Cancel',
+                hideSubmitButton : true,
+                show: true,
+                sections : vm.sections,
+                submit: function (model) {
+                    if (isElement) {
+                        vm.step.element = model;
+                    } else {
+                        vm.step.eventElement = model;
+                    }
+                   
+                    vm.elementPicker.show = false;
+                    vm.elementPicker = null;
+                },
+                close: function (oldModel) {
+
+                    vm.elementPicker.show = false;
+                    vm.elementPicker = null;
+                }
+            };
+        }
+
+        vm.openStepPicker = openStepPicker;
+
         evts.push(eventsService.on("toureditor.editstep", function (name, arg) {
 
             resetSliderConfig();
@@ -119,6 +150,7 @@
             vm.stepIndex = arg.stepIndex;
             vm.tourIndex = arg.tourIndex;
             vm.step = arg.step;
+            vm.sections = arg.sections;
 
             // convert custom properties json object to string for editing
             if (vm.step.customProperties) {
@@ -150,6 +182,7 @@
             vm.stepIndex = -1;
             vm.tourIndex = -1;
             vm.step = null;
+            vm.sections = [];
 
             vm.isIntro = false;
 
@@ -186,6 +219,7 @@
                 vm.step = null;
                 vm.isIntro = false;
                 vm.form = null;
+                vm.sections = [];
             }
         }));
 
@@ -215,8 +249,9 @@
         [
             '$scope',
             '$window',
-            'eventsService',           
+            'eventsService',
             'formHelper',
+            'umbRequestHelper',
             StepDetailsController
         ]);
 

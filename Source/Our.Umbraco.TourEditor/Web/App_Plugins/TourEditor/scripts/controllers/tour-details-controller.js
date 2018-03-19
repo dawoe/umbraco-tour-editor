@@ -179,7 +179,8 @@
                     {
                         "stepIndex": vm.tour.steps.length,
                         "tourIndex": vm.tourIndex,
-                        "step" : newStep
+                        "step": newStep,
+                        "sections": vm.selectedSections
                     });
 
             }
@@ -198,7 +199,8 @@
                     {
                         "stepIndex": index,
                         "tourIndex": vm.tourIndex,
-                        "step": step
+                        "step": step,
+                        "sections": vm.selectedSections
             });
 
             }
