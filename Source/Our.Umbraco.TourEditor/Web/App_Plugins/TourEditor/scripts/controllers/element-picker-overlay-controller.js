@@ -5,7 +5,8 @@
         var vm = this;
 
         vm.isLoading = true;
-        vm.promises = {};
+        vm.promises = [];
+        vm.trees = [];
 
         // get sections in correct format for view
         vm.sections = _.map($scope.model.sections, function(x) {
@@ -24,6 +25,12 @@
             label: "Sections",
             alias: "sections",
             items : vm.sections
+        }, {
+            active: false,
+            id: 2,
+            label: "Trees",
+            alias: "trees",
+            items : vm.trees
         }];
 
        
@@ -35,33 +42,32 @@
         vm.pickElement = pickElement;
 
         // handle data when all promises are resolved
-        $q.all(vm.promises).then(function() {
-          
-            for (var key in vm.promises.trees) {
-                if (vm.promises.trees.hasOwnProperty(key)) {
-                    vm.promises.trees[key].then(function(data) {
-                       if (data.isContainer) {
-                           console.log(data);
-                       }
-                    });
-                }
-            }
-
+        $q.all(vm.promises).then(function (resolved) {                       
             vm.isLoading = false;
         }); 
                 
         function init() {
 
-            // store promises based on sections
-            vm.promises.trees = {};
+            // store promises based on sections           
             for (var i = 0; i < vm.sections.length; i++) {
                 var alias = vm.sections[i].alias;
 
-               
-                vm.promises.trees["sectiontrees-" + alias] = treeResource.loadApplication({
-                    "section": alias,
-                    "isDialig": true
+                var promise = treeResource.loadApplication({"section": alias,"isDialig": true}).then(function(data) {
+                    if (data.isContainer) {
+                        for (var i = 0; i < data.children.length; i++) {
+                            var tree = data.children[i];
+                            vm.trees.push({
+                                "alias": tree.metaData.treeAlias,
+                                "name": tree.name,
+                                "icon": tree.icon,
+                                "element": "tree-item-" + tree.metaData.treeAlias
+                            });                            
+                        }
+                    }
                 });
+
+               
+                vm.promises.push(promise);
             }            
         }
 
