@@ -208,6 +208,13 @@
                     vm.step.event = null;
                 }
 
+                if (vm.step.type === 'intro') {
+                    vm.step.element = null;
+                    vm.step.eventElement = null;
+                    vm.step.view = null;
+                    vm.step.customProperties = null;
+                }
+
                 eventsService.emit('toureditor.stepchangesupdate',
                     {
                         "stepIndex": vm.stepIndex,
