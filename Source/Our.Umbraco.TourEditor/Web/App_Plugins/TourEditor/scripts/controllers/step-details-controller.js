@@ -165,12 +165,7 @@
             vm.rte.value = vm.step.content;
 
             // set value for the slider
-            vm.slider.value = vm.step.backdropOpacity;
-
-            // set event value so we have one selected
-            if (vm.step.event === null || vm.step.event === '') {
-                vm.step.event = 'click';
-            }
+            vm.slider.value = vm.step.backdropOpacity;            
 
             vm.isIntro = vm.step.type === 'intro';
 
