@@ -12,6 +12,10 @@
 
         vm.eventList = [
             {
+                "label": "No event",
+                "value": null
+            },
+            {
                 "label": "Click",
                 "value": "click"
             },
