@@ -214,6 +214,10 @@
                     vm.step.customProperties = null;
                 }
 
+                if (vm.step.event === '') {
+                    vm.step.event = null;
+                }
+
                 eventsService.emit('toureditor.stepchangesupdate',
                     {
                         "stepIndex": vm.stepIndex,
