@@ -17,7 +17,10 @@
             distance: 10,
             tolerance: 'move',
             scroll: true,
-            zIndex: 6000            
+            zIndex: 6000,
+            update: function (event, ui) {
+                eventsService.emit('toureditor.sorted');
+            }
         }
 
         vm.properties = {
