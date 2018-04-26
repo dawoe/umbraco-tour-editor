@@ -8,9 +8,10 @@
         vm.promises = [];
         vm.trees = [];
         vm.dashboards = [];
+        vm.promiseObj = {};
 
         // get sections in correct format for view
-        vm.sections = _.map($scope.model.sections, function(x) {
+        vm.sections = _.map($scope.model.sections, function (x) {
             return {
                 "alias": x.alias,
                 "icon": x.icon,
@@ -20,80 +21,121 @@
         });
 
         // add sections tab
-        vm.tabs = [{
-            active: true,
-            id: 1,
-            label: "Sections",
-            alias: "sections",
-            items : vm.sections
-        }, {
-            active: false,
-            id: 2,
-            label: "Trees",
-            alias: "trees",
-            items : vm.trees
-        },
+        vm.tabs = [
             {
-                active: false,
-                id: 3,
-                label: "Dashboards",
-                alias: "dashboards",
-                items: vm.dashboards
-            }];
+                active: true,
+                id: 1,
+                label: "Sections",
+                alias: "sections",
+                items: vm.sections
+            }
+        ];
 
-       
 
-        function pickElement(eventElement) {           
+
+        function pickElement(eventElement) {
             $scope.model.submit("[data-element='" + eventElement + "']");
         }
 
         vm.pickElement = pickElement;
 
-        // handle data when all promises are resolved
-        $q.all(vm.promises).then(function (resolved) {                       
-            vm.isLoading = false;
-        }); 
-                
-        function init() {
+        function getTrees(section) {
+            var deferred = $q.defer();
 
+            treeResource.loadApplication({ "section": section, "isDialog": true }).then(function (data) {
+                var trees = [];
+                if (data.isContainer) {
+                    for (var i = 0; i < data.children.length; i++) {
+                        var tree = data.children[i];
+                        trees.push({
+                            "alias": tree.metaData.treeAlias,
+                            "name": tree.name,
+                            "icon": tree.icon,
+                            "element": "tree-item-" + tree.metaData.treeAlias
+                        });
+                    }
+                }
+
+                deferred.resolve(trees);
+            }, function () {
+                deferred.reject();
+            });
+
+            return deferred.promise;
+        }
+
+        function getDashBoards(section) {
+            var deferred = $q.defer();
+
+            dashboardResource.getDashboard(section).then(function (data) {
+                var dashboards = [];
+                for (var i = 0; i < data.length; i++) {
+                    var dashboard = data[i];
+                    dashboards.push(
+                        {
+                            "alias": dashboard.alias,
+                            "name": dashboard.label,
+                            "icon": "icon-dashboard",
+                            "element": "tab-" + dashboard.alias
+                        }
+                    );
+                }
+
+                deferred.resolve(dashboards);
+            }, function () {
+                deferred.reject();
+            });            
+
+            return deferred.promise;
+        }
+
+        function init() {            
             // store promises based on sections           
             for (var i = 0; i < vm.sections.length; i++) {
                 var alias = vm.sections[i].alias;
-                // get trees for section
-                var treePromise = treeResource.loadApplication({"section": alias,"isDialig": true}).then(function(data) {
-                    if (data.isContainer) {
-                        for (var i = 0; i < data.children.length; i++) {
-                            var tree = data.children[i];
-                            vm.trees.push({
-                                "alias": tree.metaData.treeAlias,
-                                "name": tree.name,
-                                "icon": tree.icon,
-                                "element": "tree-item-" + tree.metaData.treeAlias
-                            });                            
-                        }
-                    }
-                });
-                
-                vm.promises.push(treePromise);
+               
+                vm.promiseObj['tree' + alias] = getTrees(alias);
+                vm.promiseObj['dashboard' + alias] = getDashBoards(alias);               
+            }           
 
-                // get dashboards for section
-                var dashBoardPromise = dashboardResource.getDashboard(alias).then(function (data) {
-                    for (var i = 0; i < data.length; i++) {
-                        var dashboard = data[i];
-                        vm.dashboards.push(
-                            {
-                                "alias": dashboard.alias,
-                                "name": dashboard.label,
-                                "icon": "icon-dashboard",
-                                "element": "tab-" + dashboard.alias
-                            }
-                        );
-                    }
-                    
-                });
+            // handle data when all promises are resolved
+            $q.all(vm.promiseObj).then(function (values) {
 
-                vm.promises.push(dashBoardPromise);
-            }            
+                var keys = Object.keys(values);
+                for (var i = 0; i < keys.length; i++) {
+                    var key = keys[i];
+
+                    if (key.startsWith('tree')) {                        
+                       vm.trees =  vm.trees.concat(values[key]);
+                    }
+
+                    if (key.startsWith('dashboard')) {
+                        vm.dashboards = vm.dashboards.concat(values[key]);
+                    }
+                }
+
+                if (vm.trees.length > 0) {
+                    vm.tabs.push({
+                        active: false,
+                        id: 2,
+                        label: "Trees",
+                        alias: "trees",
+                        items: vm.trees
+                    });
+                }
+
+                if (vm.dashboards.length > 0) {
+                    vm.tabs.push({
+                        active: false,
+                        id: 3,
+                        label: "Dashboards",
+                        alias: "Dashboards",
+                        items: vm.dashboards
+                    });
+                }
+
+                vm.isLoading = false;
+            });
         }
 
         init();
