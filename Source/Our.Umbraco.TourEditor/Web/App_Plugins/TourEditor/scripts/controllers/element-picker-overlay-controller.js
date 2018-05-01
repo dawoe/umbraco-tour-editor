@@ -20,6 +20,15 @@
             };
         });
 
+        vm.other = [
+            {
+                "alias": "avatar",
+                "icon": "icon-user",
+                "name": "Avatar",
+                "element": "section-user"
+            }
+        ];
+
         // add sections tab
         vm.tabs = [
             {
@@ -117,7 +126,7 @@
                 if (vm.trees.length > 0) {
                     vm.tabs.push({
                         active: false,
-                        id: 2,
+                        id: vm.tabs.length + 1,
                         label: "Trees",
                         alias: "trees",
                         items: vm.trees
@@ -127,10 +136,20 @@
                 if (vm.dashboards.length > 0) {
                     vm.tabs.push({
                         active: false,
-                        id: 3,
+                        id: vm.tabs.length + 1,
                         label: "Dashboards",
                         alias: "Dashboards",
                         items: vm.dashboards
+                    });
+                }
+
+                if (vm.other.length > 0) {
+                    vm.tabs.push({
+                        active: false,
+                        id: vm.tabs.length + 1,
+                        label: "Other",
+                        alias: "other",
+                        items: vm.other
                     });
                 }
 
