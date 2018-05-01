@@ -32,6 +32,12 @@
                 "icon": "icon-help-alt",
                 "name": "Help",
                 "element": "section-help"
+            },
+            {
+                "alias": "search",
+                "icon": "icon-search",
+                "name": "Search",
+                "element": "global-search-field"
             }
         ];
 
