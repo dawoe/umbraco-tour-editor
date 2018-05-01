@@ -13,7 +13,7 @@
         vm.eventList = [
             {
                 "label": "No event",
-                "value": null
+                "value": ""
             },
             {
                 "label": "Click",
@@ -159,6 +159,10 @@
             // convert custom properties json object to string for editing
             if (vm.step.customProperties) {
                 vm.step.customPropertiesText = JSON.stringify(vm.step.customProperties);
+            }
+
+            if (vm.step.event === null) {
+                vm.step.event = '';
             }
 
             // set content of rte
