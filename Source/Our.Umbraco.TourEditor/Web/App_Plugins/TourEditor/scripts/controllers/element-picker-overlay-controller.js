@@ -26,6 +26,12 @@
                 "icon": "icon-user",
                 "name": "Avatar",
                 "element": "section-user"
+            },
+            {
+                "alias": "help",
+                "icon": "icon-help-alt",
+                "name": "Help",
+                "element": "section-help"
             }
         ];
 
