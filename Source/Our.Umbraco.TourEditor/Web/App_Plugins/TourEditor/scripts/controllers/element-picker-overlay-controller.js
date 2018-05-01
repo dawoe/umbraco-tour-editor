@@ -16,8 +16,8 @@
                 "alias": x.alias,
                 "icon": x.icon,
                 "name": x.name,
-                "element": "section-" + x.alias
-            };
+                "element": "[data-element='section-" + x.alias + "']"
+        };
         });
 
         vm.other = [
@@ -25,19 +25,19 @@
                 "alias": "avatar",
                 "icon": "icon-user",
                 "name": "Avatar",
-                "element": "section-user"
+                "element": "[data-element='section-user']"
             },
             {
                 "alias": "help",
                 "icon": "icon-help-alt",
                 "name": "Help",
-                "element": "section-help"
+                "element": "[data-element='section-help']"
             },
             {
                 "alias": "search",
                 "icon": "icon-search",
                 "name": "Search",
-                "element": "global-search-field"
+                "element": "[data-element='section-global-search-field']"
             }
         ];
 
@@ -55,7 +55,7 @@
 
 
         function pickElement(eventElement) {
-            $scope.model.submit("[data-element='" + eventElement + "']");
+            $scope.model.submit(eventElement);
         }
 
         vm.pickElement = pickElement;
@@ -72,7 +72,7 @@
                             "alias": tree.metaData.treeAlias,
                             "name": tree.name,
                             "icon": tree.icon,
-                            "element": "tree-item-" + tree.metaData.treeAlias
+                            "element": "[data-element='tree-item-" + tree.metaData.treeAlias + "']" 
                         });
                     }
                 }
@@ -97,7 +97,7 @@
                             "alias": dashboard.alias,
                             "name": dashboard.label,
                             "icon": "icon-dashboard",
-                            "element": "tab-" + dashboard.alias
+                            "element": "[data-element='tab-" + dashboard.alias + "']"
                         }
                     );
                 }
