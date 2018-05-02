@@ -38,6 +38,18 @@
                 "icon": "icon-search",
                 "name": "Search",
                 "element": "[data-element='section-global-search-field']"
+            },
+            {
+                "alias": "applications",
+                "icon": "icon-thumbnail-list",
+                "name": "Sections bar",
+                "element": "#applications"
+            },
+            {
+                "alias": "navigation",
+                "icon": "icon-sitemap",
+                "name": "Navigation",
+                "element" : "#navigation"
             }
         ];
 
