@@ -50,6 +50,12 @@
                 "icon": "icon-sitemap",
                 "name": "Navigation",
                 "element" : "#navigation"
+            },
+            {
+                "alias": "contentsection",
+                "icon": "icon-browser-window",
+                "name": "Content section",
+                "element": "#contentWrapper"
             }
         ];
 
