@@ -12,6 +12,7 @@
         vm.form = null;
         vm.isNew = false;
         vm.sectionsString = '';
+        vm.hasCulture = false;
 
         vm.sortableOptions = {
             distance: 10,
@@ -27,6 +28,7 @@
             'Name': { 'label': 'Name', 'description': 'Enter the name for this tour', 'propertyErrorMessage': 'The name is a required field' },
             'Group': { 'label': 'Group', 'description': 'Enter the group name for this tour. This is used to group tours in the help drawer', 'propertyErrorMessage': 'The  group name is a required field' },
             'GroupOrder': { 'label': 'Group order', 'description': 'Control the order of tour groups', 'propertyErrorMessage': 'The  group order is a required field' },
+            'Culture': { 'label': 'Culture', 'description': 'Select the culture for this tour. If set it will only be shown to users with this culture set on their profile' },
             'Alias': { 'label': 'Alias', 'description': 'Enter the unique alias for this tour', 'propertyErrorMessage': 'Alias is a required field and should be unique' },
             'Sections': { 'label': 'Sections', 'description': 'Sections that the tour will access while running, if the user does not have access to the required tour sections, the tour will not load.   ', 'propertyErrorMessage': 'You should select at least one section' },
             'AllowDisable': { 'label': 'Allow disabling', 'description': 'Adds a "Don\'t" show this tour again"-button to the intro step' }
@@ -45,6 +47,8 @@
             if (vm.tour.requiredSections === null) {
                 vm.tour.requiredSections = [];
             }
+
+            vm.hasCulture = vm.tour.hasOwnProperty('culture');
 
             // get the selected sections from data
             vm.selectedSections = _.filter(vm.allSections,

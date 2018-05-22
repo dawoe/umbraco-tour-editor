@@ -30,6 +30,10 @@
                 <umb-property property="vm.properties.GroupOrder">
                     <input type="number" data-element="toureditor-grouporder" ng-model="vm.tour.groupOrder" class="umb-editor" required />
                 </umb-property>
+                
+                <umb-property property="vm.properties.Culture" ng-if="vm.hasCulture">
+                    Culture selection will go here
+                </umb-property>
 
                 <umb-property property="vm.properties.Sections">
                     <umb-node-preview data-element="toureditor-sections" style="max-width: 100%;"
