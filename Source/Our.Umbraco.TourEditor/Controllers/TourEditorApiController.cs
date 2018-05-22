@@ -10,6 +10,7 @@
 
     using global::Umbraco.Core.IO;
     using global::Umbraco.Core.Logging;
+    using global::Umbraco.Core.Persistence.Migrations.Upgrades.TargetVersionSevenSixZero;
     using global::Umbraco.Web.Editors;
     using global::Umbraco.Web.Models;
     using global::Umbraco.Web.Mvc;
@@ -346,6 +347,20 @@
             }
 
             return this.Request.CreateResponse(HttpStatusCode.OK, groups.Distinct());
+        }
+
+        /// <summary>
+        /// The get cultures.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="HttpResponseMessage"/>.
+        /// </returns>
+        [HttpGet]
+        public HttpResponseMessage GetCultures()
+        {
+            var languages = this.Services.TextService.GetSupportedCultures().ToDictionary(x => x.Name, x => x.DisplayName);
+
+            return this.Request.CreateResponse(languages);
         }
     }
 }
