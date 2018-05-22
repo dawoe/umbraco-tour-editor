@@ -360,7 +360,7 @@
         {
             var languages = this.Services.TextService.GetSupportedCultures().ToDictionary(x => x.Name, x => x.DisplayName);
 
-            return this.Request.CreateResponse(languages);
+            return this.Request.CreateResponse(languages.ToList());
         }
     }
 }

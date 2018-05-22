@@ -13,7 +13,7 @@
         vm.isNew = false;
         vm.sectionsString = '';
         vm.hasCulture = false;
-        vm.cultures = {};
+        vm.cultures = [];
 
         vm.sortableOptions = {
             distance: 10,
