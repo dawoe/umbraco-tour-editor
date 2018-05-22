@@ -1,7 +1,7 @@
 ﻿(function () {
     "use strict";
 
-    function TourDetailsController($scope, eventsService, sectionResource, formHelper) {
+    function TourDetailsController($scope, eventsService, sectionResource, formHelper, tourResource) {
         var vm = this;
         vm.tour = null;
         vm.tourIndex = -1;
@@ -13,6 +13,7 @@
         vm.isNew = false;
         vm.sectionsString = '';
         vm.hasCulture = false;
+        vm.cultures = {};
 
         vm.sortableOptions = {
             distance: 10,
@@ -49,6 +50,12 @@
             }
 
             vm.hasCulture = vm.tour.hasOwnProperty('culture');
+
+            if (vm.hasCulture) {
+                tourResource.getCultures().then(function(data) {
+                    vm.cultures = data;
+                });
+            }
 
             // get the selected sections from data
             vm.selectedSections = _.filter(vm.allSections,
@@ -256,6 +263,7 @@
             'eventsService',
             'sectionResource',
             'formHelper',
+            'Our.Umbraco.TourEditor.TourResource',
             TourDetailsController
         ]);
 
