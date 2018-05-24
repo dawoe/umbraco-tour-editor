@@ -54,6 +54,8 @@
             if (vm.hasCulture) {
                 tourResource.getCultures().then(function(data) {
                     vm.cultures = data;
+
+                    vm.cultures.unshift({ "Key": "", "Value": "No specific culture" });
                 });
             }
 
