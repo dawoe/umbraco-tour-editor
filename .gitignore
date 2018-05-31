@@ -41,3 +41,5 @@ artifacts/
 
 Source/Our.Umbraco.RedirectsViewer/.vs/
 Source/Our.Umbraco.TourEditor/.vs/config/
+/.vs
+/Source/Our.Umbraco.TourEditor/.vs/Our.Umbraco.TourEditor/v15/Server/sqlite3
