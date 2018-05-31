@@ -4,7 +4,7 @@
     function EditFileController($scope, $routeParams, editorState, appState, umbRequestHelper, navigationService, notificationsService, eventsService, tourResource) {
         var vm = this;
 
-        var subviewsPath = "~/App_Plugins/TourEditor/backoffice/toureditor/subviews/";
+        var subviewsPath = "/App_Plugins/TourEditor/backoffice/toureditor/subviews/";
 
         vm.page = {};
 
