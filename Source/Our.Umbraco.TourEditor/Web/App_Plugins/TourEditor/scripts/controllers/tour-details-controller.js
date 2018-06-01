@@ -77,11 +77,17 @@
             vm.form = null;
             vm.isNew = false;
             vm.aliases = [];
+            vm.cultures = [];
             eventsService.emit('toureditor.tourchangesdiscarded');
         }));
 
         evts.push(eventsService.on("toureditor.updatetourchanges", function (name, arg) {
             if (formHelper.submitForm({ scope: $scope, formCtrl: vm.form })) {
+
+                if (vm.tour.culture === '') {
+                    vm.tour.culture = null;
+                }
+
                 eventsService.emit('toureditor.tourchangesupdate',
                     {
                         "index": vm.tourIndex,
@@ -94,6 +100,7 @@
                 vm.form = null;
                 vm.isNew = false;
                 vm.aliases = [];
+                vm.cultures = [];
             }                      
         }));
 
