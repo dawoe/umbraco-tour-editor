@@ -11,7 +11,8 @@
             getTourFile: getTourFile,
             saveTourFile: saveTourFile,
             getAliases: getAliases,
-            getGroups : getGroups
+            getGroups: getGroups,
+            getCultures : getCultures
         };
 
         return resource;
@@ -60,6 +61,13 @@
             return umbRequestHelper.resourcePromise(
                 $http.get(apiUrl + "GetGroups?filename=" + filename),
                 "Failed loading tourfile"
+            );
+        }
+
+        function getCultures() {
+            return umbRequestHelper.resourcePromise(
+                $http.get(apiUrl + "GetCultures"),
+                "Failed loading cultures"
             );
         }
     }
