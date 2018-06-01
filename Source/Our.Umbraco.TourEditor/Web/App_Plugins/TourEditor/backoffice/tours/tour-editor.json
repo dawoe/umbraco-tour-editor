@@ -477,14 +477,14 @@
       },
       {
         "title": "Event",
-        "content": "<p>Here you can select the javascript event that will trigger the next tour step. Just click next for now</p>",
+        "content": "<p>Here you can select the javascript event that will trigger the next tour step. Select the click event</p>",
         "type": null,
         "element": "[data-element=\"toureditor-stepevent\"]",
-        "elementPreventClick": true,
+        "elementPreventClick": false,
         "backdropOpacity": 0.4,
-        "event": null,
+        "event": "click",
         "view": null,
-        "eventElement": "",
+        "eventElement": "[data-element=\"toureditor-stepevent-click\"]",
         "customProperties": null
       },
       {

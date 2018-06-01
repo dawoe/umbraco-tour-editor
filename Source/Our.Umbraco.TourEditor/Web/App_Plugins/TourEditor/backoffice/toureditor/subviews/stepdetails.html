@@ -29,12 +29,12 @@
                     <input data-element="toureditor-steppreventclick" type="checkbox" ng-model="vm.step.elementPreventClick" />
                 </umb-property>
                 <umb-property property="vm.properties.Event" ng-if="vm.isIntro === false && vm.step.elementPreventClick === false">                                       
-                    <ul class="unstyled">
-                        <li ng-repeat="item in vm.eventList" data-element="toureditor-stepevent">
-                            <label class="radio">
+                    <ul class="unstyled" data-element="toureditor-stepevent">
+                        <li ng-repeat="item in vm.eventList" >
+                            <label class="radio" data-element="toureditor-stepevent-{{item.value}}">
                                 <input type="radio" name="radiobuttons-event"
                                        value="{{item.value}}"
-                                       ng-model="vm.step.event" />
+                                       ng-model="vm.step.event"  />
                                 {{item.label}}
                             </label>
                         </li>
