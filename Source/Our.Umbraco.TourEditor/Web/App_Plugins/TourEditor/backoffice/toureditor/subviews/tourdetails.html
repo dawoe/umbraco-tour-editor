@@ -31,12 +31,8 @@
                     <input type="number" data-element="toureditor-grouporder" ng-model="vm.tour.groupOrder" class="umb-editor" required />
                 </umb-property>
                 
-                <umb-property property="vm.properties.Culture" ng-if="vm.hasCulture">
-                    <select class="input-block-level"
-                            ng-model="vm.tour.culture"
-                            name="culture">
-                        <option ng-repeat="culture in vm.cultures" value="culture.Key">{{culture.Value}}</option>
-                    </select>
+                <umb-property property="vm.properties.Culture" ng-if="vm.hasCulture">                   
+                    <select class="input-block-level" ng-model="vm.tour.culture"  ng-options="i.Key as (i.Value) for i in vm.cultures"></select>
                 </umb-property>
 
                 <umb-property property="vm.properties.Sections">

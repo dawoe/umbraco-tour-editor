@@ -56,6 +56,10 @@
                     vm.cultures = data;
 
                     vm.cultures.unshift({ "Key": "", "Value": "No specific culture" });
+
+                    if (vm.tour.culture === null) {
+                        vm.tour.culture = '';
+                    }
                 });
             }
 
