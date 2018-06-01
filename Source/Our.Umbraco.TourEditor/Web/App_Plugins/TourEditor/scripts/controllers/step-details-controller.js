@@ -12,6 +12,10 @@
 
         vm.eventList = [
             {
+                "label": "No event",
+                "value": ""
+            },
+            {
                 "label": "Click",
                 "value": "click"
             },
@@ -157,16 +161,15 @@
                 vm.step.customPropertiesText = JSON.stringify(vm.step.customProperties);
             }
 
+            if (vm.step.event === null) {
+                vm.step.event = '';
+            }
+
             // set content of rte
             vm.rte.value = vm.step.content;
 
             // set value for the slider
-            vm.slider.value = vm.step.backdropOpacity;
-
-            // set event value so we have one selected
-            if (vm.step.event === null || vm.step.event === '') {
-                vm.step.event = 'click';
-            }
+            vm.slider.value = vm.step.backdropOpacity;            
 
             vm.isIntro = vm.step.type === 'intro';
 
@@ -205,6 +208,17 @@
 
                 // set the even value to empty if it's a intro or prevent click is checked
                 if (vm.step.type === 'intro' || vm.step.elementPreventClick) {
+                    vm.step.event = null;
+                }
+
+                if (vm.step.type === 'intro') {
+                    vm.step.element = null;
+                    vm.step.eventElement = null;
+                    vm.step.view = null;
+                    vm.step.customProperties = null;
+                }
+
+                if (vm.step.event === '') {
                     vm.step.event = null;
                 }
 

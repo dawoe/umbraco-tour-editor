@@ -1,7 +1,7 @@
 ﻿(function () {
     "use strict";
 
-    function TourDetailsController($scope, eventsService, sectionResource, formHelper) {
+    function TourDetailsController($scope, eventsService, sectionResource, formHelper, tourResource) {
         var vm = this;
         vm.tour = null;
         vm.tourIndex = -1;
@@ -12,18 +12,24 @@
         vm.form = null;
         vm.isNew = false;
         vm.sectionsString = '';
+        vm.hasCulture = false;
+        vm.cultures = [];
 
         vm.sortableOptions = {
             distance: 10,
             tolerance: 'move',
             scroll: true,
-            zIndex: 6000            
+            zIndex: 6000,
+            update: function (event, ui) {
+                eventsService.emit('toureditor.sorted');
+            }
         }
 
         vm.properties = {
             'Name': { 'label': 'Name', 'description': 'Enter the name for this tour', 'propertyErrorMessage': 'The name is a required field' },
             'Group': { 'label': 'Group', 'description': 'Enter the group name for this tour. This is used to group tours in the help drawer', 'propertyErrorMessage': 'The  group name is a required field' },
             'GroupOrder': { 'label': 'Group order', 'description': 'Control the order of tour groups', 'propertyErrorMessage': 'The  group order is a required field' },
+            'Culture': { 'label': 'Culture', 'description': 'Select the culture for this tour. If set it will only be shown to users with this culture set on their profile' },
             'Alias': { 'label': 'Alias', 'description': 'Enter the unique alias for this tour', 'propertyErrorMessage': 'Alias is a required field and should be unique' },
             'Sections': { 'label': 'Sections', 'description': 'Sections that the tour will access while running, if the user does not have access to the required tour sections, the tour will not load.   ', 'propertyErrorMessage': 'You should select at least one section' },
             'AllowDisable': { 'label': 'Allow disabling', 'description': 'Adds a "Don\'t" show this tour again"-button to the intro step' }
@@ -43,6 +49,20 @@
                 vm.tour.requiredSections = [];
             }
 
+            vm.hasCulture = vm.tour.hasOwnProperty('culture');
+
+            if (vm.hasCulture) {
+                tourResource.getCultures().then(function(data) {
+                    vm.cultures = data;
+
+                    vm.cultures.unshift({ "Key": "", "Value": "No specific culture" });
+
+                    if (vm.tour.culture === null) {
+                        vm.tour.culture = '';
+                    }
+                });
+            }
+
             // get the selected sections from data
             vm.selectedSections = _.filter(vm.allSections,
                 function (section) {
@@ -57,11 +77,17 @@
             vm.form = null;
             vm.isNew = false;
             vm.aliases = [];
+            vm.cultures = [];
             eventsService.emit('toureditor.tourchangesdiscarded');
         }));
 
         evts.push(eventsService.on("toureditor.updatetourchanges", function (name, arg) {
             if (formHelper.submitForm({ scope: $scope, formCtrl: vm.form })) {
+
+                if (vm.tour.culture === '') {
+                    vm.tour.culture = null;
+                }
+
                 eventsService.emit('toureditor.tourchangesupdate',
                     {
                         "index": vm.tourIndex,
@@ -74,6 +100,7 @@
                 vm.form = null;
                 vm.isNew = false;
                 vm.aliases = [];
+                vm.cultures = [];
             }                      
         }));
 
@@ -249,6 +276,7 @@
             'eventsService',
             'sectionResource',
             'formHelper',
+            'Our.Umbraco.TourEditor.TourResource',
             TourDetailsController
         ]);
 

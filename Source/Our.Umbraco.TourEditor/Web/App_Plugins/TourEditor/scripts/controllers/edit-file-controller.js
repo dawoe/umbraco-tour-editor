@@ -209,6 +209,15 @@
             vm.page.navigation[2].active = true;
         }));
 
+        evts.push(eventsService.on('toureditor.sorted',
+            function(name, args) {
+                var form = angular.element('form[name="tourFileForm"]');
+
+                if (form) {
+                    form.scope().tourFileForm.$dirty = true;
+                }                
+            }));
+
         //ensure to unregister from all events!
         $scope.$on('$destroy', function () {
             for (var e in evts) {

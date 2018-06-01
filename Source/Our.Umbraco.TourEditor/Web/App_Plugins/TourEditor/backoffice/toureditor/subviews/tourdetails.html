@@ -2,8 +2,6 @@
     <umb-box>
         <umb-box-header title="Tour settings"></umb-box-header>
         <umb-box-content>
-
-
             <form name="detailsForm" val-form-manager ng-if="vm.tour !== null">
 
                 <umb-property property="vm.properties.Name">
@@ -31,6 +29,10 @@
 
                 <umb-property property="vm.properties.GroupOrder">
                     <input type="number" data-element="toureditor-grouporder" ng-model="vm.tour.groupOrder" class="umb-editor" required />
+                </umb-property>
+                
+                <umb-property property="vm.properties.Culture" ng-if="vm.hasCulture">                   
+                    <select class="input-block-level" ng-model="vm.tour.culture"  ng-options="i.Key as (i.Value) for i in vm.cultures"></select>
                 </umb-property>
 
                 <umb-property property="vm.properties.Sections">
