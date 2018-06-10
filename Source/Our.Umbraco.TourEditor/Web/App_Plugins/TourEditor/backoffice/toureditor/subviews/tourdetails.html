@@ -54,7 +54,7 @@
                     </a>
                 </umb-property>
                 <umb-property property="vm.properties.AllowDisable">
-                    <input type="checkbox" data-element="toureditor-tourdisable" ng-model="vm.tour.allowDisable" />
+                    <umb-toggle checked="vm.tour.allowDisable" on-click="vm.toggle()" data-element="toureditor-tourdisable"></umb-toggle>
                 </umb-property>
                 <span ng-init="vm.form=detailsForm"></span>
             </form>

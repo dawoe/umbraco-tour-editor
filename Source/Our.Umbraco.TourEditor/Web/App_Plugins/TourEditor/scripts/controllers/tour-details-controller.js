@@ -213,7 +213,18 @@
             }
         }
 
+        function toggle() {
+            if(vm.tour.allowDisable){
+                vm.tour.allowDisable = false;
+
+                return;
+            }
+
+            vm.tour.allowDisable = true;
+        }
+
         vm.addStep = addStep;
+        vm.toggle = toggle;
 
         function editStep(index) {
             if (formHelper.submitForm({ scope: $scope, formCtrl: vm.form })) {
