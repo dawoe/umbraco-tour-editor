@@ -145,7 +145,30 @@
             };
         }
 
+        function toggle(toggleType) {
+            
+            if(toggleType === "intro"){
+                if(vm.isIntro){
+                    vm.isIntro = false;
+                    return;
+                }
+                vm.isIntro = true;
+            }
+
+            if(toggleType === "elementPreventClick"){
+                if(vm.step.elementPreventClick){
+                    vm.step.elementPreventClick = false;
+                    return;
+                }
+
+                vm.step.elementPreventClick = true;
+            }
+        }
+
         vm.openStepPicker = openStepPicker;
+
+        vm.toggleIntro = toggle;
+        vm.toggleElementPreventClick = toggle;
 
         evts.push(eventsService.on("toureditor.editstep", function (name, arg) {
 
