@@ -262,6 +262,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\CustomViewAttribute.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Controllers\TourEditorApiController.cs" />
     <Compile Include="Controllers\TourEditorTreeController.cs" />
