@@ -17,7 +17,7 @@
         /// <param name="parsers">
         /// The parsers.
         /// </param>
-        protected CustomViewResolver(IEnumerable<System.Type> parsers)
+        public CustomViewResolver(IEnumerable<System.Type> parsers)
             : base(parsers, ObjectLifetimeScope.Application)
         {
         }
