@@ -1,4 +1,4 @@
-﻿namespace Our.Umbraco.TourEditor.ObjectResolution
+﻿namespace Our.Umbraco.TourEditor.Extensions
 {
     using System.Collections.Generic;
     using System.Reflection;
