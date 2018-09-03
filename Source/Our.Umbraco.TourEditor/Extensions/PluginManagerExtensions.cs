@@ -5,7 +5,7 @@
 
     using global::Umbraco.Core;
 
-    using Our.Umbraco.TourEditor.Attributes;
+    using Our.Umbraco.TourEditor.Interfaces;
 
     /// <summary>
     /// The plugin manager extensions.
@@ -24,7 +24,7 @@
         internal static IEnumerable<System.Type> ResolveCustomViews(this PluginManager pluginmanager)
         {
             var assembly = Assembly.Load("Our.Umbraco.TourEditor");
-            return pluginmanager.ResolveAttributedTypes<CustomViewAttribute>(specificAssemblies: new List<Assembly> { assembly });
+            return pluginmanager.ResolveTypes<ICustomView>(specificAssemblies: new List<Assembly> { assembly });
         }
     }
 }
