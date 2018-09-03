@@ -19,6 +19,7 @@
     using Newtonsoft.Json;
 
     using Our.Umbraco.TourEditor.Helpers;
+    using Our.Umbraco.TourEditor.Resolvers;
 
     /// <summary>
     /// The tour editor api controller.
@@ -361,6 +362,20 @@
             var languages = this.Services.TextService.GetSupportedCultures().ToDictionary(x => x.Name, x => x.DisplayName);
 
             return this.Request.CreateResponse(languages.ToList());
+        }
+
+        /// <summary>
+        /// Getst the configured custom views
+        /// </summary>
+        /// <returns>
+        /// The <see cref="HttpResponseMessage"/>.
+        /// </returns>
+        [HttpGet]
+        public HttpResponseMessage GetCustomViews()
+        {
+            var customViews = CustomViewResolver.Current.CustomViews;
+
+            return this.Request.CreateResponse(customViews.ToList());
         }
     }
 }
