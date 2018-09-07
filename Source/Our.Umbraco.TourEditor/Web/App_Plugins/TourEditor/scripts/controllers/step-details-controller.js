@@ -154,11 +154,11 @@
                 subtitle: 'You can pick a custom view from a predefined list. Once you selected a view you can set the custom properties if needed.',
                 view: umbRequestHelper.convertVirtualToAbsolutePath("~/App_Plugins/TourEditor/backoffice/toureditor/overlays/custom-view-picker.html"),
                 closeButtonLabel: 'Cancel',
-                hideSubmitButton: true,
+                hideSubmitButton: false,
                 show: true,
-                selectedView : view,
+                selectedView : vm.step.view,
                 submit: function (model) {
-                    vm.step.view = model;
+                    vm.step.view = model.selectedView;
                     vm.customViewPicker.show = false;
                     vm.customViewPicker = null;
                 },

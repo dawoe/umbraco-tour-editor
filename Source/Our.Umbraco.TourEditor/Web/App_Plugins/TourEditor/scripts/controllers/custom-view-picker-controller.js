@@ -6,11 +6,31 @@
 
         vm.isLoading = true;
         vm.customViews = [];
+        vm.selectedView = $scope.model.selectedView;
+
+        if (!vm.selectedView) {
+            vm.selectedView = '';
+        }        
+
+        vm.properties = {
+            'CustomView': { 'label': 'View', 'description': 'Select the view you want to use'}            
+        };
+
+        function changeView() {           
+            $scope.model.selectedView = vm.selectedView;
+        }
+
+        vm.changeView = changeView;
         
         function init() {
-            tourResource.getCustomViews().then(function(views) {
-                vm.isLoading = false;
+            tourResource.getCustomViews().then(function(views) {               
                 vm.customViews = views;
+                vm.customViews.unshift({
+                    "Name": "Select a view",
+                    "ViewPath": ""
+                });
+
+                vm.isLoading = false;
             });
         }
 

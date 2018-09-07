@@ -1,8 +1,11 @@
 ﻿<div ng-controller="Our.Umbraco.TourEditor.CustomViewPickerOverlayController as vm">
     <umb-load-indicator ng-if="vm.isLoading"></umb-load-indicator>
-    <div ng-if="vm.isLoading === false">
-        <div ng-repeat="item in vm.customViews">
-            <p>{{item.Name}}</p>
-        </div>
+    <div ng-if="vm.isLoading === false">    
+        <umb-property property="vm.properties.CustomView">
+            <select ng-model="vm.selectedView" ng-options="cv.ViewPath as cv.Name for cv in vm.customViews" ng-change="vm.changeView()">                
+            </select> 
+        </umb-property>
+          
+       
     </div>
 </div>
