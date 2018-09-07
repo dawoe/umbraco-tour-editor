@@ -267,6 +267,7 @@
     <Compile Include="Controllers\TourEditorApiController.cs" />
     <Compile Include="Controllers\TourEditorTreeController.cs" />
     <Compile Include="CustomViews\RequiredInputView.cs" />
+    <Compile Include="Extensions\CustomViewExtensions.cs" />
     <Compile Include="Helpers\TourHelper.cs" />
     <Compile Include="Extensions\PluginManagerExtensions.cs" />
     <Compile Include="Interfaces\ICustomView.cs" />
