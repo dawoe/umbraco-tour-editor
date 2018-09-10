@@ -8,6 +8,7 @@
         vm.customViews = [];
         vm.selectedView = $scope.model.selectedView;
         vm.customProperties = [];
+        vm.customPropertiesJson = null;
 
         if (!vm.selectedView) {
             vm.selectedView = '';
@@ -24,8 +25,10 @@
 
         function setupCustomProperties() {
             vm.customProperties = [];
+            vm.customPropertiesJson = null;
 
             if (vm.selectedView !== '') {
+                vm.customPropertiesJson = {};
                 var currentView = _.find(vm.customViews, function (view) { return view.viewPath === vm.selectedView; });               
                 if (currentView) {
                     for (var i = 0; i < currentView.customProperties.length; i++) {
@@ -40,7 +43,9 @@
                             },
                             property: currentProp.property
                         });
-                    }                   
+
+                        vm.customPropertiesJson[currentProp.property] = '';
+                    }                    
                 }
             }
         }
