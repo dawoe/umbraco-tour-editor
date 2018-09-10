@@ -18,7 +18,9 @@
 
     using Newtonsoft.Json;
 
+    using Our.Umbraco.TourEditor.Extensions;
     using Our.Umbraco.TourEditor.Helpers;
+    using Our.Umbraco.TourEditor.Models;
     using Our.Umbraco.TourEditor.Resolvers;
 
     /// <summary>
@@ -373,9 +375,18 @@
         [HttpGet]
         public HttpResponseMessage GetCustomViews()
         {
-            var customViews = CustomViewResolver.Current.CustomViews;
+            var customViews = CustomViewResolver.Current.CustomViews.ToList();
 
-            return this.Request.CreateResponse(customViews.ToList());
+            var model = new List<CustomViewDisplay>();
+
+            foreach (var view in customViews)
+            {
+                var item = new CustomViewDisplay { Name = view.Name, ViewPath = view.ViewPath };
+
+                model.Add(item);
+            }
+            
+            return this.Request.CreateResponse(model);
         }
     }
 }
