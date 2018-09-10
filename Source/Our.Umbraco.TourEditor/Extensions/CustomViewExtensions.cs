@@ -23,7 +23,7 @@
         /// </returns>
         public static List<CustomPropertyAttribute> GetCustomProperties(this ICustomView view)
         {           
-            return view.GetType().GetCustomAttributes<CustomPropertyAttribute>().ToList();            
+            return view.GetType().GetCustomAttributes<CustomPropertyAttribute>().OrderBy(x => x.Order).ToList();            
         }
     }
 }

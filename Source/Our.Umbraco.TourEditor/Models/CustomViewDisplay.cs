@@ -10,6 +10,14 @@
     internal class CustomViewDisplay
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="CustomViewDisplay"/> class.
+        /// </summary>
+        public CustomViewDisplay()
+        {
+            this.Properties = new List<CustomPropertyDisplay>();
+        }
+
+        /// <summary>
         /// Gets or sets the name.
         /// </summary>
         [DataMember(Name = "name")]

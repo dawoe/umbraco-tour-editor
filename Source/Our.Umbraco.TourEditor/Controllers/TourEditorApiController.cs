@@ -383,6 +383,20 @@
             {
                 var item = new CustomViewDisplay { Name = view.Name, ViewPath = view.ViewPath };
 
+                var customProperties = view.GetCustomProperties();
+
+                foreach (var property in customProperties)
+                {
+                    item.Properties.Add(new CustomPropertyDisplay
+                                            {
+                                                Config = property.ViewConfig,
+                                                Description = property.Description,
+                                                Label = property.Label,
+                                                Property = property.PropertyName,
+                                                View = property.View
+                                            });  
+                }
+
                 model.Add(item);
             }
             
