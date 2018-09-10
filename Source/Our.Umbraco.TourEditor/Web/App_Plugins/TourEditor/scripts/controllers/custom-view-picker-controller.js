@@ -56,7 +56,12 @@
                             property: currentProp.property
                         });
 
-                        vm.customPropertiesJson[currentProp.property] = '';                       
+                        vm.customPropertiesJson[currentProp.property] = '';   
+
+                        if ($scope.model.selectedView === vm.selectedView && $scope.model.customProperties) {
+                            vm.customPropertiesJson[currentProp.property] = $scope.model.customProperties[currentProp.property];  
+                            vm.customProperties[vm.customProperties.length - 1].editor.value = $scope.model.customProperties[currentProp.property];  
+                        }
                     }    
 
                     vm.watcher = $scope.$watch('vm.customProperties',
