@@ -56,7 +56,14 @@
 
                     vm.watcher = $scope.$watch('vm.customProperties',
                         function (newValue) {
-                            
+                            if (newValue) {
+                                for (var i = 0; i < newValue.length; i++) {
+                                    var propName = newValue[i].property;
+                                    var value = newValue[i].editor.value;
+
+                                    vm.customPropertiesJson[propName] = value;                                    
+                                }
+                            }
                         }, true);
                 }
             }
