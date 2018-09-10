@@ -29,7 +29,7 @@
         /// <param name="description">
         /// The description.
         /// </param>
-        public CustomPropertyAttribute(string propertyName, string label, int order, string view = "textfield", string viewConfig = "", string description = "")
+        public CustomPropertyAttribute(string propertyName, string label, int order, string view = "textbox", string viewConfig = "", string description = "")
         {
             this.PropertyName = propertyName;
             this.Label = label;
