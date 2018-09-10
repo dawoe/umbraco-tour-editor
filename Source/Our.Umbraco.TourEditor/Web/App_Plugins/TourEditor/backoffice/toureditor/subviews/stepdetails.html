@@ -7,13 +7,13 @@
                     <input type="text" data-element="toureditor-stepname"  ng-model="vm.step.title" class="umb-editor" required />
                 </umb-property>
                 <umb-property property="vm.properties.Content">                    
-                    <umb-editor model="vm.rte"  data-element="toureditor-stepcontent"/>
+                    <umb-property-editor model="vm.rte"  data-element="toureditor-stepcontent"/>
                 </umb-property>
                 <umb-property property="vm.properties.Type">
                     <umb-toggle checked="vm.isIntro" on-click="vm.toggleIntro('intro')" data-element="toureditor-stepintro"></umb-toggle>
                 </umb-property>
                 <umb-property property="vm.properties.BackDropOpacity">
-                    <umb-editor model="vm.slider" data-element="toureditor-stepbackdrop" />                   
+                    <umb-property-editor model="vm.slider" data-element="toureditor-stepbackdrop" />                   
                 </umb-property>
                 <umb-property property="vm.properties.Element" ng-if="vm.isIntro === false">
                     <input data-element="toureditor-stepelement" type="text" ng-model="vm.step.element" class="umb-editor" ng-required="vm.step.type !== 'intro'" />
