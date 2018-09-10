@@ -26,8 +26,8 @@
             tourResource.getCustomViews().then(function(views) {               
                 vm.customViews = views;
                 vm.customViews.unshift({
-                    "Name": "Select a view",
-                    "ViewPath": ""
+                    "name": "Select a view",
+                    "viewPath": ""
                 });
 
                 vm.isLoading = false;
