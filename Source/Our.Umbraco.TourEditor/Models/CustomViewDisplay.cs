@@ -1,5 +1,6 @@
 ﻿namespace Our.Umbraco.TourEditor.Models
 {
+    using System.Collections.Generic;
     using System.Runtime.Serialization;
 
     /// <summary>
@@ -19,5 +20,11 @@
         /// </summary>
         [DataMember(Name = "viewPath")]
         public string ViewPath { get; set; }
+
+        /// <summary>
+        /// Gets or sets the properties.
+        /// </summary>
+        [DataMember(Name = "customProperties")]
+        public List<CustomPropertyDisplay> Properties { get; set; }
     }
 }
