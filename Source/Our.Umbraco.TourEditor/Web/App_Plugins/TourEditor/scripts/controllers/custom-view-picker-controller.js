@@ -1,7 +1,7 @@
 ﻿(function () {
     "use strict";
 
-    function CustomViewPickerOverlayController($scope, formHelper, tourResource) {
+    function CustomViewPickerOverlayController($scope, tourResource) {
         var vm = this;
 
         vm.isLoading = true;
@@ -100,8 +100,7 @@
 
     angular.module("umbraco").controller("Our.Umbraco.TourEditor.CustomViewPickerOverlayController",
         [
-            '$scope',
-            'formHelper',
+            '$scope',            
             'Our.Umbraco.TourEditor.TourResource',            
             CustomViewPickerOverlayController
         ]);
