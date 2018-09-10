@@ -9,6 +9,7 @@
         vm.selectedView = $scope.model.selectedView;
         vm.customProperties = [];
         vm.customPropertiesJson = null;
+        vm.watcher = null;
 
         if (!vm.selectedView) {
             vm.selectedView = '';
@@ -24,8 +25,14 @@
         vm.changeView = changeView;
 
         function setupCustomProperties() {
+            if (vm.watcher) {
+                // unbind watch
+                vm.watcher();
+            }
+
             vm.customProperties = [];
             vm.customPropertiesJson = null;
+            vm.watcher = null;
 
             if (vm.selectedView !== '') {
                 vm.customPropertiesJson = {};
@@ -44,8 +51,13 @@
                             property: currentProp.property
                         });
 
-                        vm.customPropertiesJson[currentProp.property] = '';
-                    }                    
+                        vm.customPropertiesJson[currentProp.property] = '';                       
+                    }    
+
+                    vm.watcher = $scope.$watch('vm.customProperties',
+                        function (newValue) {
+                            
+                        }, true);
                 }
             }
         }
