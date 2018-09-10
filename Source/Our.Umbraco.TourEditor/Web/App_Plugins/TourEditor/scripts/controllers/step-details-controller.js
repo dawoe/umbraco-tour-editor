@@ -156,7 +156,8 @@
                 closeButtonLabel: 'Cancel',
                 hideSubmitButton: false,
                 show: true,
-                selectedView : vm.step.view,
+                selectedView: vm.step.view,
+                customProperties : vm.step.customProperties,
                 submit: function (model) {
                     vm.step.view = model.selectedView;
                     vm.step.customProperties = model.customProperties;
