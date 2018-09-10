@@ -40,11 +40,17 @@
                     for (var i = 0; i < currentView.customProperties.length; i++) {
                         var currentProp = currentView.customProperties[i];
 
+                        var config = {};
+
+                        if (currentProp.config !== '') {
+                            config = JSON.parse(currentProp.config);
+                        }
+
                         vm.customProperties.push({
                             texts: { 'label': currentProp.label, 'description': currentProp.description },
                             editor: {
                                 'view': currentProp.view,
-                                'config': currentProp.config,
+                                'config': config,
                                 'value' : ''
                             },
                             property: currentProp.property
@@ -55,7 +61,7 @@
 
                     vm.watcher = $scope.$watch('vm.customProperties',
                         function (newValue) {
-                            if (newValue) {
+                            if (newValue) {                               
                                 for (var i = 0; i < newValue.length; i++) {
                                     var propName = newValue[i].property;
                                     var value = newValue[i].editor.value;
