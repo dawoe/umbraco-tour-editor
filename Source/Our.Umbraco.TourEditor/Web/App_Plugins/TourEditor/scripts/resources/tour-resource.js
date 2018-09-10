@@ -12,7 +12,8 @@
             saveTourFile: saveTourFile,
             getAliases: getAliases,
             getGroups: getGroups,
-            getCultures : getCultures
+            getCultures: getCultures,
+            getCustomViews : getCustomViews
         };
 
         return resource;
@@ -67,6 +68,13 @@
         function getCultures() {
             return umbRequestHelper.resourcePromise(
                 $http.get(apiUrl + "GetCultures"),
+                "Failed loading cultures"
+            );
+        }
+
+        function getCustomViews() {
+            return umbRequestHelper.resourcePromise(
+                $http.get(apiUrl + "GetCustomViews"),
                 "Failed loading cultures"
             );
         }

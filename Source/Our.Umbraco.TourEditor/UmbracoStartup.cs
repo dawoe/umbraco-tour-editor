@@ -12,12 +12,25 @@
     using global::Umbraco.Web.UI.JavaScript;
 
     using Our.Umbraco.TourEditor.Controllers;
+    using Our.Umbraco.TourEditor.Extensions;
+    using Our.Umbraco.TourEditor.Resolvers;
 
     /// <summary>
     /// The umbraco startup event handler
     /// </summary>
     internal class UmbracoStartup : ApplicationEventHandler
     {
+        /// <summary>
+        /// Overridable method to execute when the ApplicationContext is created and other static objects that require initialization have been setup
+        /// </summary>
+        /// <param name="umbracoApplication"></param>
+        /// <param name="applicationContext"></param>
+        protected override void ApplicationInitialized(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
+        {
+            CustomViewResolver.Current =
+                new CustomViewResolver(PluginManager.Current.ResolveCustomViews());
+        }
+
         /// <summary>
         /// Overridable method to execute when All resolvers have been initialized but resolution is not frozen so they can be modified in this method
         /// </summary>

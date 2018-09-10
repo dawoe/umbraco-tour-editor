@@ -145,6 +145,37 @@
             };
         }
 
+        vm.openStepPicker = openStepPicker;
+
+        function openCustomViewPicker(view) {
+
+            vm.customViewPicker = {
+                title: 'Custom view picker',
+                subtitle: 'You can pick a custom view from a predefined list. Once you selected a view you can set the custom properties if needed.',
+                view: umbRequestHelper.convertVirtualToAbsolutePath("~/App_Plugins/TourEditor/backoffice/toureditor/overlays/custom-view-picker.html"),
+                closeButtonLabel: 'Cancel',
+                hideSubmitButton: false,
+                show: true,
+                selectedView: vm.step.view,
+                customProperties : vm.step.customProperties,
+                submit: function (model) {
+                    vm.step.view = model.selectedView;
+                    vm.step.customProperties = model.customProperties;
+                    if (vm.step.customProperties) {
+                        vm.step.customPropertiesText = JSON.stringify(vm.step.customProperties);
+                    }
+                    vm.customViewPicker.show = false;
+                    vm.customViewPicker = null;
+                },
+                close: function (oldModel) {
+                    vm.customViewPicker.show = false;
+                    vm.customViewPicker = null;
+                }
+            };
+        }
+
+        vm.openCustomViewPicker = openCustomViewPicker;
+
         function toggle(toggleType) {
             
             if(toggleType === "intro"){
@@ -163,9 +194,7 @@
 
                 vm.step.elementPreventClick = true;
             }
-        }
-
-        vm.openStepPicker = openStepPicker;
+        }      
 
         vm.toggleIntro = toggle;
         vm.toggleElementPreventClick = toggle;
