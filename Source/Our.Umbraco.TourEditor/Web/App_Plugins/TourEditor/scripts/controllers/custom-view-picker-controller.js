@@ -1,7 +1,7 @@
 ﻿(function () {
     "use strict";
 
-    function CustomViewPickerOverlayController($scope, $q, tourResource) {
+    function CustomViewPickerOverlayController($scope, formHelper, tourResource) {
         var vm = this;
 
         vm.isLoading = true;
@@ -17,8 +17,7 @@
 
         vm.customViewProperty = { 'label': 'View', 'description': 'Select the view you want to use'};
 
-        function changeView() {           
-            $scope.model.selectedView = vm.selectedView;
+        function changeView() {                       
             setupCustomProperties();
         }
 
@@ -84,13 +83,19 @@
         }
 
         init();
+
+        $scope.$on("formSubmitting",
+            function(ev, args) {
+                args.scope.model.selectedView = vm.selectedView;
+                args.scope.model.customProperties = vm.customPropertiesJson;
+            });
     }
 
 
     angular.module("umbraco").controller("Our.Umbraco.TourEditor.CustomViewPickerOverlayController",
         [
             '$scope',
-            '$q',
+            'formHelper',
             'Our.Umbraco.TourEditor.TourResource',            
             CustomViewPickerOverlayController
         ]);

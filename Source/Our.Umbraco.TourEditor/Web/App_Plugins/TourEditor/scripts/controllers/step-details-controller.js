@@ -159,6 +159,10 @@
                 selectedView : vm.step.view,
                 submit: function (model) {
                     vm.step.view = model.selectedView;
+                    vm.step.customProperties = model.customProperties;
+                    if (vm.step.customProperties) {
+                        vm.step.customPropertiesText = JSON.stringify(vm.step.customProperties);
+                    }
                     vm.customViewPicker.show = false;
                     vm.customViewPicker = null;
                 },
