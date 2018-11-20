@@ -1,6 +1,5 @@
 ﻿namespace Our.Umbraco.TourEditor
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Web;
@@ -20,22 +19,14 @@
     /// </summary>
     internal class UmbracoStartup : ApplicationEventHandler
     {
-        /// <summary>
-        /// Overridable method to execute when the ApplicationContext is created and other static objects that require initialization have been setup
-        /// </summary>
-        /// <param name="umbracoApplication"></param>
-        /// <param name="applicationContext"></param>
+        /// <inheritdoc />
         protected override void ApplicationInitialized(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
         {
             CustomViewResolver.Current =
                 new CustomViewResolver(PluginManager.Current.ResolveCustomViews());
         }
 
-        /// <summary>
-        /// Overridable method to execute when All resolvers have been initialized but resolution is not frozen so they can be modified in this method
-        /// </summary>
-        /// <param name="umbracoApplication"></param>
-        /// <param name="applicationContext"></param>
+        /// <inheritdoc />
         protected override void ApplicationStarting(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
         {
             // setup server variables
