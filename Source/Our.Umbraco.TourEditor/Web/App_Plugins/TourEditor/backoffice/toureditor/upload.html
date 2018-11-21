@@ -12,7 +12,7 @@
                 <umb-single-file-upload></umb-single-file-upload>
             </umb-control-group>
 
-            <button type="submit" data-element="toureditor-createfile" class="btn btn-primary"><localize key="general_create">Create</localize></button>
+            <button type="submit" data-element="toureditor-createfile" class="btn btn-primary" ng-disabled="!vm.canUpload">Upload</button>
         </form>
     </div>
 </div>
