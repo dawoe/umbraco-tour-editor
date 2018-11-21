@@ -1,0 +1,18 @@
+﻿<div class="tour-editor-create" ng-controller="Our.Umbraco.TourEditor.UploadFileController as vm">
+    <div class="umb-pane">
+        <h5>Upload tour files</h5>
+    </div>
+
+    <div class="umb-pane">
+        <form name="uploadTourFile"
+              ng-submit="vm.createFile()"
+              val-form-manager>
+
+            <umb-control-group label="Select the files to upload" hide-label="false" class="filename-field">
+                <umb-single-file-upload></umb-single-file-upload>
+            </umb-control-group>
+
+            <button type="submit" data-element="toureditor-createfile" class="btn btn-primary"><localize key="general_create">Create</localize></button>
+        </form>
+    </div>
+</div>
