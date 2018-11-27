@@ -13,7 +13,8 @@
             getAliases: getAliases,
             getGroups: getGroups,
             getCultures: getCultures,
-            getCustomViews : getCustomViews
+            getCustomViews: getCustomViews,
+            uploadTour : uploadTour
         };
 
         return resource;
@@ -75,7 +76,26 @@
         function getCustomViews() {
             return umbRequestHelper.resourcePromise(
                 $http.get(apiUrl + "GetCustomViews"),
-                "Failed loading cultures"
+                "Failed loading custom views"
+            );
+        }
+
+        function uploadTour(file) {
+            return umbRequestHelper.resourcePromise(
+                $http({
+                        method: 'POST',
+                        url: apiUrl + "UploadTour",
+                        // If using Angular version <1.3, use Content-Type: false.
+                        // Otherwise, use Content-Type: undefined,
+                        data: file,
+                        transformRequest: function (data) {
+                            var formData = new FormData();
+                            formData.append('file', data, data.name);
+                            return formData;
+                        },
+                        headers: { 'Content-Type': false }                        
+                    }),
+                "Failed uploading tours"
             );
         }
     }

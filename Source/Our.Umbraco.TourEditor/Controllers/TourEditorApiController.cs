@@ -1,4 +1,8 @@
-﻿namespace Our.Umbraco.TourEditor.Controllers
+﻿using System.Threading.Tasks;
+using System.Web;
+using Umbraco.Core;
+
+namespace Our.Umbraco.TourEditor.Controllers
 {
     using System;
     using System.Collections.Generic;
@@ -10,7 +14,6 @@
 
     using global::Umbraco.Core.IO;
     using global::Umbraco.Core.Logging;
-    using global::Umbraco.Core.Persistence.Migrations.Upgrades.TargetVersionSevenSixZero;
     using global::Umbraco.Web.Editors;
     using global::Umbraco.Web.Models;
     using global::Umbraco.Web.Mvc;
@@ -237,50 +240,10 @@
             if (filename.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0)
             {
                 return this.Request.CreateNotificationValidationErrorResponse("File name contains invalid characters");
-            }
+            }           
 
-            var result = new List<BackOfficeTourFile>();
-
-            var tourHelper = new TourHelper();
-
-
-            // get core tours
-            var coreToursPath = Path.Combine(IOHelper.MapPath(SystemDirectories.Config), "BackOfficeTours");
-
-            if (Directory.Exists(coreToursPath))
-            {
-                foreach (var tourFile in Directory.EnumerateFiles(coreToursPath, "*.json"))
-                {
-                    if (Path.GetFileNameWithoutExtension(tourFile) != filename)
-                    {
-                        // if it's not current file we will get it
-                        tourHelper.TryParseTourFile(tourFile, result);
-                    }                  
-                }
-            }
-
-            // get plugin tours
-            foreach (var plugin in Directory.EnumerateDirectories(IOHelper.MapPath(SystemDirectories.AppPlugins)))
-            {                                                
-                foreach (var backofficeDir in Directory.EnumerateDirectories(plugin, "backoffice"))
-                {
-                    foreach (var tourDir in Directory.EnumerateDirectories(backofficeDir, "tours"))
-                    {
-                        foreach (var tourFile in Directory.EnumerateFiles(tourDir, "*.json"))
-                        {
-                            tourHelper.TryParseTourFile(tourFile, result);
-                        }
-                    }
-                }
-            }
-
-            var aliases = new List<string>();
-
-            foreach (var tourfile in result)
-            {
-                aliases.AddRange(tourfile.Tours.Select(x => x.Alias));
-            }
-
+            var aliases = this.RetreiveAliasesFromFiles(filename);
+           
             return this.Request.CreateResponse(HttpStatusCode.OK, aliases);
         }
 
@@ -401,6 +364,121 @@
             }
             
             return this.Request.CreateResponse(model);
+        }
+
+        [HttpPost]
+        public async Task<HttpResponseMessage> UploadTour()
+        {
+            if (!Request.Content.IsMimeMultipartContent())
+            {
+                throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
+            }
+
+            // Make this directory whatever makes sense for your project.
+            var uploadDir = HttpContext.Current.Server.MapPath("~/App_Data/Temp/TourUploads");           
+            Directory.CreateDirectory(uploadDir);
+            var provider = new MultipartFormDataStreamProvider(uploadDir);
+            var result = await Request.Content.ReadAsMultipartAsync(provider);
+
+            var fileName = string.Empty;
+
+            try
+            {
+                var file = result.FileData.FirstOrDefault();
+
+                if (file == null)
+                {
+                    return this.Request.CreateErrorResponse(HttpStatusCode.BadRequest, "No file uploaded");
+                }
+
+                var coreToursPath = Path.Combine(IOHelper.MapPath(SystemDirectories.Config), "BackOfficeTours");
+
+                fileName = file.Headers.ContentDisposition.FileName.TrimStart('\"').TrimEnd('\"');
+
+                var filePath = Path.Combine(coreToursPath, fileName);
+                if (File.Exists(filePath))
+                {
+                    return this.Request.CreateNotificationValidationErrorResponse(
+                        "A file with this name already exists");
+                }
+
+                var tourHelper = new TourHelper();
+
+                var tourFiles = new List<BackOfficeTourFile>();
+                tourHelper.TryParseTourFile(file.LocalFileName, tourFiles);                
+
+                var aliases = this.RetreiveAliasesFromFiles();
+
+                var uploadedTourAliases = tourFiles.First()?.Tours.Select(x => x.Alias);
+
+                if (aliases.ContainsAny(uploadedTourAliases))
+                {
+                    return this.Request.CreateNotificationValidationErrorResponse(
+                        "The uploaded file contains a tour with an alias that already exists");
+                }
+
+                File.Copy(file.LocalFileName, filePath);                
+            }
+            catch (Exception e) when(e is IOException || e is JsonReaderException || e is JsonSerializationException)
+            {
+                return this.Request.CreateNotificationValidationErrorResponse(
+                    "The uploaded does not contain valid tour data");
+            }
+            catch (Exception ex)
+            {
+                this.Logger.Error<TourEditorApiController>("Error uploading file", ex);
+                return this.Request.CreateNotificationValidationErrorResponse(
+                    "An unexpected error occured while uploading your file");
+            }
+          
+            return Request.CreateResponse(HttpStatusCode.OK, Path.GetFileNameWithoutExtension(fileName));
+        }
+
+        private List<string> RetreiveAliasesFromFiles(string excludeFilename = "")
+        {
+            var aliases = new List<string>();
+
+            var result = new List<BackOfficeTourFile>();
+
+            var tourHelper = new TourHelper();
+
+
+            // get core tours
+            var coreToursPath = Path.Combine(IOHelper.MapPath(SystemDirectories.Config), "BackOfficeTours");
+
+            if (Directory.Exists(coreToursPath))
+            {
+                foreach (var tourFile in Directory.EnumerateFiles(coreToursPath, "*.json"))
+                {
+                    if (string.IsNullOrWhiteSpace(excludeFilename) || Path.GetFileNameWithoutExtension(tourFile) != excludeFilename)
+                    {
+                        // if it's not current file we will get it
+                        tourHelper.TryParseTourFile(tourFile, result);
+                    }
+                }
+            }
+
+            // get plugin tours
+            foreach (var plugin in Directory.EnumerateDirectories(IOHelper.MapPath(SystemDirectories.AppPlugins)))
+            {
+                foreach (var backofficeDir in Directory.EnumerateDirectories(plugin, "backoffice"))
+                {
+                    foreach (var tourDir in Directory.EnumerateDirectories(backofficeDir, "tours"))
+                    {
+                        foreach (var tourFile in Directory.EnumerateFiles(tourDir, "*.json"))
+                        {
+                            tourHelper.TryParseTourFile(tourFile, result);
+                        }
+                    }
+                }
+            }            
+
+            foreach (var tourfile in result)
+            {
+                aliases.AddRange(tourfile.Tours.Select(x => x.Alias));
+            }
+
+            return aliases;
         }
     }
 }
