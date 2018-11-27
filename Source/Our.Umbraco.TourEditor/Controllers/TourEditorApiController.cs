@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using System.Web;
+using Umbraco.Core;
 
 namespace Our.Umbraco.TourEditor.Controllers
 {
@@ -407,7 +408,15 @@ namespace Our.Umbraco.TourEditor.Controllers
                 tourHelper.TryParseTourFile(file.LocalFileName, tourFiles);                
 
                 var aliases = this.RetreiveAliasesFromFiles();
-                
+
+                var uploadedTourAliases = tourFiles.First()?.Tours.Select(x => x.Alias);
+
+                if (aliases.ContainsAny(uploadedTourAliases))
+                {
+                    return this.Request.CreateNotificationValidationErrorResponse(
+                        "The uploaded file contains a tour with an alias that already exists");
+                }
+
             }
             catch (Exception e) when(e is IOException || e is JsonReaderException || e is JsonSerializationException)
             {
