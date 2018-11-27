@@ -19,6 +19,7 @@
                     $location.path("/" + $routeParams.section + "/toureditor/edit/" + eval(data));
                 },
                 function (err) {
+                    navigationService.hideMenu();
                     notificationsService.showNotification(err.data.notifications[0]);
                     vm.isUploading = false;
 
