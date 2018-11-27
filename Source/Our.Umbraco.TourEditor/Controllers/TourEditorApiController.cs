@@ -1,4 +1,7 @@
-﻿namespace Our.Umbraco.TourEditor.Controllers
+﻿using System.Threading.Tasks;
+using System.Web;
+
+namespace Our.Umbraco.TourEditor.Controllers
 {
     using System;
     using System.Collections.Generic;
@@ -401,6 +404,25 @@
             }
             
             return this.Request.CreateResponse(model);
+        }
+
+        [HttpPost]
+        public async Task<HttpResponseMessage> UploadTour()
+        {
+            if (!Request.Content.IsMimeMultipartContent())
+            {
+                throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
+            }
+
+            // Make this directory whatever makes sense for your project.
+            var root = HttpContext.Current.Server.MapPath("~/App_Data/Temp/TourUploads");
+            Directory.CreateDirectory(root);
+            var provider = new MultipartFormDataStreamProvider(root);
+            var result = await Request.Content.ReadAsMultipartAsync(provider);
+
+            // Build a list of the filenames of the files saved from your upload, to return to sender.
+            var fileName = result.FileData.Aggregate(string.Empty, (current, file) => current + ("," + file.LocalFileName));
+            return Request.CreateResponse(HttpStatusCode.OK, fileName);
         }
     }
 }
