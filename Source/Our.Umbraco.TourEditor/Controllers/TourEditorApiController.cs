@@ -431,7 +431,7 @@ namespace Our.Umbraco.TourEditor.Controllers
                     "An unexpected error occured while uploading your file");
             }
           
-            return Request.CreateResponse(HttpStatusCode.OK, fileName);
+            return Request.CreateResponse(HttpStatusCode.OK, Path.GetFileNameWithoutExtension(fileName));
         }
 
         private List<string> RetreiveAliasesFromFiles(string excludeFilename = "")
