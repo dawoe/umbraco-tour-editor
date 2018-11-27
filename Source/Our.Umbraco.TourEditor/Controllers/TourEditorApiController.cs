@@ -13,7 +13,6 @@ namespace Our.Umbraco.TourEditor.Controllers
 
     using global::Umbraco.Core.IO;
     using global::Umbraco.Core.Logging;
-    using global::Umbraco.Core.Persistence.Migrations.Upgrades.TargetVersionSevenSixZero;
     using global::Umbraco.Web.Editors;
     using global::Umbraco.Web.Models;
     using global::Umbraco.Web.Mvc;
@@ -420,8 +419,34 @@ namespace Our.Umbraco.TourEditor.Controllers
             var provider = new MultipartFormDataStreamProvider(root);
             var result = await Request.Content.ReadAsMultipartAsync(provider);
 
-            // Build a list of the filenames of the files saved from your upload, to return to sender.
-            var fileName = result.FileData.Aggregate(string.Empty, (current, file) => current + ("," + file.LocalFileName));
+            var fileName = string.Empty;
+
+            try
+            {
+                var file = result.FileData.FirstOrDefault();
+
+                if (file == null)
+                {
+                    return this.Request.CreateErrorResponse(HttpStatusCode.BadRequest, "No file uploaded");
+                }
+
+                var coreToursPath = Path.Combine(IOHelper.MapPath(SystemDirectories.Config), "BackOfficeTours");
+
+                fileName = file.Headers.ContentDisposition.FileName.TrimStart('\"').TrimEnd('\"');
+
+                var filePath = Path.Combine(coreToursPath, fileName);
+                if (File.Exists(filePath))
+                {
+                    return this.Request.CreateNotificationValidationErrorResponse("A file with this name already exists");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                this.Logger.Error<TourEditorApiController>("Error uploading file", ex);
+                return new HttpResponseMessage(HttpStatusCode.InternalServerError);
+            }
+          
             return Request.CreateResponse(HttpStatusCode.OK, fileName);
         }
     }

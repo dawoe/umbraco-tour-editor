@@ -8,13 +8,17 @@
               ng-submit="vm.uploadFile()"
               val-form-manager>
 
-            <umb-control-group label="Select the files to upload" hide-label="false" class="filename-field">
-                <umb-single-file-upload></umb-single-file-upload>
-            </umb-control-group>
-            <div class="alert alert-danger" ng-show="vm.fileError">
-                Invalid file extension. Only files with the extension .json are allowed.
+            <umb-load-indicator ng-show="vm.isUploading"></umb-load-indicator>
+            <div ng-show="!vm.isUploading">
+                <umb-control-group label="Select the files to upload" hide-label="false" class="filename-field">
+                    <umb-single-file-upload></umb-single-file-upload>
+                </umb-control-group>
+                <div class="alert alert-danger" ng-show="vm.fileError">
+                    Invalid file extension. Only files with the extension .json are allowed.
+                </div>
+                <button type="submit" data-element="toureditor-uploadfile" class="btn btn-primary" ng-disabled="!vm.canUpload">Upload</button>
             </div>
-            <button type="submit" data-element="toureditor-uploadfile" class="btn btn-primary" ng-disabled="!vm.canUpload">Upload</button>
+           
         </form>
     </div>
 </div>

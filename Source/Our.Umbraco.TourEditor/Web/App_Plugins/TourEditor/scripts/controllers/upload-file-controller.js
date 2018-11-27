@@ -1,16 +1,23 @@
 ﻿(function () {
     "use strict";
 
-    function UploadFileController($scope, notificationsService, tourResource) {
+    function UploadFileController($scope, notificationsService, navigationService, tourResource) {
         var vm = this;
 
         vm.canUpload = false;
         vm.fileError = false;
         vm.file = null;
+        vm.isUploading = false;
         
         function upload() {
+            vm.isUploading = true;
             tourResource.uploadTour(vm.file).then(function(data) {
-                console.log(data);
+                    vm.isUploading = false;
+            },
+            function (err) {
+                notificationsService.showNotification(err.data.notifications[0]);                
+                vm.isUploading = false;
+                navigationService.hideMenu();
             });
         }
 
@@ -40,6 +47,7 @@
         [
             '$scope', 
             'notificationsService',
+            'navigationService',
             'Our.Umbraco.TourEditor.TourResource',
             UploadFileController
         ]);
