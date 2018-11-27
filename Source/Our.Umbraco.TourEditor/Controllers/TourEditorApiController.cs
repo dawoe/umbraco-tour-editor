@@ -239,50 +239,10 @@ namespace Our.Umbraco.TourEditor.Controllers
             if (filename.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0)
             {
                 return this.Request.CreateNotificationValidationErrorResponse("File name contains invalid characters");
-            }
+            }           
 
-            var result = new List<BackOfficeTourFile>();
-
-            var tourHelper = new TourHelper();
-
-
-            // get core tours
-            var coreToursPath = Path.Combine(IOHelper.MapPath(SystemDirectories.Config), "BackOfficeTours");
-
-            if (Directory.Exists(coreToursPath))
-            {
-                foreach (var tourFile in Directory.EnumerateFiles(coreToursPath, "*.json"))
-                {
-                    if (Path.GetFileNameWithoutExtension(tourFile) != filename)
-                    {
-                        // if it's not current file we will get it
-                        tourHelper.TryParseTourFile(tourFile, result);
-                    }                  
-                }
-            }
-
-            // get plugin tours
-            foreach (var plugin in Directory.EnumerateDirectories(IOHelper.MapPath(SystemDirectories.AppPlugins)))
-            {                                                
-                foreach (var backofficeDir in Directory.EnumerateDirectories(plugin, "backoffice"))
-                {
-                    foreach (var tourDir in Directory.EnumerateDirectories(backofficeDir, "tours"))
-                    {
-                        foreach (var tourFile in Directory.EnumerateFiles(tourDir, "*.json"))
-                        {
-                            tourHelper.TryParseTourFile(tourFile, result);
-                        }
-                    }
-                }
-            }
-
-            var aliases = new List<string>();
-
-            foreach (var tourfile in result)
-            {
-                aliases.AddRange(tourfile.Tours.Select(x => x.Alias));
-            }
-
+            var aliases = this.RetreiveAliasesFromFiles(filename);
+           
             return this.Request.CreateResponse(HttpStatusCode.OK, aliases);
         }
 
@@ -440,6 +400,8 @@ namespace Our.Umbraco.TourEditor.Controllers
                     return this.Request.CreateNotificationValidationErrorResponse("A file with this name already exists");
                 }
 
+                var aliases = this.RetreiveAliasesFromFiles();
+
             }
             catch (Exception ex)
             {
@@ -448,6 +410,53 @@ namespace Our.Umbraco.TourEditor.Controllers
             }
           
             return Request.CreateResponse(HttpStatusCode.OK, fileName);
+        }
+
+        private List<string> RetreiveAliasesFromFiles(string excludeFilename = "")
+        {
+            var aliases = new List<string>();
+
+            var result = new List<BackOfficeTourFile>();
+
+            var tourHelper = new TourHelper();
+
+
+            // get core tours
+            var coreToursPath = Path.Combine(IOHelper.MapPath(SystemDirectories.Config), "BackOfficeTours");
+
+            if (Directory.Exists(coreToursPath))
+            {
+                foreach (var tourFile in Directory.EnumerateFiles(coreToursPath, "*.json"))
+                {
+                    if (string.IsNullOrWhiteSpace(excludeFilename) || Path.GetFileNameWithoutExtension(tourFile) != excludeFilename)
+                    {
+                        // if it's not current file we will get it
+                        tourHelper.TryParseTourFile(tourFile, result);
+                    }
+                }
+            }
+
+            // get plugin tours
+            foreach (var plugin in Directory.EnumerateDirectories(IOHelper.MapPath(SystemDirectories.AppPlugins)))
+            {
+                foreach (var backofficeDir in Directory.EnumerateDirectories(plugin, "backoffice"))
+                {
+                    foreach (var tourDir in Directory.EnumerateDirectories(backofficeDir, "tours"))
+                    {
+                        foreach (var tourFile in Directory.EnumerateFiles(tourDir, "*.json"))
+                        {
+                            tourHelper.TryParseTourFile(tourFile, result);
+                        }
+                    }
+                }
+            }            
+
+            foreach (var tourfile in result)
+            {
+                aliases.AddRange(tourfile.Tours.Select(x => x.Alias));
+            }
+
+            return aliases;
         }
     }
 }
