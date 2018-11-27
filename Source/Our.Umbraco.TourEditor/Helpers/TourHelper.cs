@@ -1,4 +1,6 @@
-﻿namespace Our.Umbraco.TourEditor.Helpers
+﻿using System;
+
+namespace Our.Umbraco.TourEditor.Helpers
 {
     using System.Collections.Generic;
     using System.IO;
@@ -25,11 +27,11 @@
                 var tours = JsonConvert.DeserializeObject<BackOfficeTour[]>(contents);
 
                 var tour = new BackOfficeTourFile
-                               {
-                                   FileName = Path.GetFileNameWithoutExtension(tourFile),
-                                   PluginName = string.Empty,
-                                   Tours = tours.ToArray()
-                               };
+                {
+                    FileName = Path.GetFileNameWithoutExtension(tourFile),
+                    PluginName = string.Empty,
+                    Tours = tours.ToArray()
+                };
 
                 result.Add(tour);
             }
@@ -41,6 +43,10 @@
             {
                 throw new JsonReaderException("Error while trying to parse content as tour data: " + tourFile, e);
             }
+            catch (JsonSerializationException e)
+            {
+                throw new JsonSerializationException("Error while trying to parse content as tour data: " + tourFile, e);
+            }           
         }
     }
 }

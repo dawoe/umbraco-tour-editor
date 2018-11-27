@@ -397,16 +397,28 @@ namespace Our.Umbraco.TourEditor.Controllers
                 var filePath = Path.Combine(coreToursPath, fileName);
                 if (File.Exists(filePath))
                 {
-                    return this.Request.CreateNotificationValidationErrorResponse("A file with this name already exists");
+                    return this.Request.CreateNotificationValidationErrorResponse(
+                        "A file with this name already exists");
                 }
 
-                var aliases = this.RetreiveAliasesFromFiles();
+                var tourHelper = new TourHelper();
 
+                var tourFiles = new List<BackOfficeTourFile>();
+                tourHelper.TryParseTourFile(file.LocalFileName, tourFiles);                
+
+                var aliases = this.RetreiveAliasesFromFiles();
+                
+            }
+            catch (Exception e) when(e is IOException || e is JsonReaderException || e is JsonSerializationException)
+            {
+                return this.Request.CreateNotificationValidationErrorResponse(
+                    "The uploaded does not contain valid tour data");
             }
             catch (Exception ex)
             {
                 this.Logger.Error<TourEditorApiController>("Error uploading file", ex);
-                return new HttpResponseMessage(HttpStatusCode.InternalServerError);
+                return this.Request.CreateNotificationValidationErrorResponse(
+                    "An unexpected error occured while uploading your file");
             }
           
             return Request.CreateResponse(HttpStatusCode.OK, fileName);
