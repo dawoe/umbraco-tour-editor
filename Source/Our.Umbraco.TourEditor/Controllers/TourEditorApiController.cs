@@ -375,9 +375,9 @@ namespace Our.Umbraco.TourEditor.Controllers
             }
 
             // Make this directory whatever makes sense for your project.
-            var root = HttpContext.Current.Server.MapPath("~/App_Data/Temp/TourUploads");
-            Directory.CreateDirectory(root);
-            var provider = new MultipartFormDataStreamProvider(root);
+            var uploadDir = HttpContext.Current.Server.MapPath("~/App_Data/Temp/TourUploads");           
+            Directory.CreateDirectory(uploadDir);
+            var provider = new MultipartFormDataStreamProvider(uploadDir);
             var result = await Request.Content.ReadAsMultipartAsync(provider);
 
             var fileName = string.Empty;
@@ -417,6 +417,7 @@ namespace Our.Umbraco.TourEditor.Controllers
                         "The uploaded file contains a tour with an alias that already exists");
                 }
 
+                File.Copy(file.LocalFileName, filePath);                
             }
             catch (Exception e) when(e is IOException || e is JsonReaderException || e is JsonSerializationException)
             {
