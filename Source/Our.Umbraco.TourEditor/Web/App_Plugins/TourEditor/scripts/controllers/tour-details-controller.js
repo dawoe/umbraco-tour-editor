@@ -14,6 +14,7 @@
         vm.sectionsString = '';
         vm.hasCulture = false;
         vm.cultures = [];
+        vm.hasContentType = false;
 
         vm.sortableOptions = {
             distance: 10,
@@ -32,7 +33,8 @@
             'Culture': { 'label': 'Culture', 'description': 'Select the culture for this tour. If set it will only be shown to users with this culture set on their profile' },
             'Alias': { 'label': 'Alias', 'description': 'Enter the unique alias for this tour', 'propertyErrorMessage': 'Alias is a required field and should be unique' },
             'Sections': { 'label': 'Sections', 'description': 'Sections that the tour will access while running, if the user does not have access to the required tour sections, the tour will not load.   ', 'propertyErrorMessage': 'You should select at least one section' },
-            'AllowDisable': { 'label': 'Allow disabling', 'description': 'Adds a "Don\'t" show this tour again"-button to the intro step' }
+            'AllowDisable': { 'label': 'Allow disabling', 'description': 'Adds a "Don\'t" show this tour again"-button to the intro step' },
+            'ContentType': { 'label' : 'Documenttypes', 'description' : 'Select the documenttypes you want to show this tour to become visible. If you select one or multiple this the tour will only be visible in the help drawer when editing one of documenttypes that you specified.'}
         };
 
         var evts = [];
@@ -50,6 +52,7 @@
             }
 
             vm.hasCulture = vm.tour.hasOwnProperty('culture');
+            vm.hasContentType = vm.tour.hasOwnProperty('contentType');
 
             if (vm.hasCulture) {
                 tourResource.getCultures().then(function(data) {

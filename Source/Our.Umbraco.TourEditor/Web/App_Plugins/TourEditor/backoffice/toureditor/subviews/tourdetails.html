@@ -53,6 +53,11 @@
                         <localize key="general_add">Add</localize>
                     </a>
                 </umb-property>
+                
+                <umb-property property="vm.properties.ContentType" ng-if="vm.hasContentType">
+                    Content type selector will go here
+                </umb-property>
+
                 <umb-property property="vm.properties.AllowDisable">
                     <umb-toggle checked="vm.tour.allowDisable" on-click="vm.toggle()" data-element="toureditor-tourdisable"></umb-toggle>
                 </umb-property>
