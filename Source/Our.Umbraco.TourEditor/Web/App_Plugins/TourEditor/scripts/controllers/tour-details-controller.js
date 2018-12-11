@@ -12,9 +12,9 @@
         vm.form = null;
         vm.isNew = false;
         vm.sectionsString = '';
-        vm.hasCulture = Umbraco.Sys.ServerVariables.SupportsCulture;
+        vm.hasCulture = Umbraco.Sys.ServerVariables["Our.Umbraco.TourEditor"].SupportsCulture;
         vm.cultures = [];
-        vm.hasContentType = Umbraco.Sys.ServerVariables.SupportsContentType;
+        vm.hasContentType = Umbraco.Sys.ServerVariables["Our.Umbraco.TourEditor"].SupportsContentType;
 
         vm.sortableOptions = {
             distance: 10,

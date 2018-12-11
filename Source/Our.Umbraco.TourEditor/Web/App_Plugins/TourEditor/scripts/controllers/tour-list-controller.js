@@ -58,6 +58,14 @@
                 "steps": []
             };
 
+            if (Umbraco.Sys.ServerVariables["Our.Umbraco.TourEditor"].SupportsCulture) {
+                newTour.culture = '';
+            }
+
+            if (Umbraco.Sys.ServerVariables["Our.Umbraco.TourEditor"].SupportsContentType) {
+                newTour.contentType = '';
+            }
+
             //vm.tours.push(newTour);
 
             eventsService.emit('toureditor.edittour',
