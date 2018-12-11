@@ -55,6 +55,11 @@
                 </umb-property>
 
                 <umb-property property="vm.properties.ContentType" ng-if="vm.hasContentType">
+                    <umb-node-preview data-element="toureditor-documenttypes" style="max-width: 100%;"
+                                      ng-repeat="doctype in vm.tour.contentType.split(',')"                                     
+                                      name="doctype"
+                                      >
+                    </umb-node-preview>
                     <a href=""
                        data-element="toureditor-documenttypepicker"
                        style="max-width: 100%;"
