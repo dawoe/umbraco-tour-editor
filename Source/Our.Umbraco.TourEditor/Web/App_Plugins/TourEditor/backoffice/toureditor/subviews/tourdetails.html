@@ -30,9 +30,9 @@
                 <umb-property property="vm.properties.GroupOrder">
                     <input type="number" data-element="toureditor-grouporder" ng-model="vm.tour.groupOrder" class="umb-editor" required />
                 </umb-property>
-                
-                <umb-property property="vm.properties.Culture" ng-if="vm.hasCulture">                   
-                    <select class="input-block-level" ng-model="vm.tour.culture"  ng-options="i.Key as (i.Value) for i in vm.cultures"></select>
+
+                <umb-property property="vm.properties.Culture" ng-if="vm.hasCulture">
+                    <select class="input-block-level" ng-model="vm.tour.culture" ng-options="i.Key as (i.Value) for i in vm.cultures"></select>
                 </umb-property>
 
                 <umb-property property="vm.properties.Sections">
@@ -42,8 +42,8 @@
                                       name="section.name"
                                       allow-remove="true"
                                       on-remove="vm.removeSection($index, vm.selectedSections)">
-                    </umb-node-preview>                                     
-                    <input type="hidden" ng-model="vm.sectionsString" required/>
+                    </umb-node-preview>
+                    <input type="hidden" ng-model="vm.sectionsString" required />
                     <a href=""
                        data-element="toureditor-sectionspicker"
                        style="max-width: 100%;"
@@ -53,9 +53,16 @@
                         <localize key="general_add">Add</localize>
                     </a>
                 </umb-property>
-                
+
                 <umb-property property="vm.properties.ContentType" ng-if="vm.hasContentType">
-                    Content type selector will go here
+                    <a href=""
+                       data-element="toureditor-documenttypepicker"
+                       style="max-width: 100%;"
+                       class="umb-node-preview-add"
+                       ng-click="vm.openDocumentTypePicker()"
+                       prevent-default>
+                        <localize key="general_add">Add</localize>
+                    </a>
                 </umb-property>
 
                 <umb-property property="vm.properties.AllowDisable">
@@ -98,6 +105,11 @@
     <umb-overlay ng-if="vm.groupPicker.show"
                  model="vm.groupPicker"
                  view="vm.groupPicker.view"
+                 position="right">
+    </umb-overlay>
+    <umb-overlay ng-if="vm.documentTypePicker.show"
+                 model="vm.documentTypePicker"
+                 view="vm.documentTypePicker.view"
                  position="right">
     </umb-overlay>
 </div>

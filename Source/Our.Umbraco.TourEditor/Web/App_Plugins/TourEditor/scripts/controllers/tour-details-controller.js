@@ -1,7 +1,7 @@
 ﻿(function () {
     "use strict";
 
-    function TourDetailsController($scope, eventsService, sectionResource, formHelper, tourResource) {
+    function TourDetailsController($scope, eventsService, sectionResource, formHelper, umbRequestHelper, tourResource) {
         var vm = this;
         vm.tour = null;
         vm.tourIndex = -1;
@@ -61,6 +61,10 @@
                         vm.tour.culture = '';
                     }
                 });
+            }
+
+            if (vm.hasContentType && vm.tour.contentType === null) {
+                vm.tour.contentType = '';
             }
 
             // get the selected sections from data
@@ -184,6 +188,31 @@
 
         vm.openGroupPicker = openGroupPicker;
 
+        function openDocumentTypePicker() {
+            vm.documentTypePicker = {
+                view: umbRequestHelper.convertVirtualToAbsolutePath("~/App_Plugins/TourEditor/backoffice/toureditor/overlays/documenttype-picker.html"),
+                selection: vm.tour.contentType.split(','),
+                closeButtonLabel: 'Cancel',
+                show: true,
+                submit: function (model) {
+                    
+                    vm.tour.contentType = model.join(',');
+
+                    vm.documentTypePicker.show = false;
+                    vm.documentTypePicker = null;
+                },
+                close: function (oldModel) {
+                    if (oldModel.selection) {
+                        vm.tour.contentType = oldModel.selection.join(',');
+                    }
+                    vm.documentTypePicker.show = false;
+                    vm.documentTypePicker = null;
+                }
+            };
+        }
+
+        vm.openDocumentTypePicker = openDocumentTypePicker;
+
         function addStep() {
 
             if (formHelper.submitForm({ scope: $scope, formCtrl: vm.form })) {
@@ -287,6 +316,7 @@
             'eventsService',
             'sectionResource',
             'formHelper',
+            'umbRequestHelper',
             'Our.Umbraco.TourEditor.TourResource',
             TourDetailsController
         ]);
