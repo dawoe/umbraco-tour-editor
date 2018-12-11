@@ -12,9 +12,9 @@
         vm.form = null;
         vm.isNew = false;
         vm.sectionsString = '';
-        vm.hasCulture = false;
+        vm.hasCulture = Umbraco.Sys.ServerVariables.SupportsCulture;
         vm.cultures = [];
-        vm.hasContentType = false;
+        vm.hasContentType = Umbraco.Sys.ServerVariables.SupportsContentType;
 
         vm.sortableOptions = {
             distance: 10,
@@ -50,10 +50,7 @@
             if (vm.tour.requiredSections === null) {
                 vm.tour.requiredSections = [];
             }
-
-            vm.hasCulture = vm.tour.hasOwnProperty('culture');
-            vm.hasContentType = vm.tour.hasOwnProperty('contentType');
-
+            
             if (vm.hasCulture) {
                 tourResource.getCultures().then(function(data) {
                     vm.cultures = data;
