@@ -1,7 +1,7 @@
 ﻿(function () {
     "use strict";
 
-    function TourDetailsController($scope, eventsService, sectionResource, formHelper, umbRequestHelper, tourResource) {
+    function TourDetailsController($scope, $q, eventsService, sectionResource, formHelper, umbRequestHelper, tourResource) {
         var vm = this;
         vm.tour = null;
         vm.tourIndex = -1;
@@ -15,6 +15,8 @@
         vm.hasCulture = Umbraco.Sys.ServerVariables["Our.Umbraco.TourEditor"].SupportsCulture;
         vm.cultures = [];
         vm.hasContentType = Umbraco.Sys.ServerVariables["Our.Umbraco.TourEditor"].SupportsContentType;
+        vm.documentTypes = [];
+        vm.promiseObj = {};
 
         vm.sortableOptions = {
             distance: 10,
@@ -52,20 +54,16 @@
             }
             
             if (vm.hasCulture) {
-                tourResource.getCultures().then(function(data) {
-                    vm.cultures = data;
-
-                    vm.cultures.unshift({ "Key": "", "Value": "No specific culture" });
-
-                    if (vm.tour.culture === null) {
-                        vm.tour.culture = '';
-                    }
-                });
+                if (vm.tour.culture === null) {
+                    vm.tour.culture = '';
+                }                
             }
 
             if (vm.hasContentType && vm.tour.contentType === null) {
                 vm.tour.contentType = '';
             }
+
+           
 
             // get the selected sections from data
             vm.selectedSections = _.filter(vm.allSections,
@@ -280,12 +278,57 @@
             vm.tour.steps.splice(index, 1);
         }
 
-        vm.removeStep = removeStep;        
+        vm.removeStep = removeStep;     
+
+        function getSections() {
+            var deferred = $q.defer();
+
+            sectionResource.getAllSections().then(function (data) {
+               deferred.resolve(data);
+            }, function () {
+                deferred.reject();
+            });
+
+            return deferred.promise;
+        }
+
+        function getCultures() {
+            var deferred = $q.defer();
+
+            tourResource.getCultures().then(function (data) {
+                deferred.resolve(data);
+            }, function() {
+                deferred.reject();
+            });
+
+            return deferred.promise;
+        }
 
         function init() {
-            sectionResource.getAllSections().then(function (data) {
-                vm.allSections = data;
-                setSectionIcon(vm.allSections);
+            
+            vm.promiseObj['sections'] = getSections();
+
+            if (vm.hasCulture) {
+                vm.promiseObj['cultures'] = getCultures();                
+            }
+
+            $q.all(vm.promiseObj).then(function (values) {
+                var keys = Object.keys(values);
+
+                for (var i = 0; i < keys.length; i++) {
+                    var key = keys[i];
+
+                    if (key === 'sections') {
+                        vm.allSections = values[key];
+                        setSectionIcon(vm.allSections);
+                    }
+
+                    if (key === 'cultures') {
+                        vm.cultures = values[key];
+
+                        vm.cultures.unshift({ "Key": "", "Value": "No specific culture" });                       
+                    }
+                }
             });
         }
 
@@ -314,6 +357,7 @@
     angular.module("umbraco").controller("Our.Umbraco.TourEditor.TourDetailsController",
         [
             '$scope',
+            '$q',
             'eventsService',
             'sectionResource',
             'formHelper',
