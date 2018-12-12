@@ -190,6 +190,7 @@
             vm.documentTypePicker = {
                 view: umbRequestHelper.convertVirtualToAbsolutePath("~/App_Plugins/TourEditor/backoffice/toureditor/overlays/documenttype-picker.html"),
                 selection: vm.tour.contentType.split(','),
+                doctypes: vm.documentTypes,
                 title: 'Document type picker',
                 closeButtonLabel: 'Cancel',
                 show: true,

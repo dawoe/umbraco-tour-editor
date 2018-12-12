@@ -1,11 +1,11 @@
 ﻿(function () {
     "use strict";
 
-    function DocumentTypePickerOverlayController($scope, contentTypeResource) {
+    function DocumentTypePickerOverlayController($scope) {
         var vm = this;
 
         vm.isLoading = true;
-        vm.availableDocumentTypes = [];
+        vm.availableDocumentTypes = $scope.model.doctypes;
         vm.selection = $scope.model.selection;
 
         function isSelected(alias) {
@@ -28,10 +28,7 @@
         vm.selectItem = selectItem;
        
         function init() {
-            contentTypeResource.getAll().then(function(data) {
-                vm.availableDocumentTypes = data;
-                vm.isLoading = false;
-            });
+            vm.isLoading = false;
         }
 
         init();
@@ -45,8 +42,7 @@
 
     angular.module("umbraco").controller("Our.Umbraco.TourEditor.DocumentTypePickerOverlayController",
         [
-            '$scope',
-            'contentTypeResource',
+            '$scope',           
             DocumentTypePickerOverlayController
         ]);
 
