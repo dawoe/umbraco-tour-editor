@@ -281,6 +281,21 @@
 
         vm.removeStep = removeStep;     
 
+        function enrichedDoctypeSelection() {
+            var doctypes = [];
+
+            if (vm.tour.contentType === '') {
+                return doctypes;
+            }
+
+            doctypes = _.filter(vm.documentTypes,
+                function(doctype) { return vm.tour.contentType.split(',').indexOf(doctype.alias) > -1 });
+
+            return doctypes;
+        }
+
+        vm.enrichedDoctypeSelection = enrichedDoctypeSelection;
+
         function getSections() {
             var deferred = $q.defer();
 
@@ -347,7 +362,7 @@
                     }
 
                     if (key === 'doctypes') {
-                        vm.documentTypes = values[key];                       
+                        vm.documentTypes = values[key];                        
                     }
                 }
             });
