@@ -1,7 +1,7 @@
 ﻿(function () {
     "use strict";
 
-    function TourDetailsController($scope, eventsService, sectionResource, formHelper, tourResource) {
+    function TourDetailsController($scope, $q, eventsService, sectionResource, formHelper, umbRequestHelper, contentTypeResource, tourResource) {
         var vm = this;
         vm.tour = null;
         vm.tourIndex = -1;
@@ -12,8 +12,11 @@
         vm.form = null;
         vm.isNew = false;
         vm.sectionsString = '';
-        vm.hasCulture = false;
+        vm.hasCulture = Umbraco.Sys.ServerVariables["Our.Umbraco.TourEditor"].SupportsCulture;
         vm.cultures = [];
+        vm.hasContentType = Umbraco.Sys.ServerVariables["Our.Umbraco.TourEditor"].SupportsContentType;
+        vm.documentTypes = [];
+        vm.promiseObj = {};
 
         vm.sortableOptions = {
             distance: 10,
@@ -32,7 +35,8 @@
             'Culture': { 'label': 'Culture', 'description': 'Select the culture for this tour. If set it will only be shown to users with this culture set on their profile' },
             'Alias': { 'label': 'Alias', 'description': 'Enter the unique alias for this tour', 'propertyErrorMessage': 'Alias is a required field and should be unique' },
             'Sections': { 'label': 'Sections', 'description': 'Sections that the tour will access while running, if the user does not have access to the required tour sections, the tour will not load.   ', 'propertyErrorMessage': 'You should select at least one section' },
-            'AllowDisable': { 'label': 'Allow disabling', 'description': 'Adds a "Don\'t" show this tour again"-button to the intro step' }
+            'AllowDisable': { 'label': 'Allow disabling', 'description': 'Adds a "Don\'t" show this tour again"-button to the intro step' },
+            'ContentType': { 'label' : 'Documenttypes', 'description' : 'Select the documenttypes you want to show this tour to become visible. If you select one or multiple this the tour will only be visible in the help drawer when editing one of documenttypes that you specified.'}
         };
 
         var evts = [];
@@ -48,20 +52,18 @@
             if (vm.tour.requiredSections === null) {
                 vm.tour.requiredSections = [];
             }
-
-            vm.hasCulture = vm.tour.hasOwnProperty('culture');
-
+            
             if (vm.hasCulture) {
-                tourResource.getCultures().then(function(data) {
-                    vm.cultures = data;
-
-                    vm.cultures.unshift({ "Key": "", "Value": "No specific culture" });
-
-                    if (vm.tour.culture === null) {
-                        vm.tour.culture = '';
-                    }
-                });
+                if (vm.tour.culture === null) {
+                    vm.tour.culture = '';
+                }                
             }
+
+            if (vm.hasContentType && vm.tour.contentType === null) {
+                vm.tour.contentType = '';
+            }
+
+           
 
             // get the selected sections from data
             vm.selectedSections = _.filter(vm.allSections,
@@ -184,6 +186,33 @@
 
         vm.openGroupPicker = openGroupPicker;
 
+        function openDocumentTypePicker() {
+            vm.documentTypePicker = {
+                view: umbRequestHelper.convertVirtualToAbsolutePath("~/App_Plugins/TourEditor/backoffice/toureditor/overlays/documenttype-picker.html"),
+                selection: vm.tour.contentType.split(','),
+                doctypes: vm.documentTypes,
+                title: 'Document type picker',
+                closeButtonLabel: 'Cancel',
+                show: true,
+                submit: function (model) {
+                    
+                    vm.tour.contentType = model.selection.join(',');
+
+                    vm.documentTypePicker.show = false;
+                    vm.documentTypePicker = null;
+                },
+                close: function (oldModel) {
+                    if (oldModel.selection) {
+                        vm.tour.contentType = oldModel.selection.join(',');
+                    }
+                    vm.documentTypePicker.show = false;
+                    vm.documentTypePicker = null;
+                }
+            };
+        }
+
+        vm.openDocumentTypePicker = openDocumentTypePicker;
+
         function addStep() {
 
             if (formHelper.submitForm({ scope: $scope, formCtrl: vm.form })) {
@@ -250,12 +279,92 @@
             vm.tour.steps.splice(index, 1);
         }
 
-        vm.removeStep = removeStep;        
+        vm.removeStep = removeStep;     
+
+        function enrichedDoctypeSelection() {
+            var doctypes = [];
+
+            if (vm.tour.contentType === '') {
+                return doctypes;
+            }
+
+            doctypes = _.filter(vm.documentTypes,
+                function(doctype) { return vm.tour.contentType.split(',').indexOf(doctype.alias) > -1 });
+
+            return doctypes;
+        }
+
+        vm.enrichedDoctypeSelection = enrichedDoctypeSelection;
+
+        function getSections() {
+            var deferred = $q.defer();
+
+            sectionResource.getAllSections().then(function (data) {
+               deferred.resolve(data);
+            }, function () {
+                deferred.reject();
+            });
+
+            return deferred.promise;
+        }
+
+        function getCultures() {
+            var deferred = $q.defer();
+
+            tourResource.getCultures().then(function (data) {
+                deferred.resolve(data);
+            }, function() {
+                deferred.reject();
+            });
+
+            return deferred.promise;
+        }
+
+        function getDoctypes() {
+            var deferred = $q.defer();
+
+            contentTypeResource.getAll().then(function (data) {
+                deferred.resolve(data);
+            }, function () {
+                deferred.reject();
+            });
+
+            return deferred.promise;
+        }
 
         function init() {
-            sectionResource.getAllSections().then(function (data) {
-                vm.allSections = data;
-                setSectionIcon(vm.allSections);
+            
+            vm.promiseObj['sections'] = getSections();
+
+            if (vm.hasCulture) {
+                vm.promiseObj['cultures'] = getCultures();                
+            }
+
+            if (vm.hasContentType) {
+                vm.promiseObj['doctypes'] = getDoctypes();
+            }
+
+            $q.all(vm.promiseObj).then(function (values) {
+                var keys = Object.keys(values);
+
+                for (var i = 0; i < keys.length; i++) {
+                    var key = keys[i];
+
+                    if (key === 'sections') {
+                        vm.allSections = values[key];
+                        setSectionIcon(vm.allSections);
+                    }
+
+                    if (key === 'cultures') {
+                        vm.cultures = values[key];
+
+                        vm.cultures.unshift({ "Key": "", "Value": "No specific culture" });                       
+                    }
+
+                    if (key === 'doctypes') {
+                        vm.documentTypes = values[key];                        
+                    }
+                }
             });
         }
 
@@ -284,9 +393,12 @@
     angular.module("umbraco").controller("Our.Umbraco.TourEditor.TourDetailsController",
         [
             '$scope',
+            '$q',
             'eventsService',
             'sectionResource',
             'formHelper',
+            'umbRequestHelper',
+            'contentTypeResource',
             'Our.Umbraco.TourEditor.TourResource',
             TourDetailsController
         ]);

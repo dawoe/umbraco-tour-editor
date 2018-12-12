@@ -1,0 +1,27 @@
+﻿<div  ng-controller="Our.Umbraco.TourEditor.DocumentTypePickerOverlayController as vm">
+    <umb-load-indicator ng-if="vm.isLoading"></umb-load-indicator>
+    <div ng-if="!vm.isLoading">
+        <ul class="umb-checkbox-list">
+            <li class="umb-checkbox-list__item"
+                ng-repeat="doctype in vm.availableDocumentTypes"
+                ng-class="{'-selected': vm.isSelected(doctype.alias)}">
+
+                <div class="umb-checkbox-list__item-checkbox"
+                     ng-class="{ '-selected': vm.isSelected(doctype.alias) }">
+                    <input type="checkbox"
+                           id="umb-overlay-comp-{{doctype.key}}"
+                           checklist-model="vm.selection"
+                           checklist-value="doctype.alias"
+                           ng-change="vm.selectItem(doctype.alias)"
+                            />
+                </div>
+
+                <label for="umb-overlay-comp-{{doctype.key}}" class="umb-checkbox-list__item-text" ng-class="{'-faded': compositeContentType.allowed===false}">
+                    <i class="{{ doctype.icon }} umb-checkbox-list__item-icon"></i>
+                    {{ doctype.name }}                    
+                </label>
+
+            </li>
+        </ul>
+    </div>
+</div>
