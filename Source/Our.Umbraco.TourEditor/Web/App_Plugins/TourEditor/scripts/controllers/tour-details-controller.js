@@ -1,7 +1,7 @@
 ﻿(function () {
     "use strict";
 
-    function TourDetailsController($scope, $q, eventsService, sectionResource, formHelper, umbRequestHelper, tourResource) {
+    function TourDetailsController($scope, $q, eventsService, sectionResource, formHelper, umbRequestHelper, contentTypeResource, tourResource) {
         var vm = this;
         vm.tour = null;
         vm.tourIndex = -1;
@@ -304,12 +304,28 @@
             return deferred.promise;
         }
 
+        function getDoctypes() {
+            var deferred = $q.defer();
+
+            contentTypeResource.getAll().then(function (data) {
+                deferred.resolve(data);
+            }, function () {
+                deferred.reject();
+            });
+
+            return deferred.promise;
+        }
+
         function init() {
             
             vm.promiseObj['sections'] = getSections();
 
             if (vm.hasCulture) {
                 vm.promiseObj['cultures'] = getCultures();                
+            }
+
+            if (vm.hasContentType) {
+                vm.promiseObj['doctypes'] = getDoctypes();
             }
 
             $q.all(vm.promiseObj).then(function (values) {
@@ -327,6 +343,10 @@
                         vm.cultures = values[key];
 
                         vm.cultures.unshift({ "Key": "", "Value": "No specific culture" });                       
+                    }
+
+                    if (key === 'doctypes') {
+                        vm.documentTypes = values[key];                       
                     }
                 }
             });
@@ -362,6 +382,7 @@
             'sectionResource',
             'formHelper',
             'umbRequestHelper',
+            'contentTypeResource',
             'Our.Umbraco.TourEditor.TourResource',
             TourDetailsController
         ]);
