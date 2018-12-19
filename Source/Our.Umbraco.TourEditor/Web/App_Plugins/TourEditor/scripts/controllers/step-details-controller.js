@@ -128,7 +128,8 @@
                 closeButtonLabel: 'Cancel',
                 hideSubmitButton : true,
                 show: true,
-                sections : vm.sections,
+                sections: vm.sections,
+                doctypes : vm.doctypes,
                 submit: function (model) {
                     if (isElement) {
                         vm.step.element = model;
