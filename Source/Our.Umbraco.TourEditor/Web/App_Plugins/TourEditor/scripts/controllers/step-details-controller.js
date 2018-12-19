@@ -9,6 +9,8 @@
         vm.form = null;
         vm.isIntro = false;
         vm.sections = [];
+        vm.hasContentType = Umbraco.Sys.ServerVariables["Our.Umbraco.TourEditor"].SupportsContentType;
+        vm.doctypes = [];
 
         vm.eventList = [
             {
@@ -207,6 +209,7 @@
             vm.tourIndex = arg.tourIndex;
             vm.step = arg.step;
             vm.sections = arg.sections;
+            vm.doctypes = [];
 
             // convert custom properties json object to string for editing
             if (vm.step.customProperties) {
@@ -224,6 +227,14 @@
             vm.slider.value = vm.step.backdropOpacity;            
 
             vm.isIntro = vm.step.type === 'intro';
+
+            if (vm.hasContentType) {
+                var doctypes = arg.doctypes;
+
+                if (doctypes !== '') {
+                    vm.doctypes = doctypes.split(',');
+                }
+            }
 
             // scroll the step details to the top when starting editing..otherwise our tour won't work
             var containerElement = angular.element('[data-element="editor-container"]');
