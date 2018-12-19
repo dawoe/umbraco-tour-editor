@@ -1,13 +1,14 @@
 ﻿(function () {
     "use strict";
 
-    function ElementPickerOverlayController($scope, $q, treeResource, dashboardResource) {
+    function ElementPickerOverlayController($scope, $q, treeResource, dashboardResource, contentResource) {
         var vm = this;
 
         vm.isLoading = true;
         vm.promises = [];
         vm.trees = [];
         vm.dashboards = [];
+        vm.doctypes = [];
         vm.promiseObj = {};
 
         // get sections in correct format for view
@@ -128,6 +129,18 @@
             return deferred.promise;
         }
 
+        function getDocumentType(alias) {
+            var deferred = $q.defer();
+
+            contentResource.getScaffold(-1, alias).then(function(data) {
+                deferred.resolve(data);
+            }, function() {
+                deferred.reject();
+            })
+
+            return deferred.promise;
+        }
+
         function init() {            
             // store promises based on sections           
             for (var i = 0; i < vm.sections.length; i++) {
@@ -135,7 +148,13 @@
                
                 vm.promiseObj['tree' + alias] = getTrees(alias);
                 vm.promiseObj['dashboard' + alias] = getDashBoards(alias);               
-            }           
+            }  
+
+            for (var i = 0; i < $scope.model.doctypes.length; i++) {
+                var alias = $scope.model.doctypes[i];
+
+                vm.promiseObj['doctype' + alias] = getDocumentType(alias);
+            }
 
             // handle data when all promises are resolved
             $q.all(vm.promiseObj).then(function (values) {
@@ -151,6 +170,18 @@
                     if (key.startsWith('dashboard')) {
                         vm.dashboards = vm.dashboards.concat(values[key]);
                     }
+
+                    if (key.startsWith('doctype')) {
+                        var scaffold = values[key];
+
+                        var doctype = {
+                            'name': scaffold.contentTypeName,
+                            'alias': scaffold.contentTypeAlias,
+                            'tabs': scaffold.tabs
+                        };
+
+                        vm.doctypes.push(doctype);
+                    }
                 }
 
                 if (vm.trees.length > 0) {
@@ -160,6 +191,16 @@
                         label: "Trees",
                         alias: "trees",
                         items: vm.trees
+                    });
+                }
+
+                if (vm.doctypes.length > 0) {
+                    vm.tabs.push({
+                        active: false,
+                        id: vm.tabs.length + 1,
+                        label: "Document types",
+                        alias: "doctypes",
+                        items: vm.doctypes
                     });
                 }
 
@@ -197,6 +238,7 @@
             '$q',
             'treeResource',
             'dashboardResource',
+            'contentResource',
             ElementPickerOverlayController
         ]);
 
