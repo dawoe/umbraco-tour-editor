@@ -229,16 +229,18 @@
                     "customProperties": null
                 };
 
-                //vm.tour.steps.push(newStep);
+                var editStepModel = {
+                    "stepIndex": vm.tour.steps.length,
+                    "tourIndex": vm.tourIndex,
+                    "step": newStep,
+                    "sections": vm.selectedSections
+                };
 
-                eventsService.emit('toureditor.editstep',
-                    {
-                        "stepIndex": vm.tour.steps.length,
-                        "tourIndex": vm.tourIndex,
-                        "step": newStep,
-                        "sections": vm.selectedSections,
-                        "doctypes": vm.tour.contentType
-                    });
+                if (vm.hasContentType) {
+                    editStepModel.doctypes = vm.tour.contentType;
+                }
+
+                eventsService.emit('toureditor.editstep', editStepModel);
 
             }
         }
@@ -262,15 +264,18 @@
                 // deep clone
                 var step = JSON.parse(JSON.stringify(vm.tour.steps[index]));
 
+                var editStepModel = {
+                    "stepIndex": index,
+                    "tourIndex": vm.tourIndex,
+                    "step": step,
+                    "sections": vm.selectedSections
+                }
 
-                eventsService.emit('toureditor.editstep',
-                    {
-                        "stepIndex": index,
-                        "tourIndex": vm.tourIndex,
-                        "step": step,
-                        "sections": vm.selectedSections,
-                        "doctypes": vm.tour.contentType
-            });
+                if (vm.hasContentType) {
+                    editStepModel.doctypes = vm.tour.contentType;
+                }
+
+                eventsService.emit('toureditor.editstep', editStepModel);
 
             }
         }
