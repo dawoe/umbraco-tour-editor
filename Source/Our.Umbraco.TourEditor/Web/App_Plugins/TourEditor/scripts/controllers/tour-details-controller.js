@@ -236,7 +236,8 @@
                         "stepIndex": vm.tour.steps.length,
                         "tourIndex": vm.tourIndex,
                         "step": newStep,
-                        "sections": vm.selectedSections
+                        "sections": vm.selectedSections,
+                        "doctypes": vm.tour.contentType
                     });
 
             }
@@ -267,7 +268,8 @@
                         "stepIndex": index,
                         "tourIndex": vm.tourIndex,
                         "step": step,
-                        "sections": vm.selectedSections
+                        "sections": vm.selectedSections,
+                        "doctypes": vm.tour.contentType
             });
 
             }
