@@ -1,4 +1,4 @@
-﻿(function () {
+﻿(function() {
     "use strict";
 
     function ElementPickerOverlayController($scope, $q, treeResource, dashboardResource, contentResource) {
@@ -9,17 +9,20 @@
         vm.trees = [];
         vm.dashboards = [];
         vm.doctypes = [];
+        vm.selectedDoctype = '';
+        vm.doctypeItems = [];
         vm.promiseObj = {};
 
         // get sections in correct format for view
-        vm.sections = _.map($scope.model.sections, function (x) {
-            return {
-                "alias": x.alias,
-                "icon": x.icon,
-                "name": x.name,
-                "element": "[data-element='section-" + x.alias + "']"
-        };
-        });
+        vm.sections = _.map($scope.model.sections,
+            function(x) {
+                return {
+                    "alias": x.alias,
+                    "icon": x.icon,
+                    "name": x.name,
+                    "element": "[data-element='section-" + x.alias + "']"
+                };
+            });
 
         vm.other = [
             {
@@ -50,7 +53,7 @@
                 "alias": "navigation",
                 "icon": "icon-sitemap",
                 "name": "Navigation",
-                "element" : "#navigation"
+                "element": "#navigation"
             },
             {
                 "alias": "contentsection",
@@ -72,12 +75,43 @@
         ];
 
 
-
         function pickElement(eventElement) {
             $scope.model.submit(eventElement);
         }
 
         vm.pickElement = pickElement;
+
+        function onDoctypeChanged() {
+            getElementsForDocType();
+        }
+
+        vm.onDoctypeChanged = onDoctypeChanged;
+
+        function getElementsForDocType() {
+            if (vm.selectedDoctype === '') {
+                vm.doctypeItems = [];
+            } else {
+                var doctype = _.find(vm.doctypes, function (x) { return x.alias == vm.selectedDoctype });
+
+                var items = [];
+
+                if (doctype != null) {
+                    for (var i = 0; i < doctype.tabs.length; i++) {
+                        items.push({
+                            "alias": doctype.tabs[i].alias,
+                            "name": doctype.tabs[i].label,
+                            "icon": "icon-tab",
+                            "element": "[data-element='tab-" + doctype.tabs[i].alias + "']"
+                        });
+                    }
+                }
+                
+
+                vm.doctypeItems = items;
+            }
+        };
+
+        vm.getElementsForDocType = getElementsForDocType;
 
         function getTrees(section) {
             var deferred = $q.defer();
@@ -195,6 +229,7 @@
                 }
 
                 if (vm.doctypes.length > 0) {
+                    console.log(vm.doctypes);
                     vm.tabs.push({
                         active: false,
                         id: vm.tabs.length + 1,
