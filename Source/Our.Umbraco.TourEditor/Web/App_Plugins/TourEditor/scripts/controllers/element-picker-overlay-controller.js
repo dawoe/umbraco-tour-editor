@@ -97,12 +97,23 @@
 
                 if (doctype != null) {
                     for (var i = 0; i < doctype.tabs.length; i++) {
+                        var tab = doctype.tabs[i];
                         items.push({
-                            "alias": doctype.tabs[i].alias,
-                            "name": doctype.tabs[i].label,
+                            "alias": tab.alias,
+                            "name": tab.label,
                             "icon": "icon-tab",
-                            "element": "[data-element='tab-" + doctype.tabs[i].alias + "']"
+                            "element": "[data-element='tab-" + tab.alias + "']"
                         });
+
+                        for (var j = 0; j < tab.properties.length; j++) {
+                            var prop = tab.properties[j];
+                            items.push({
+                                "alias": prop.alias,
+                                "name": prop.label,
+                                "icon": "icon-autofill",
+                                "element": "#" + prop.alias
+                            });
+                        }
                     }
                 }
                 
