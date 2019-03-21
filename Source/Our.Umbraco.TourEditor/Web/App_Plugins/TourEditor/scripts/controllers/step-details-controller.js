@@ -9,6 +9,8 @@
         vm.form = null;
         vm.isIntro = false;
         vm.sections = [];
+        vm.hasContentType = Umbraco.Sys.ServerVariables["Our.Umbraco.TourEditor"].SupportsContentType;
+        vm.doctypes = [];
 
         vm.eventList = [
             {
@@ -117,7 +119,7 @@
             'CustomProperties': { 'label': 'Custom properties', 'description': 'If you use a custom view, you can pass in custom properties as JSON object', 'propertyErrorMessage': 'Custom properties is not valid JSON' }
         };
 
-        function openStepPicker(isElement) {
+        function openElementPicker(isElement) {
             
             vm.elementPicker = {
                 title: 'Element picker',
@@ -126,7 +128,8 @@
                 closeButtonLabel: 'Cancel',
                 hideSubmitButton : true,
                 show: true,
-                sections : vm.sections,
+                sections: vm.sections,
+                doctypes : vm.doctypes,
                 submit: function (model) {
                     if (isElement) {
                         vm.step.element = model;
@@ -145,7 +148,7 @@
             };
         }
 
-        vm.openStepPicker = openStepPicker;
+        vm.openElementPicker = openElementPicker;
 
         function openCustomViewPicker(view) {
 
@@ -207,6 +210,7 @@
             vm.tourIndex = arg.tourIndex;
             vm.step = arg.step;
             vm.sections = arg.sections;
+            vm.doctypes = [];
 
             // convert custom properties json object to string for editing
             if (vm.step.customProperties) {
@@ -224,6 +228,14 @@
             vm.slider.value = vm.step.backdropOpacity;            
 
             vm.isIntro = vm.step.type === 'intro';
+
+            if (vm.hasContentType) {
+                var doctypes = arg.doctypes;
+
+                if (doctypes !== '') {
+                    vm.doctypes = doctypes.split(',');
+                }
+            }
 
             // scroll the step details to the top when starting editing..otherwise our tour won't work
             var containerElement = angular.element('[data-element="editor-container"]');
