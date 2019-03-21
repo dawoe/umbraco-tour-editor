@@ -239,8 +239,7 @@
                     });
                 }
 
-                if (vm.doctypes.length > 0) {
-                    console.log(vm.doctypes);
+                if (vm.doctypes.length > 0) {                   
                     vm.tabs.push({
                         active: false,
                         id: vm.tabs.length + 1,
