@@ -9,6 +9,8 @@
         vm.form = null;
         vm.isIntro = false;
         vm.sections = [];
+        vm.hasContentType = Umbraco.Sys.ServerVariables["Our.Umbraco.TourEditor"].SupportsContentType;
+        vm.doctypes = [];
 
         vm.eventList = [
             {
@@ -117,7 +119,7 @@
             'CustomProperties': { 'label': 'Custom properties', 'description': 'If you use a custom view, you can pass in custom properties as JSON object', 'propertyErrorMessage': 'Custom properties is not valid JSON' }
         };
 
-        function openStepPicker(isElement) {
+        function openElementPicker(isElement) {
             
             vm.elementPicker = {
                 title: 'Element picker',
@@ -126,7 +128,8 @@
                 closeButtonLabel: 'Cancel',
                 hideSubmitButton : true,
                 show: true,
-                sections : vm.sections,
+                sections: vm.sections,
+                doctypes : vm.doctypes,
                 submit: function (model) {
                     if (isElement) {
                         vm.step.element = model;
@@ -145,7 +148,59 @@
             };
         }
 
-        vm.openStepPicker = openStepPicker;
+        vm.openElementPicker = openElementPicker;
+
+        function openCustomViewPicker(view) {
+
+            vm.customViewPicker = {
+                title: 'Custom view picker',
+                subtitle: 'You can pick a custom view from a predefined list. Once you selected a view you can set the custom properties if needed.',
+                view: umbRequestHelper.convertVirtualToAbsolutePath("~/App_Plugins/TourEditor/backoffice/toureditor/overlays/custom-view-picker.html"),
+                closeButtonLabel: 'Cancel',
+                hideSubmitButton: false,
+                show: true,
+                selectedView: vm.step.view,
+                customProperties : vm.step.customProperties,
+                submit: function (model) {
+                    vm.step.view = model.selectedView;
+                    vm.step.customProperties = model.customProperties;
+                    if (vm.step.customProperties) {
+                        vm.step.customPropertiesText = JSON.stringify(vm.step.customProperties);
+                    }
+                    vm.customViewPicker.show = false;
+                    vm.customViewPicker = null;
+                },
+                close: function (oldModel) {
+                    vm.customViewPicker.show = false;
+                    vm.customViewPicker = null;
+                }
+            };
+        }
+
+        vm.openCustomViewPicker = openCustomViewPicker;
+
+        function toggle(toggleType) {
+            
+            if(toggleType === "intro"){
+                if(vm.isIntro){
+                    vm.isIntro = false;
+                    return;
+                }
+                vm.isIntro = true;
+            }
+
+            if(toggleType === "elementPreventClick"){
+                if(vm.step.elementPreventClick){
+                    vm.step.elementPreventClick = false;
+                    return;
+                }
+
+                vm.step.elementPreventClick = true;
+            }
+        }      
+
+        vm.toggleIntro = toggle;
+        vm.toggleElementPreventClick = toggle;
 
         evts.push(eventsService.on("toureditor.editstep", function (name, arg) {
 
@@ -155,6 +210,7 @@
             vm.tourIndex = arg.tourIndex;
             vm.step = arg.step;
             vm.sections = arg.sections;
+            vm.doctypes = [];
 
             // convert custom properties json object to string for editing
             if (vm.step.customProperties) {
@@ -172,6 +228,14 @@
             vm.slider.value = vm.step.backdropOpacity;            
 
             vm.isIntro = vm.step.type === 'intro';
+
+            if (vm.hasContentType) {
+                var doctypes = arg.doctypes;
+
+                if (doctypes !== '') {
+                    vm.doctypes = doctypes.split(',');
+                }
+            }
 
             // scroll the step details to the top when starting editing..otherwise our tour won't work
             var containerElement = angular.element('[data-element="editor-container"]');

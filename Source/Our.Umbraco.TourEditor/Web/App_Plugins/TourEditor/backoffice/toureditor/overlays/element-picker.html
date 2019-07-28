@@ -6,23 +6,38 @@
             <umb-tab id="tab{{tab.id}}" ng-repeat="tab in vm.tabs" rel="{{tab.id}}">
                 
                    
+                <ul class="umb-card-grid" ng-if="tab.alias !== 'doctypes'">
+                    <li ng-repeat="item in tab.items"
+                        data-element="toureditor-element-{{item.alias}}"
+                        ng-click="vm.pickElement(item.element)"
+                        class="-four-in-row">
+                        <a class="umb-card-grid-item" style="height: 75%" href="" title="{{item.name}}">
+                            <i class="{{item.icon}}"></i>
+                            {{item.name}}
+
+                        </a>
+                        <span ng-if="tab.alias === 'trees'" style="display: block">
+                            <i class="icon-navigation-right umb-node-preview__icon " ng-click="vm.pickElement(item.element + ' [data-element=\'tree-item-expand\']')" style="display: inline; font-size: 20px; cursor: pointer" title="Expand {{item.name}} tree"></i>
+                            <i class="icon-edit .umb-node-preview__icon " ng-click="vm.pickElement(item.element + ' [data-element=\'tree-item-options\']')" style="display: inline; font-size: 20px; cursor: pointer" title="{{item.name}} Tree options"></i>
+                        </span>
+
+                    </li>
+                </ul>
+                
+                <div ng-if="tab.alias === 'doctypes'">
+                    <select class="input-block-level" ng-model="vm.selectedDoctype" ng-options="i.alias as (i.name) for i in vm.doctypes" ng-change="vm.onDoctypeChanged()">
+                        <option value="">Choose a doctype</option>
+                    </select>
                     <ul class="umb-card-grid">
-                        <li ng-repeat="item in tab.items"
-                            data-element="toureditor-element-{{item.alias}}" 
-                            ng-click="vm.pickElement(item.element)"                                                     
-                            class="-four-in-row">
+                        <li ng-repeat="item in vm.doctypeItems" ng-click="vm.pickElement(item.element)" class="-four-in-row">
                             <a class="umb-card-grid-item" style="height: 75%" href="" title="{{item.name}}">
                                 <i class="{{item.icon}}"></i>
                                 {{item.name}}
-                               
+
                             </a>
-                            <span ng-if="tab.alias === 'trees'" style="display: block">
-                                <i class="icon-navigation-right umb-node-preview__icon " ng-click="vm.pickElement(item.element + ' [data-element=\'tree-item-expand\']')" style="display: inline; font-size: 20px;cursor:pointer" title="Expand {{item.name}} tree"></i> 
-                                <i class="icon-edit .umb-node-preview__icon " ng-click="vm.pickElement(item.element + ' [data-element=\'tree-item-options\']')" style="display: inline; font-size: 20px;cursor:pointer" title="{{item.name}} Tree options"></i>
-                            </span>
-                            
                         </li>
                     </ul>
+                </div>
                 
             </umb-tab>
         </umb-tabs-content>
