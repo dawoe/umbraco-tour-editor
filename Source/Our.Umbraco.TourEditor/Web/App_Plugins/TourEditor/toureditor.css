@@ -1,3 +1,35 @@
 ﻿.tour-editor-create .filename-field .controls-row {
     margin-left: 0;
 }
+
+.umb-tour-editor .control-header {
+    float: left !important;
+    width: 200px !important;
+    padding-top: 5px !important;
+    text-align: left !important;
+}
+.umb-tour-editor .controls {
+    margin-left: 23px !important;
+    float: left !important;
+    width: 75% !important;
+    position: relative !important;
+}
+.umb-tour-editor .umb-editor{
+    width:100%;
+}
+.umb-tour-editor .half-width-left {
+    width: 49%;
+    float: left;
+}
+.umb-tour-editor .half-width-right {
+    width: 49%;
+    float: right;
+}
+.umb-tour-editor .umb-rte .mce-tinymce{
+    width:100% !important;
+}
+
+.umb-tour-editor .umb-card-grid .umb-card-grid-item {
+    height: 75px !important;
+    padding-top: 5px !important;
+}

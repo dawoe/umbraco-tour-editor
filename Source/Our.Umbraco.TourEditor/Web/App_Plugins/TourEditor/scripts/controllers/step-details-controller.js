@@ -9,7 +9,7 @@
         vm.form = null;
         vm.isIntro = false;
         vm.sections = [];
-        vm.hasContentType = Umbraco.Sys.ServerVariables["Our.Umbraco.TourEditor"].SupportsContentType;
+        vm.hasContentType = false;
         vm.doctypes = [];
 
         vm.eventList = [
@@ -78,6 +78,7 @@
         };        
 
         function resetSliderConfig() {
+            debugger;
             vm.slider = {
                 view: 'slider',
                 value: '',
@@ -102,7 +103,7 @@
                     "ticksSnapBounds": 0
                 }
             };
-        };
+        }
 
         var evts = [];
 
@@ -257,7 +258,7 @@
         }));
 
         evts.push(eventsService.on("toureditor.updatestepchanges", function (name, arg) {
-            if (formHelper.submitForm({ scope: $scope, formCtrl: vm.form })) {
+            //if (formHelper.submitForm({ scope: $scope, formCtrl: vm.form })) {
 
                 if (vm.step.customPropertiesText && vm.step.customPropertiesText != '') {
                     // convert step to json object, otherwise it will not be saved
@@ -298,7 +299,7 @@
                 vm.isIntro = false;
                 vm.form = null;
                 vm.sections = [];
-            }
+            //}
         }));
 
         

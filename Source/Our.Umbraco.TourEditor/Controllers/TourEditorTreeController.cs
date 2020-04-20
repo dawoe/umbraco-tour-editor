@@ -10,15 +10,15 @@
     using global::Umbraco.Web.Mvc;
     using global::Umbraco.Web.Trees;
 
-    using umbraco.BusinessLogic.Actions;
     using global::Umbraco.Core.Services;
 
     using Our.Umbraco.TourEditor.Helpers;
+    using global::Umbraco.Web.Actions;
 
     /// <summary>
     /// The tour editor tree controller.
     /// </summary>
-    [Tree(global::Umbraco.Core.Constants.Applications.Settings, Constants.TreeAlias, "Tour files", sortOrder: 99)]
+    [Tree(global::Umbraco.Core.Constants.Applications.Settings, Constants.TreeAlias)]
     [PluginController(Constants.PluginName)]
     public class TourEditorTreeController : TreeController
     {
@@ -57,19 +57,20 @@
             if (id == global::Umbraco.Core.Constants.System.Root.ToString())
             {
                 menuItemCollection.Items.Add<ActionNew>(
-                    this.Services.TextService.Localize($"actions/{ActionNew.Instance.Alias}"));
+                    this.Services.TextService.Localize($"actions/{ActionNew.ActionAlias}"));
 
                 var uploadMenuItem = new MenuItem("upload", "Upload") { Icon = "cloud-upload" };
                 menuItemCollection.Items.Add(uploadMenuItem);
 
-                menuItemCollection.Items.Add<RefreshNode, ActionRefresh>(
-                    this.Services.TextService.Localize(string.Format("actions/{0}", ActionRefresh.Instance.Alias)),
-                    true);               
+                menuItemCollection.Items.Add(new RefreshNode(Services.TextService, true));
+                //menuItemCollection.Items.Add<RefreshNode, Actionf>(
+                //    this.Services.TextService.Localize(string.Format("actions/{0}", ActionRefresh.Instance.Alias)),
+                //    true);               
             }
             else
             {
                 menuItemCollection.Items.Add<ActionDelete>(
-                    this.Services.TextService.Localize($"actions/{ActionDelete.Instance.Alias}"));
+                    this.Services.TextService.Localize($"actions/{ActionDelete.ActionAlias}"));
             }
 
             return menuItemCollection;

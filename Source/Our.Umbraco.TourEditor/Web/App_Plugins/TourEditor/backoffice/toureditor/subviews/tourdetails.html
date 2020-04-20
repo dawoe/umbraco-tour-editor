@@ -1,13 +1,11 @@
-﻿<div ng-controller="Our.Umbraco.TourEditor.TourDetailsController as vm">
+﻿<div ng-controller="Our.Umbraco.TourEditor.TourDetailsController as vm" class="umb-tour-editor">
     <umb-box>
         <umb-box-header title="Tour settings"></umb-box-header>
         <umb-box-content>
             <form name="detailsForm" val-form-manager ng-if="vm.tour !== null">
-
                 <umb-property property="vm.properties.Name">
                     <input type="text" data-element="toureditor-tourname" ng-model="vm.tour.name" class="umb-editor" required />
                 </umb-property>
-
                 <umb-property property="vm.properties.Alias">
                     <umb-generate-alias data-element="toureditor-touralias" alias="vm.tour.alias"
                                         alias-from="vm.tour.name"
@@ -15,26 +13,22 @@
                     <input type="hidden" ng-model="vm.tour.alias" val-unique-alias="{{vm.aliases}}" ng-if="vm.isNew" />
                     <span ng-if="!vm.isNew">{{vm.tour.alias}}</span>
                 </umb-property>
-
                 <umb-property property="vm.properties.Group">
-                    <input type="text" data-element="toureditor-group" ng-model="vm.tour.group" class="umb-editor" required />
+                    <input type="text" data-element="toureditor-group" ng-model="vm.tour.group" class="umb-editor half-width-left" required />
                     <a href=""
                        data-element="toureditor-groupselect"
-                       class="umb-node-preview-add"
+                       class="umb-node-preview-add half-width-right"
                        ng-click="vm.openGroupPicker()"
                        prevent-default>
                         Select existing
                     </a>
                 </umb-property>
-
                 <umb-property property="vm.properties.GroupOrder">
                     <input type="number" data-element="toureditor-grouporder" ng-model="vm.tour.groupOrder" class="umb-editor" required />
                 </umb-property>
-
                 <umb-property property="vm.properties.Culture" ng-if="vm.hasCulture">
                     <select class="input-block-level" ng-model="vm.tour.culture" ng-options="i.Key as (i.Value) for i in vm.cultures"></select>
                 </umb-property>
-
                 <umb-property property="vm.properties.Sections">
                     <umb-node-preview data-element="toureditor-sections" style="max-width: 100%;"
                                       ng-repeat="section in vm.selectedSections"
@@ -53,7 +47,6 @@
                         <localize key="general_add">Add</localize>
                     </a>
                 </umb-property>
-
                 <umb-property property="vm.properties.ContentType" ng-if="vm.hasContentType">
                     <umb-node-preview data-element="toureditor-documenttypes" style="max-width: 100%;"
                                       ng-repeat="doctype in vm.enrichedDoctypeSelection()"                                     
@@ -70,7 +63,6 @@
                         <localize key="general_edit">Edit</localize>
                     </a>
                 </umb-property>
-
                 <umb-property property="vm.properties.AllowDisable">
                     <umb-toggle checked="vm.tour.allowDisable" on-click="vm.toggle()" data-element="toureditor-tourdisable"></umb-toggle>
                 </umb-property>

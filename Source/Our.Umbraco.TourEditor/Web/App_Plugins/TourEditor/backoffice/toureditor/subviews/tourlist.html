@@ -9,7 +9,7 @@
         <umb-box-header title="Tours"></umb-box-header>
         <umb-box-content>
             <div ui-sortable="vm.sortableOptions" ng-model="vm.tours">
-                <div ng-repeat="item in vm.tours">
+                <div ng-repeat="item in vm.tours track by $index">
                     <umb-node-preview data-element="toureditor-tourlist" style="max-width: 100%; margin-bottom: 20px"
                                       
                                       name="item.name"

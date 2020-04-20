@@ -1,38 +1,27 @@
-﻿namespace Our.Umbraco.TourEditor
+﻿using Our.Umbraco.TourEditor.Controllers;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using System.Web.Routing;
+using Umbraco.Core.Composing;
+using Umbraco.Web;
+using Umbraco.Web.JavaScript;
+using Umbraco.Web.Models;
+
+namespace Our.Umbraco.TourEditor
 {
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Web;
-    using System.Web.Mvc;
-    using System.Web.Routing;
-
-    using global::Umbraco.Core;
-    using global::Umbraco.Web;
-    using global::Umbraco.Web.Models;
-    using global::Umbraco.Web.UI.JavaScript;
-
-    using Our.Umbraco.TourEditor.Controllers;
-    using Our.Umbraco.TourEditor.Extensions;
-    using Our.Umbraco.TourEditor.Resolvers;
-
-    /// <summary>
-    /// The umbraco startup event handler
-    /// </summary>
-    internal class UmbracoStartup : ApplicationEventHandler
-    {
-        /// <inheritdoc />
-        protected override void ApplicationInitialized(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
-        {
-            CustomViewResolver.Current =
-                new CustomViewResolver(PluginManager.Current.ResolveCustomViews());
+    public class TourEditorComponent : IComponent
+	{
+		public void Initialize()
+		{
+            ServerVariablesParser.Parsing += ServerVariablesParserParsing;
         }
 
-        /// <inheritdoc />
-        protected override void ApplicationStarting(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
-        {
-            // setup server variables
-            ServerVariablesParser.Parsing += this.ServerVariablesParserParsing;
-        }
+		public void Terminate()
+		{
+			
+		}
 
         /// <summary>
         /// ServerVariablesParser parsing event handler

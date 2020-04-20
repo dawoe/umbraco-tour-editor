@@ -22,18 +22,21 @@
 
         vm.page.navigation = [
             {
+				"alias": 1,
                 "name": "Tour list",
                 "icon": "",
                 "view": umbRequestHelper.convertVirtualToAbsolutePath(subviewsPath + "tourlist.html"),
                 "active": true
             },
             {
+				"alias": 2,
                 "name": "Tour details",
                 "icon": "",
                 "view": umbRequestHelper.convertVirtualToAbsolutePath(subviewsPath + "tourdetails.html"),
                 "active": false
             },
             {
+				"alias": 3,
                 "name": "Steps details",
                 "icon": "",
                 "view": umbRequestHelper.convertVirtualToAbsolutePath(subviewsPath + "stepdetails.html"),

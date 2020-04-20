@@ -13,8 +13,8 @@
             tolerance: 'move',
             scroll: true,
             zIndex: 6000,
-            update : function(event, ui) {
-               eventsService.emit('toureditor.sorted');
+            update: function (event, ui) {
+                eventsService.emit('toureditor.sorted');
             }
         }
 
@@ -29,7 +29,7 @@
                     "tour": tour,
                     "isNew": false,
                     "aliases": vm.aliases,
-                    "groups" : vm.groups
+                    "groups": vm.groups
                 });
         }
 
@@ -40,11 +40,11 @@
             var aliasIndex = vm.aliases.indexOf(alias);
 
             if (aliasIndex > -1) {
-                vm.aliases.splice(aliasIndex,1);
+                vm.aliases.splice(aliasIndex, 1);
             }
 
             // remove the tour
-            vm.tours.splice(index,1);
+            vm.tours.splice(index, 1);
         }
 
         function addTour() {
@@ -69,7 +69,7 @@
             //vm.tours.push(newTour);
 
             eventsService.emit('toureditor.edittour',
-                { "index": vm.tours.length, "tour": newTour, "isNew": true, "aliases": vm.aliases, "groups" : vm.groups });
+                { "index": vm.tours.length, "tour": newTour, "isNew": true, "aliases": vm.aliases, "groups": vm.groups });
         }
 
         vm.addTour = addTour;
