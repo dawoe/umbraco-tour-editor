@@ -53,7 +53,6 @@ namespace Our.Umbraco.TourEditor
 
             urlDictionairy.Add("SupportsCulture", hasCultureProp);
 
-
             if (!e.Keys.Contains("Our.Umbraco.TourEditor"))
             {
                 e.Add("Our.Umbraco.TourEditor", urlDictionairy);
