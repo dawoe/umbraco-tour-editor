@@ -20,11 +20,8 @@ namespace Our.Umbraco.TourEditor.Controllers
     using global::Umbraco.Web.WebApi;
 
     using Newtonsoft.Json;
-
-    using Our.Umbraco.TourEditor.Extensions;
     using Our.Umbraco.TourEditor.Helpers;
     using Our.Umbraco.TourEditor.Models;
-    using Our.Umbraco.TourEditor.Resolvers;
 
     /// <summary>
     /// The tour editor api controller.
@@ -32,6 +29,10 @@ namespace Our.Umbraco.TourEditor.Controllers
     [PluginController(Constants.PluginName)]
     public class TourEditorApiController : BackOfficeNotificationsController
     {
+        public TourEditorApiController(global::Umbraco.Core.Configuration.IGlobalSettings globalSettings, global::Umbraco.Web.IUmbracoContextAccessor umbracoContextAccessor, global::Umbraco.Core.Persistence.ISqlContext sqlContext, global::Umbraco.Core.Services.ServiceContext services, global::Umbraco.Core.Cache.AppCaches appCaches, IProfilingLogger logger, IRuntimeState runtimeState, global::Umbraco.Web.UmbracoHelper umbracoHelper) : base(globalSettings, umbracoContextAccessor, sqlContext, services, appCaches, logger, runtimeState, umbracoHelper)
+        {
+        }
+
         /// <summary>
         /// Creates a new tour file
         /// </summary>
@@ -329,42 +330,42 @@ namespace Our.Umbraco.TourEditor.Controllers
             return this.Request.CreateResponse(languages.ToList());
         }
 
-        /// <summary>
-        /// Getst the configured custom views
-        /// </summary>
-        /// <returns>
-        /// The <see cref="HttpResponseMessage"/>.
-        /// </returns>
-        [HttpGet]
-        public HttpResponseMessage GetCustomViews()
-        {
-            var customViews = CustomViewResolver.Current.CustomViews.ToList();
+        ///// <summary>
+        ///// Getst the configured custom views
+        ///// </summary>
+        ///// <returns>
+        ///// The <see cref="HttpResponseMessage"/>.
+        ///// </returns>
+        //[HttpGet]
+        //public HttpResponseMessage GetCustomViews()
+        //{
+        //    var customViews = CustomViewResolver.Current.CustomViews.ToList();
 
-            var model = new List<CustomViewDisplay>();
+        //    var model = new List<CustomViewDisplay>();
 
-            foreach (var view in customViews)
-            {
-                var item = new CustomViewDisplay { Name = view.Name, ViewPath = view.ViewPath };
+        //    foreach (var view in customViews)
+        //    {
+        //        var item = new CustomViewDisplay { Name = view.Name, ViewPath = view.ViewPath };
 
-                var customProperties = view.GetCustomProperties();
+        //        var customProperties = view.GetCustomProperties();
 
-                foreach (var property in customProperties)
-                {
-                    item.Properties.Add(new CustomPropertyDisplay
-                                            {
-                                                Config = property.ViewConfig,
-                                                Description = property.Description,
-                                                Label = property.Label,
-                                                Property = property.PropertyName,
-                                                View = property.View
-                                            });  
-                }
+        //        foreach (var property in customProperties)
+        //        {
+        //            item.Properties.Add(new CustomPropertyDisplay
+        //                                    {
+        //                                        Config = property.ViewConfig,
+        //                                        Description = property.Description,
+        //                                        Label = property.Label,
+        //                                        Property = property.PropertyName,
+        //                                        View = property.View
+        //                                    });  
+        //        }
 
-                model.Add(item);
-            }
+        //        model.Add(item);
+        //    }
             
-            return this.Request.CreateResponse(model);
-        }
+        //    return this.Request.CreateResponse(model);
+        //}
 
         [HttpPost]
         public async Task<HttpResponseMessage> UploadTour()

@@ -17,7 +17,6 @@
         vm.hasContentType = Umbraco.Sys.ServerVariables["Our.Umbraco.TourEditor"].SupportsContentType;
         vm.documentTypes = [];
         vm.promiseObj = {};
-
         vm.sortableOptions = {
             distance: 10,
             tolerance: 'move',
@@ -26,7 +25,7 @@
             update: function (event, ui) {
                 eventsService.emit('toureditor.sorted');
             }
-        }
+        };
 
         vm.properties = {
             'Name': { 'label': 'Name', 'description': 'Enter the name for this tour', 'propertyErrorMessage': 'The name is a required field' },
@@ -36,7 +35,7 @@
             'Alias': { 'label': 'Alias', 'description': 'Enter the unique alias for this tour', 'propertyErrorMessage': 'Alias is a required field and should be unique' },
             'Sections': { 'label': 'Sections', 'description': 'Sections that the tour will access while running, if the user does not have access to the required tour sections, the tour will not load.   ', 'propertyErrorMessage': 'You should select at least one section' },
             'AllowDisable': { 'label': 'Allow disabling', 'description': 'Adds a "Don\'t" show this tour again"-button to the intro step' },
-            'ContentType': { 'label' : 'Documenttypes', 'description' : 'Select the documenttypes you want to show this tour to become visible. If you select one or multiple this the tour will only be visible in the help drawer when editing one of documenttypes that you specified.'}
+            'ContentType': { 'label': 'Documenttypes', 'description': 'Select the documenttypes you want to show this tour to become visible. If you select one or multiple this the tour will only be visible in the help drawer when editing one of documenttypes that you specified.' }
         };
 
         var evts = [];
@@ -52,18 +51,18 @@
             if (vm.tour.requiredSections === null) {
                 vm.tour.requiredSections = [];
             }
-            
+
             if (vm.hasCulture) {
                 if (vm.tour.culture === null) {
                     vm.tour.culture = '';
-                }                
+                }
             }
 
             if (vm.hasContentType && vm.tour.contentType === null) {
                 vm.tour.contentType = '';
             }
 
-           
+
 
             // get the selected sections from data
             vm.selectedSections = _.filter(vm.allSections,
@@ -84,7 +83,7 @@
         }));
 
         evts.push(eventsService.on("toureditor.updatetourchanges", function (name, arg) {
-            if (formHelper.submitForm({ scope: $scope, formCtrl: vm.form })) {
+            //if (formHelper.submitForm({ scope: $scope, formCtrl: vm.form })) {
 
                 if (vm.tour.culture === '') {
                     vm.tour.culture = null;
@@ -94,8 +93,8 @@
                     {
                         "index": vm.tourIndex,
                         "tour": vm.tour,
-                        "isNew" : vm.isNew
-                });
+                        "isNew": vm.isNew
+                    });
                 vm.tour = null;
                 vm.tourIndex = -1;
                 vm.selectedSections = [];
@@ -103,7 +102,7 @@
                 vm.isNew = false;
                 vm.aliases = [];
                 vm.cultures = [];
-            }                      
+           // }
         }));
 
         evts.push(eventsService.on("toureditor.stepchangesupdate", function (name, args) {
@@ -119,7 +118,7 @@
 
         function openSectionPicker() {
             vm.sectionPicker = {
-                view: 'sectionpicker',
+                view: '/App_Plugins/TourEditor/backoffice/toureditor/overlays/sectionpicker.html?v=111',
                 selection: vm.selectedSections,
                 closeButtonLabel: 'Cancel',
                 show: true,
@@ -158,7 +157,7 @@
         function openGroupPicker() {
 
             var groups = _.map(vm.groups,
-                function(x) {
+                function (x) {
                     return {
                         "name": x,
                         "icon": "icon-tag"
@@ -166,18 +165,18 @@
                 });
 
             vm.groupPicker = {
-                view: 'itempicker',                
-                availableItems : groups,
+                view: 'itempicker',
+                availableItems: groups,
                 closeButtonLabel: 'Cancel',
                 show: true,
-                submit: function (model) {                   
+                submit: function (model) {
                     vm.tour.group = model.selectedItem.name;
 
                     vm.groupPicker.show = false;
                     vm.groupPicker = null;
                 },
                 close: function (oldModel) {
-                    
+
                     vm.groupPicker.show = false;
                     vm.groupPicker = null;
                 }
@@ -195,7 +194,7 @@
                 closeButtonLabel: 'Cancel',
                 show: true,
                 submit: function (model) {
-                    
+
                     vm.tour.contentType = model.selection.join(',');
 
                     vm.documentTypePicker.show = false;
@@ -214,8 +213,7 @@
         vm.openDocumentTypePicker = openDocumentTypePicker;
 
         function addStep() {
-
-            if (formHelper.submitForm({ scope: $scope, formCtrl: vm.form })) {
+            //if (formHelper.submitForm({ scope: $scope, formCtrl: vm.form })) {
                 var newStep = {
                     "title": "",
                     "content": "",
@@ -242,11 +240,11 @@
 
                 eventsService.emit('toureditor.editstep', editStepModel);
 
-            }
+            //}
         }
 
         function toggle() {
-            if(vm.tour.allowDisable){
+            if (vm.tour.allowDisable) {
                 vm.tour.allowDisable = false;
 
                 return;
@@ -259,8 +257,7 @@
         vm.toggle = toggle;
 
         function editStep(index) {
-            if (formHelper.submitForm({ scope: $scope, formCtrl: vm.form })) {
-
+            //if (formHelper.submitForm({ scope: $scope, formCtrl: vm.form })) {
                 // deep clone
                 var step = JSON.parse(JSON.stringify(vm.tour.steps[index]));
 
@@ -269,7 +266,7 @@
                     "tourIndex": vm.tourIndex,
                     "step": step,
                     "sections": vm.selectedSections
-                }
+                };
 
                 if (vm.hasContentType) {
                     editStepModel.doctypes = vm.tour.contentType;
@@ -277,7 +274,7 @@
 
                 eventsService.emit('toureditor.editstep', editStepModel);
 
-            }
+            //}
         }
 
         vm.editStep = editStep;
@@ -286,17 +283,17 @@
             vm.tour.steps.splice(index, 1);
         }
 
-        vm.removeStep = removeStep;     
+        vm.removeStep = removeStep;
 
         function enrichedDoctypeSelection() {
             var doctypes = [];
 
-            if (vm.tour.contentType === '') {
+            if (vm.tour === null) {
                 return doctypes;
             }
 
             doctypes = _.filter(vm.documentTypes,
-                function(doctype) { return vm.tour.contentType.split(',').indexOf(doctype.alias) > -1 });
+                function (doctype) { return vm.tour.contentType.split(',').indexOf(doctype.alias) > -1; });
 
             return doctypes;
         }
@@ -307,7 +304,7 @@
             var deferred = $q.defer();
 
             sectionResource.getAllSections().then(function (data) {
-               deferred.resolve(data);
+                deferred.resolve(data);
             }, function () {
                 deferred.reject();
             });
@@ -320,7 +317,7 @@
 
             tourResource.getCultures().then(function (data) {
                 deferred.resolve(data);
-            }, function() {
+            }, function () {
                 deferred.reject();
             });
 
@@ -340,11 +337,10 @@
         }
 
         function init() {
-            
             vm.promiseObj['sections'] = getSections();
 
             if (vm.hasCulture) {
-                vm.promiseObj['cultures'] = getCultures();                
+                vm.promiseObj['cultures'] = getCultures();
             }
 
             if (vm.hasContentType) {
@@ -365,11 +361,11 @@
                     if (key === 'cultures') {
                         vm.cultures = values[key];
 
-                        vm.cultures.unshift({ "Key": "", "Value": "No specific culture" });                       
+                        vm.cultures.unshift({ "Key": "", "Value": "No specific culture" });
                     }
 
                     if (key === 'doctypes') {
-                        vm.documentTypes = values[key];                        
+                        vm.documentTypes = values[key];
                     }
                 }
             });

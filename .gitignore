@@ -25,11 +25,9 @@ Desktop.ini
 [Oo]bj/
 [Bb]in/
 [Dd]ebug/
-[Bb]uild/
 [Rr]elease/
 
 #Project related
-packages/
 App_Data/
 testsites/
 

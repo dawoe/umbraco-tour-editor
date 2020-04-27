@@ -1,4 +1,4 @@
-﻿<div ng-controller="Our.Umbraco.TourEditor.StepDetailsController as vm">
+﻿<div ng-controller="Our.Umbraco.TourEditor.StepDetailsController as vm" class="umb-tour-editor">
     <umb-box>
         <umb-box-header title="Step settings"></umb-box-header>
         <umb-box-content>
@@ -16,10 +16,10 @@
                     <umb-property-editor model="vm.slider" data-element="toureditor-stepbackdrop" />                   
                 </umb-property>
                 <umb-property property="vm.properties.Element" ng-if="vm.isIntro === false">
-                    <input data-element="toureditor-stepelement" type="text" ng-model="vm.step.element" class="umb-editor" ng-required="vm.step.type !== 'intro'" />
+                    <input data-element="toureditor-stepelement" type="text" ng-model="vm.step.element" class="umb-editor half-width-left" ng-required="vm.step.type !== 'intro'" />
                     <a href=""
                        data-element="toureditor-stepelementpicker"
-                       class="umb-node-preview-add"
+                       class="umb-node-preview-add half-width-right"
                        ng-click="vm.openElementPicker(true)"
                        prevent-default>
                         Select existing
@@ -41,20 +41,20 @@
                     </ul>
                 </umb-property>
                 <umb-property property="vm.properties.EventElement" ng-if="vm.isIntro === false && vm.step.elementPreventClick === false && vm.step.event !== null && vm.step.event !== ''">
-                    <input data-element="toureditor-stepeventelement" type="text" ng-model="vm.step.eventElement" class="umb-editor" />
+                    <input data-element="toureditor-stepeventelement" type="text" ng-model="vm.step.eventElement" class="umb-editor half-width-left" />
                     <a href=""
                        data-element="toureditor-stepeventelementpicker"
-                       class="umb-node-preview-add"
+                       class="umb-node-preview-add half-width-right"
                        ng-click="vm.openElementPicker(false)"
                        prevent-default>
                         Select existing
                     </a>
                 </umb-property>               
-                <umb-property property="vm.properties.View" ng-if="vm.isIntro === false">
-                    <input data-element="toureditor-stepview" type="text" ng-model="vm.step.view" class="umb-editor" />                  
+                <umb-property property="vm.properties.View" ng-if="vm.isIntro === false" style="display:none;">
+                    <input data-element="toureditor-stepview" type="text" ng-model="vm.step.view" class="umb-editor half-width-left" />                  
                     <a href=""
                        data-element="toureditor-stepcustomviewtpicker"
-                       class="umb-node-preview-add"
+                       class="umb-node-preview-add half-width-right"
                        ng-click="vm.openCustomViewPicker(vm.properties.View)"
                        prevent-default>
                         Select existing

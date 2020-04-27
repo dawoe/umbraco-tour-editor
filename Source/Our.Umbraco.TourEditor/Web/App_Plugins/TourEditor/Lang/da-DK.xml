@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<language alias="da" intName="Danish" localName="Dansk" lcid="1030" culture="da-DK">
+  <area alias="treeHeaders">
+    <key alias="toureditor">Tour Editor</key>
+  </area>
+</language>
